@@ -1,4 +1,4 @@
 const createPostProfesional = require("./01 - createPostProfesional");
-const getAllPostByProfesionals = require("./02 - getPostsProfesionals");
+const {getAllPostsByProfesionals,getAllPostsByProfesionalsApi} = require("./02 - getPostsProfesionals");
 
-module.exports = { createPostProfesional, getAllPostByProfesionals }
+module.exports = { createPostProfesional, getAllPostsByProfesionals,getAllPostsByProfesionalsApi }

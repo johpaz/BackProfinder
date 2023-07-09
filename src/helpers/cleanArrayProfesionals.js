@@ -12,7 +12,7 @@ const cleanArray = (profesionals) => {
           name: ocupation.name
         }))
       };
-    }); 
+    });
     return {
       id: profesional.id,
       name: profesional.name,

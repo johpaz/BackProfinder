@@ -24,15 +24,8 @@ const getProfesionalById = async (id) => {
         through: { attributes: [] }
       },
       {
-        model: PostProfesional,
-        attributes: ["title", "image", "content",]
-      },
-      {
         model: ProfesionalImagesPost,
         attributes: ["image", "description"],
-        where: {
-          view: true,
-        }
       }
     ]
   });
