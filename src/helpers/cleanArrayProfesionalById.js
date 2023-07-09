@@ -16,7 +16,7 @@ const cleanArrayProfesionalId = (profesionalId) => {
       id: profesional.id,
       name: profesional.name,
       email: profesional.email,
-      image:profesional.image,
+      image:profesional.image, 
       genre: profesional.genre,
       years_exp: profesional.years_exp,
       description: profesional.description,
