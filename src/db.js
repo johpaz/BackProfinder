@@ -13,11 +13,11 @@ const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 
 // Credenciales
 
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME,DB_PORT} = process.env;
 
 // Instanciamos sequelize
 
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,{logging:false});
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,{logging:false});
 
 // Definimos los modelos -> usando una función que recibe una instancia de sequelize
 
