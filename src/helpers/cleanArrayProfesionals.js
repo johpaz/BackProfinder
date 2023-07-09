@@ -12,12 +12,12 @@ const cleanArray = (profesionals) => {
           name: ocupation.name
         }))
       };
-    });
+    }); 
     return {
       id: profesional.id,
       name: profesional.name,
       email: profesional.email,
-      image: profesional.profesional,
+      image: profesional.image,
       genre: profesional.genre,
       years_exp: profesional.years_exp,
       phone: profesional.phone,

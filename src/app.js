@@ -1,12 +1,12 @@
 const app = require('./index');
-const {DB_HOST,PORT} = process.env;
+const {PORT} = process.env;
 
 
 // Creamos la conexión de la bdd con el backend:
 
 const { sequelize } = require('./db');
 
-app.listen(PORT,()=>{
+app.listen(3001,()=>{
     
   sequelize.sync({force:true}) //// Luego será alter:true terminando la etapa de pruebas
 
