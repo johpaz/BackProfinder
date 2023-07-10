@@ -13,6 +13,7 @@ const getAllCategoriesApi = async () => {
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedCategories = apiData.categorias.map(apiCategory => {
       const normalizedCategory = {
+        id=apiCategory.id,
         name: apiCategory.nombre.trim().slice(0, 20),
       };
 
