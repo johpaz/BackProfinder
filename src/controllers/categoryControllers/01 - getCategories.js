@@ -37,7 +37,9 @@ const getAllCategories = () => {
   .then((response)=>{
     const categories = response.data.categorias
     // console.log(categories.map((category)=>category.nombre))
-    const categoriesMap = categories.map((category)=>({name: category.nombre}))
+    const categoriesMap = categories.map((category)=>({
+      id:category.idcategoria,
+      name: category.nombre}))
     // console.log(categoriesMap)
     const promises = categoriesMap.map((category)=>{
       // console.log(category)
