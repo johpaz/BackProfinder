@@ -5,7 +5,7 @@ const getAllProfesionalImagesApi = () => {
   return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsimages.json')
   .then((response)=>{
     const galeryProfesionals = response.data.postImages;
-    console.log(galeryProfesionals)
+    // console.log(galeryProfesionals)
     const promises = galeryProfesionals.map((galery)=>{
       const galeryFormat = {
         image: galery.image, // Seleccionar la primera URL de imagen del array

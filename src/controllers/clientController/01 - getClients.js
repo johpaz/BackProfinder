@@ -1,7 +1,5 @@
 const { Client, Post } = require("../../db.js")
-
 const axios = require('axios');
-
 
 const getAllClientsApi = async () => {
   try {
@@ -39,9 +37,6 @@ const getAllClientsApi = async () => {
   }
 };
 
-
-
-
 const getClients = async () => {
     const clients = await Client.findAll({
         where: {
@@ -56,9 +51,7 @@ const getClients = async () => {
     if (!clients) throw Error(`No hay clientes a mostrar`);
 
     return clients;
-}
-
-
+};
 
 module.exports = {
     getClients,

@@ -60,9 +60,6 @@ module.exports = (sequelize) => {
       ubication: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          len: [5, 50], // Ubicación entre 5 a 50 caracteres
-        }
       },
       active: {
         type: DataTypes.BOOLEAN,
