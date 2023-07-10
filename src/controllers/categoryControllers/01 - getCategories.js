@@ -3,10 +3,6 @@ const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 
-
-
-
-
 const getAllCategoriesApi = async () => {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json');
@@ -35,9 +31,6 @@ const getAllCategoriesApi = async () => {
   }
 };
 
-
-
-
 const getAllCategories = () => {
   return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json')
   .then((response)=>{
@@ -46,6 +39,7 @@ const getAllCategories = () => {
     const categoriesMap = categories.map((category)=>({name: category.nombre}))
     // console.log(categoriesMap)
     const promises = categoriesMap.map((category)=>{
+      // console.log(category)
       return Category.findOrCreate({where:category})
     });
 
@@ -55,25 +49,14 @@ const getAllCategories = () => {
           model: Ocupation,
           attributes: ['id','name'],
         }});
-        console.log(allCategories)
+        // console.log(allCategories)
         return allCategories;
       })
   })
   .catch((error)=>{
     throw Error(error.message)
-  })
-  // const categories = await Category.findAll({include:{
-  //   model: Ocupation,
-  //   attributes: ['id','name'],
-  // }});
-
-  // if(!categories) throw Error (`No hay categorías a mostrar`);
-
-  // return categories;
+  });
 };
-
-
-
 
 const getCategoriesByName = async (name) => {
 

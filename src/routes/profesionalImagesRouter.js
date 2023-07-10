@@ -16,7 +16,7 @@ const profesionalImagesRouter = Router();
 
 profesionalImagesRouter.get('/',getProfesionalImages);
 
-profesionalImagesRouter.get('/:id',getProfesionalImage);
+//profesionalImagesRouter.get('/:id',getProfesionalImage);
 
 profesionalImagesRouter.post('/',postProfesionalImage);
 

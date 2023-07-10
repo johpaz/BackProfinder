@@ -33,7 +33,7 @@ const getAllProfesionalApi = async () => {
       return normalizedProfessional;
     });
 
-    console.log(normalizedProfessionals);
+    // console.log(normalizedProfessionals);
     // console.log(normalizedProfessionals.map((profesional)=>profesional))
 
     // Crear todos los profesionales de una sola vez en la base de datos

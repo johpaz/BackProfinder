@@ -1,12 +1,12 @@
 // Controllers:
 
-const { createProfesionalImage, getAllProfesionalImages, updateProfesionalImage, profesionalImageById} = require('../controllers/profesionalImagesControllers/index');
+const { createProfesionalImage, getAllProfesionalImages, updateProfesionalImage, profesionalImageById, getAllProfesionalImagesApi} = require('../controllers/profesionalImagesControllers/index');
 
 // Handlers:
 
 const getProfesionalImages = async (req,res) => {
   try {
-    const profesionalImages =  await getAllProfesionalImages();
+    const profesionalImages =  await getAllProfesionalImagesApi();
     return res.status(200).json(profesionalImages);
   } catch (error) {
     return res.status(404).json({error: error.message});

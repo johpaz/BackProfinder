@@ -1,4 +1,29 @@
 const { ProfesionalImagesPost } = require('../../db');
+const axios = require('axios');
+
+const getAllProfesionalImagesApi = () => {
+  return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsimages.json')
+  .then((response)=>{
+    const galeryProfesionals = response.data.postImages;
+    console.log(galeryProfesionals)
+    const promises = galeryProfesionals.map((galery)=>{
+      const galeryFormat = {
+        image: galery.image, // Seleccionar la primera URL de imagen del array
+        description: galery.content,
+        ProfesionalId: galery.profesionalId,
+      }
+      return ProfesionalImagesPost.findOrCreate({where:galeryFormat})
+    });
+    return Promise.all(promises)
+    .then(()=>{
+      const allGalery = ProfesionalImagesPost.findAll();
+      return allGalery;
+    });
+  })
+  .catch((error)=>{
+    throw Error(error.message)
+  })
+};
 
 const getAllProfesionalImages = async () => {
 
@@ -11,4 +36,7 @@ const getAllProfesionalImages = async () => {
   return profesionalImages;
 };
 
-module.exports = getAllProfesionalImages;
+module.exports = {
+  getAllProfesionalImages,
+  getAllProfesionalImagesApi
+};

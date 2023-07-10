@@ -1,32 +1,29 @@
 const { PostProfesional } = require("../../db.js")
 const axios = require('axios');
 
-const getAllPostsByProfesionalsApi = async () => {
-    try {
-      const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsProfesionals.json');
-      const apiData = response.data;
-  
-      //console.log(apiData);
-  
-      // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
-      const normalizedPostProfesionals = apiData.postprofesional.map(apiPost => {
-        return {
-          title: apiPost.title,
-          image: apiPost.image,
-          content: apiPost.content,
-          ProfesionalId: apiPost.profesionalId,
+const getAllPostsByProfesionalsApi = () => {
+    return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/postsProfesionals.json')
+    .then((response)=>{
+      const postProfesional = response.data.postprofesional;
+      const promises = postProfesional.map((post)=>{
+        const postFormat = {
+          title: post.title,
+          image: post.image,
+          content: post.content,
+          ProfesionalId: post.profesionalId,
         };
+        return PostProfesional.findOrCreate({where:postFormat})
       });
-  
-      console.log(normalizedPostProfesionals);
-  
-      // Crear todas las ocupaciones de una sola vez en la base de datos
-      await PostProfesional.bulkCreate(normalizedPostProfesionals);
-  
-      console.log('Base de datos llenada exitosamente.');
-    } catch (error) {
-      console.error('Error al llenar la base de datos:', error.message);
-    }
+
+      return Promise.all(promises)
+      .then(()=>{
+        const postProfesionals = PostProfesional.findAll();
+        return postProfesionals
+      });
+    })
+    .catch((error)=>{
+      throw Error (error.message)
+    })
   };
   
 

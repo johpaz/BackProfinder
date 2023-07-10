@@ -11,7 +11,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate:{
-        is: /^[a-zA-ZñÑ\s]+$/, // El título debe ser una palabra o frase sin números ni símbolos, pero puede incluir la letra "ñ" o "Ñ"
         len:[5,200] // El nombre del title debe tener mínimo 3 caracteres y máximo 200
       }
     },

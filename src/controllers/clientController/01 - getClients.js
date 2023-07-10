@@ -8,7 +8,7 @@ const getAllClientsApi = async () => {
     const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/clients.json');
     const apiData = response.data;
 
-    console.log(apiData);
+    // console.log(apiData);
 
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedClients = apiData.clients.map(apiClient => {
@@ -28,7 +28,7 @@ const getAllClientsApi = async () => {
       return normalizedClient;
     });
 
-    console.log(normalizedClients);
+    // console.log(normalizedClients);
 
     // Crear todos los clientes de una sola vez en la base de datos
     await Client.bulkCreate(normalizedClients);
