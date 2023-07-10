@@ -3,7 +3,6 @@ const { Profesional, Profesion, Categoria } = require('..//db'); // Importa los 
 
 const generateProfesionales = async () => {
   const profesionales = [];
-
   // Obtiene todas las profesiones y categorías de la base de datos
   const profesiones = await Profesion.findAll();
   const categorias = await Categoria.findAll();
