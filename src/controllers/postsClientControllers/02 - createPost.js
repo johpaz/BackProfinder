@@ -10,4 +10,4 @@ const createPost = async (title, image, content, clientId) => {
     return newPost;
 };
 
-module.exports = createPost
+module.exports = createPost// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

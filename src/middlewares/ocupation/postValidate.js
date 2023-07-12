@@ -8,7 +8,7 @@ module.exports = async (req,res,next) => {
 
     const matchOcupationName = await Ocupation.findOne({where:{name: nameOcupationFormat}});
     if(matchOcupationName){
-      return res.status(404).json({error: `Ya existe una ocupación llamada ${nameOcupationFormat}`});
+      return res.status(400).json({error: `Ya existe una ocupación llamada ${nameOcupationFormat}`});
     }
 
   if(name === "" || /\d/.test(name)){
@@ -20,4 +20,4 @@ module.exports = async (req,res,next) => {
   };
 
   next();
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

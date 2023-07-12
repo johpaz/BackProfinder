@@ -3,7 +3,7 @@ const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Op } = require('sequelize');
 
-const updateProfesional = async (id, name, email, image, genre, years_exp, description, categories, ocupations, phone, ubication) => {
+const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication) => {
 
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
@@ -24,20 +24,19 @@ const updateProfesional = async (id, name, email, image, genre, years_exp, descr
 
   // Match ocupations
 
-  const ocupationsFormat = ocupations.map(async (ocupationName) => {
-    const ocupationsInBDD = await Ocupation.findOne({ where: { name: ocupationName } });
-    if (!ocupationsInBDD) throw Error(`No existe la ocupación llamada: ${ocupationName} en la base de datos`);
-    return {
-      id: ocupationsInBDD.id,
-      name: ocupationsInBDD.name,
-      categoryId: ocupationsInBDD.CategoryId,
-    };
-  });
+    const ocupationsFormat = ocupations.map(async (ocupationName) => {
+      const ocupationsInBDD = await Ocupation.findOne({ where: { name: ocupationName } });
+      if (!ocupationsInBDD) throw Error(`No existe la ocupación llamada: ${ocupationName} en la base de datos`);
+      return {
+        id: ocupationsInBDD.id,
+        name: ocupationsInBDD.name,
+        categoryId: ocupationsInBDD.CategoryId,
+      };
+    });
 
   const resolvedOcupations = await Promise.all(ocupationsFormat);
 
   // Match categories
-
   const categoriesFormat = categories.map(async (categoryName) => {
     const categoriesInBDD = await Category.findOne({ where: { name: categoryName } });
     if (!categoriesInBDD) throw Error(`Las categorías ${categoryName} no existen en la base de datos`);
@@ -57,6 +56,7 @@ const updateProfesional = async (id, name, email, image, genre, years_exp, descr
 
   profesionalInBDD.name = name || profesionalInBDD.name;
   profesionalInBDD.email = email || profesionalInBDD.email;
+  profesionalInBDD.password = password || profesionalInBDD.password;
   profesionalInBDD.image = image || profesionalInBDD.image;
   profesionalInBDD.genre = genre || profesionalInBDD.genre;
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
@@ -101,4 +101,4 @@ const updateProfesional = async (id, name, email, image, genre, years_exp, descr
   };
 };
 
-module.exports = updateProfesional;
+module.exports = updateProfesional;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

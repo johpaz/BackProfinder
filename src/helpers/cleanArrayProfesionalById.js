@@ -20,7 +20,6 @@ const cleanArrayProfesionalId = (profesionalId) => {
       genre: profesional.genre,
       rating: profesional.rating,
       years_exp: profesional.years_exp,
-      description: profesional.description,
       phone: profesional.phone,
       ubication: profesional.ubication,
       professions: professions,
@@ -29,4 +28,4 @@ const cleanArrayProfesionalId = (profesionalId) => {
   });
 };
 
-module.exports = cleanArrayProfesionalId;
+module.exports = cleanArrayProfesionalId;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

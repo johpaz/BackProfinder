@@ -23,4 +23,4 @@ profesionalRouter.put('/delete/:id', logicDelete);
 
 profesionalRouter.put('/:id',putProfesional);
 
-module.exports = profesionalRouter;
+module.exports = profesionalRouter;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

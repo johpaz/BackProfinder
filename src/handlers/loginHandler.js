@@ -1,9 +1,9 @@
 const bcrypt= require("bcrypt");
-
+//const {sequelize}= require("sequelize")
 const {sequelize} = require("../db");
 
 
-const loginUser=async (req,res)=>{
+ const loginUser=async (req,res)=>{
     const {email,password}= req.body;
     const sql= await sequelize.query(`SELECT * FROM "Users" where email= '${email}'`);
   
@@ -22,9 +22,10 @@ const loginUser=async (req,res)=>{
     } catch (error) {
         res.status(400).json({error: error.message}) 
     }
-    };
+    }; 
 
 module.exports = {loginUser};
 
 
 
+// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

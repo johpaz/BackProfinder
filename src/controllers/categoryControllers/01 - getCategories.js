@@ -13,7 +13,6 @@ const getAllCategoriesApi = async () => {
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedCategories = apiData.categorias.map(apiCategory => {
       const normalizedCategory = {
-        id:apiCategory.id,
         name: apiCategory.nombre.trim().slice(0, 20),
       };
 
@@ -30,7 +29,7 @@ const getAllCategoriesApi = async () => {
     console.error('Error al llenar la base de datos:', error.message);
     return (getAllCategories())
   }
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
 
 const getAllCategories = () => {
   return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json')
@@ -38,8 +37,9 @@ const getAllCategories = () => {
     const categories = response.data.categorias
     // console.log(categories.map((category)=>category.nombre))
     const categoriesMap = categories.map((category)=>({
-      id:category.idcategoria,
-      name: category.nombre}))
+      id: category.idcategoria,
+      name: category.nombre
+    }))    
     // console.log(categoriesMap)
     const promises = categoriesMap.map((category)=>{
       // console.log(category)

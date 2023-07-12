@@ -4,9 +4,9 @@ module.exports = (sequelize) => {
   sequelize.define("Ocupation",
   {
     id:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     name:{
       type: DataTypes.STRING,
@@ -20,4 +20,4 @@ module.exports = (sequelize) => {
   },{
     timestamps: false,
   });
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

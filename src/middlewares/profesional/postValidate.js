@@ -1,4 +1,5 @@
 const { Profesional } = require('../../db');
+const { Client } = require('../../db');
 
 const validateName = (name) => {
   if(!name) throw Error(`La propiedad name es obligatoria`);
@@ -19,11 +20,19 @@ const validateEmail = (email) => {
   const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
   const emailEnd = email.split(".")[1];
   if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
-  if(email.trim() === "") throw Error(`El email no puede ser un string`);
+  if(email.trim() === "") throw Error(`El email no puede estar vacío`);
   if(!emailRegex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
   if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
 };
  
+const validatePassword = (password) => {
+  if (!password) throw Error(`La contraseña es obligatoria`);
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
+  if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
+  if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
+  if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, y tener una longitud entre 6 y 15 caracteres`);
+};
+
 const validateImage = (image) => {
   if(!image) throw Error(`La propiedad image es obligatoria`);
   // // console.log(image)  //https://example.com/profile.jpg
@@ -31,10 +40,10 @@ const validateImage = (image) => {
   // // console.log(imageEnd) // com
   // const imageL = image.split(".")[1].split("/")
   // console.log(imageL) //profile
-  if(typeof image !== "string") throw Error(`El tipo de dato de image debe ser un string`);
-  const imageRegexUrl = /^(http(s?):\/\/)?[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$/i
-  if(image.trim() === "") throw Error(`La imagen no puede ser un string vacío`)
-  if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
+  // if(typeof image !== "string") throw Error(`El tipo de dato de image debe ser un string`);
+  // const imageRegexUrl = /^(http(s?):\/\/)?[^\s/$.?#].[^\s]*\.(?:jpg|jpeg|gif|png)$/i
+  // if(image.trim() === "") throw Error(`La imagen no puede ser un string vacío`)
+  // if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
 };
 
 const validateGenre = (genre) => {
@@ -48,12 +57,8 @@ const validateGenre = (genre) => {
 const validateYearsExp = (years_exp) => {
   if(!years_exp) throw Error(`La propiedad years_exp es obligatoria`);
   if(typeof years_exp !== "string") throw Error (`El tipo de dato de los años de experiencia debe ser un string`);
-};
-
-const validateDescription = (description) => {
-  if(!description) throw Error(`La propiedad description es obligatoria`);
-  if(typeof description !== "string") throw Error(`El tipo de dato de la descripción debe ser un string`);
-  if(description.length > 250) throw Error(`La descripción no puede tener más de 250 caracteres`);
+  if(years_exp > 85) throw Error(`No es probable que haya trabajado más de 85 años en un trabajo`);
+  if(years_exp.length > 2) throw Error(`Los años de experiencia no puede ser centenares`);
 };
 
 const validateCategories = (categories) => {
@@ -70,12 +75,12 @@ const validateOcupations = (ocupations) => {
   if(ocupations.length > 0 && ocupations.length > 5) throw Error(`El profesional no puede tener más de 5 ocupaciones`);
 };
 
-// const validatePhone = (phone) => {
-//   if(!phone) throw Error(`La propiedad phone es obligatoria`);
-//   if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
-//   if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
-//   if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
-// };
+const validatePhone = (phone) => {
+  if(!phone) throw Error(`La propiedad phone es obligatoria`);
+  if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
+  // if(phone.length !== 10) throw Error(`La cantidad de caracteres de la propiedad phone debe ser de 10`);
+  if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
+};
 
 const validateUbication = (ubication) => {
   if(!ubication) throw Error('La propiedad ubication es obligatoria');
@@ -83,25 +88,29 @@ const validateUbication = (ubication) => {
 
 module.exports = async (req,res,next) => {
 
-  const { name, email, image, genre, years_exp, description ,categories, ocupations, phone, ubication } = req.body;
+  const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication } = req.body;
 
   try {
+    validateEmail(email);
+    // console.log(name)
+    const clientEmail = await Client.findOne({where:{email:email}});
+    if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
+    
+    const profesionalEmail = await Profesional.findOne({where:{email: email}});
+    if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
 
-    const matchEmail = await Profesional.findOne({where:{email: email}});
-    if(matchEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
 
     validateName(name);
-    validateEmail(email);
+    validatePassword(password);
     validateImage(image);
     validateGenre(genre);
     validateYearsExp(years_exp);
-    validateDescription(description);
     validateCategories(categories);
     validateOcupations(ocupations);
-    // validatePhone(phone);
+    validatePhone(phone);
     validateUbication(ubication);
     next();
   } catch (error) {
     return res.status(400).json({error: error.message});
   };
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

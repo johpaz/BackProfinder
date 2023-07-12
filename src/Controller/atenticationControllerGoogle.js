@@ -22,5 +22,9 @@ const User = sequelize.define('User', {
   },
   // Otros campos que desees almacenar en el modelo de usuario
 });
+// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
 
+
+
+    
 module.exports = User;

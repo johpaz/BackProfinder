@@ -2,7 +2,7 @@ const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 
-const createProfesional = async (name,email,image,genre,years_exp,description,categories, ocupations, phone, ubication) => {
+const createProfesional = async (name,email,password,image,genre,years_exp,categories, ocupations, phone, ubication) => {
 
   //! Que coicidan las ocupations con las existentes en la base de datos:
   const ocupationsFormat = ocupations.map(async(ocupationName)=>{
@@ -42,10 +42,10 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
   const profesionalFormat = { 
     name,
     email,
+    password: password,
     image,
     genre, 
     years_exp,
-    description,
     phone, 
     ubication,
     active: true,
@@ -69,13 +69,13 @@ const createProfesional = async (name,email,image,genre,years_exp,description,ca
     id: newProfesional.id,
     name: newProfesional.name,
     email: newProfesional.email,
+    password: newProfesional.password,
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
-    description: newProfesional.description,
     phone:newProfesional.phone,
     ubication: newProfesional.ubication,
     categories: resolvedCategories
   };
 };
 
-module.exports = createProfesional;
+module.exports = createProfesional;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

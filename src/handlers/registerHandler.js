@@ -5,7 +5,7 @@ const {sequelize} = require("../db");
 
 
 const userRegister= async (req,res)=>{
-    const {name,email,password}= req.body;
+    const {usuario,name,email,password}= req.body;
 
     bcrypt.hash(password, 8, async (error, hash)=>{
 
@@ -22,4 +22,4 @@ const userRegister= async (req,res)=>{
     })
     };
 
-module.exports = {userRegister};
+module.exports = {userRegister};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

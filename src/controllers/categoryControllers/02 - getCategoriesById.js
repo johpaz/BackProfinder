@@ -11,6 +11,6 @@ const getCategoryById = async (id) => {
   if(!category) throw Error (`No existe una categoría de id: ${id}`);
 
   return category;
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
 
 module.exports = getCategoryById;

@@ -14,7 +14,6 @@ const getAllOcupationApi = async () => {
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedOcupations = apiData.profesiones.map(apiOcupation => {
       const normalizedOcupation = {
-        id:apiOcupation.id,
         name: apiOcupation.nombre.trim().slice(0, 40),
         CategoryId: apiOcupation.idcategoria,
       };
@@ -73,4 +72,4 @@ const getOcupationsByName = async (name) => {
 
 module.exports = {
   getAllOcupations, getOcupationsByName,getAllOcupationApi,
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

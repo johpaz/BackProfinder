@@ -13,6 +13,7 @@ const getAllClientsApi = async () => {
       const normalizedClient = {
         name: apiClient.name ? apiClient.name.trim().slice(0, 40) : '',
         email: apiClient.email ? apiClient.email.trim() : '',
+        password: apiClient.password,
         phone: apiClient.phone ? apiClient.phone.replace(/\D/g, "").slice(0, 10) : '',
         image: apiClient.image ? apiClient.image.trim() : '',
         genre: apiClient.genre ? apiClient.genre.trim() : '',
@@ -56,4 +57,4 @@ const getClients = async () => {
 module.exports = {
     getClients,
     getAllClientsApi,
-}
+}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

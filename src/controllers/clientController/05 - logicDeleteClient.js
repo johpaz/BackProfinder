@@ -11,4 +11,4 @@ const logicDeleteClient = async (id) => {
     return "El cliente fue borrado exitosamente."
 }
 
-module.exports = logicDeleteClient
+module.exports = logicDeleteClient// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

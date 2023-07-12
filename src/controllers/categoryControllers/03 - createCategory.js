@@ -14,3 +14,4 @@ const createCategory = async (name) => {
 module.exports = createCategory;
 
 //? petición Front -> middlewares -> handler -> controller (crea,busca) -> bdd
+// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

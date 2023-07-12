@@ -56,4 +56,4 @@ const putOcupation = async (req,res) => {
 
 module.exports = {
   getOcupations, getOcupation, postOcupation, putOcupation,
-}
+}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

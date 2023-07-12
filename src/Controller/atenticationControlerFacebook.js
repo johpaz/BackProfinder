@@ -30,3 +30,4 @@ function generateAccessToken(user) {
   const token = jwt.sign({ userId: user.id }, 'tu_secreto', { expiresIn: '1h' });
   return token;
 }
+// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

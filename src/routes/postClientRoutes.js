@@ -1,13 +1,15 @@
 const { Router } = require('express');
 const { getAllPostsClientsHandler, createPostHandler } = require('../handlers/postClientsHandlers');
 
+// Middlewares
+
+const postValidate = require('../middlewares/postClient/postValidate')
+
 //Router
 const postClientRouter = Router();
 
-//Controllers
-
 //Enrutado
 postClientRouter.get("/", getAllPostsClientsHandler)
-postClientRouter.post("/", createPostHandler)
+postClientRouter.post("/", postValidate,createPostHandler)
 
-module.exports = postClientRouter
+module.exports = postClientRouter// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

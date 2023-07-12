@@ -15,6 +15,11 @@ module.exports = (sequelize) => {
           len:[5,40] // Nombre entre 5 y 40 caracteres
         }
       },
+      password:{
+        type: DataTypes.STRING(25),
+        allowNull: true,
+        defaultValue: null,
+      },
       email: {
         type: DataTypes.STRING,
         unique: true,
@@ -27,12 +32,12 @@ module.exports = (sequelize) => {
       },
       phone: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
        
       },
       image: {
         type: DataTypes.STRING, //Podría ser un BLOB
-        allowNull: false,
+        allowNull: true,
         validate: {
           isUrl: {
             msg: 'La URL de la imagen no es válida',
@@ -42,7 +47,7 @@ module.exports = (sequelize) => {
       },
       genre: {
         type: DataTypes.STRING(25),
-        allowNull: false,
+        allowNull: true,
       },
       rating: {
         type: DataTypes.STRING,
@@ -51,15 +56,15 @@ module.exports = (sequelize) => {
       },
       years_exp: {
         type: DataTypes.STRING, // Podría ser INTEGER pero string en caso que no tenga experiencia?
-        allowNull: false,
+        allowNull: true,
       },
       description: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       ubication: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       active: {
         type: DataTypes.BOOLEAN,
@@ -79,4 +84,4 @@ module.exports = (sequelize) => {
     }, {
     timestamps: false,
   });
-};
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

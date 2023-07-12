@@ -12,4 +12,4 @@ const createOcupation = async (name,categoryId) => {
   return newOcupation;
 };
 
-module.exports = createOcupation;
+module.exports = createOcupation;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

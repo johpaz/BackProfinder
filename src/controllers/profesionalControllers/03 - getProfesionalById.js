@@ -29,10 +29,10 @@ const getProfesionalById = async (id) => {
       }
     ]
   });
-  console.log(profesional);
+  // console.log(profesional);
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
   const formattedProfesional = cleanArrayProfesionalId([profesional]);
   return formattedProfesional;
 };
 
-module.exports = getProfesionalById;
+module.exports = getProfesionalById;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

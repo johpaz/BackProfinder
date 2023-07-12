@@ -12,4 +12,4 @@ const createProfesionalImagesPost = async (image,description,profesionalId) => {
   return newProfesionalImage;
 };
 
-module.exports = createProfesionalImagesPost;
+module.exports = createProfesionalImagesPost;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
