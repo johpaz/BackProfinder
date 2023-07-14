@@ -1,4 +1,4 @@
-const { Client, Post } = require("../../db.js")
+const { Client, Review } = require("../../db.js")
 const axios = require('axios');
 const cleanArrayClient = require('../../helpers/cleanArrayClient.js')
 
@@ -44,7 +44,7 @@ const getClients = async () => {
             softDelete: null
         },
         include: {
-            model: Post,
+            model: Review,
             attributes: ['id', "title", "image", "content"],
         }
     });

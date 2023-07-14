@@ -1,10 +1,10 @@
-const { Client, Post } = require("../../db.js");
+const { Client, Review } = require("../../db.js");
 const cleanArrayClientById = require("../../helpers/cleanArrayClientById.js");
 
 const getClientById = async (id) => {
     const searchClient = await Client.findByPk(id, {
         include: {
-            model: Post,
+            model: Review,
             attributes: ["title", "image", "content"]
         }
     })
