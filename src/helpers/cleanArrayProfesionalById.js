@@ -5,9 +5,9 @@ const cleanArrayProfesionalId = (profesionalId) => {
       return {
         id: category.id,
         category: category.name,
-        ocupations: ocupations.map((ocupation) => ({ 
+        ocupations: ocupations.map((ocupation) => ({
           id: ocupation.id,
-          name: ocupation.name 
+          name: ocupation.name
         }))
       };
     });
@@ -23,7 +23,8 @@ const cleanArrayProfesionalId = (profesionalId) => {
       phone: profesional.phone,
       ubication: profesional.ubication,
       professions: professions,
-      jobimages: profesional.ProfesionalImagesPosts
+      jobimages: profesional.ProfesionalImagesPosts,
+      posts: profesional.PostProfesionals
     };
   });
 };

@@ -17,6 +17,7 @@ const getAllProfesionalImagesApi = () => {
     return Promise.all(promises)
     .then(()=>{
       const allGalery = ProfesionalImagesPost.findAll();
+      console.log("Base de datos llenada exitosamente con la galería de los profesionales.")
       return allGalery;
     });
   })

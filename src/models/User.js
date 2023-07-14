@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull:false
     },
-    usuario:{//es el tipo de usuario c,p ,a 
+    usuario :{//es el tipo de usuario c,p ,a 
       type: DataTypes.STRING
     },
     

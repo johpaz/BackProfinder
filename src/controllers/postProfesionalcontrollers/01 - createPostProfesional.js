@@ -1,8 +1,8 @@
 const { PostProfesional } = require("../../db.js")
 
-const createPostProfesional = async (title, image, content, profesionalId) => {
+const createPostProfesional = async (title, category, ocupation, image, content, profesionalId) => {
 
-    const newPost = await PostProfesional.create({ title, image, content });
+    const newPost = await PostProfesional.create({ title, category, ocupation, image, content });
     await newPost.setProfesional(profesionalId);
     console.log(newPost);
 

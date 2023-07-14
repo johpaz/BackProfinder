@@ -23,7 +23,7 @@ const getAllPostsByClientsApi = async () => {
     // Crear todas las ocupaciones de una sola vez en la base de datos
     await Post.bulkCreate(normalizedPostClients);
 
-    console.log('Base de datos llenada exitosamente.');
+    console.log('Base de datos llenada exitosamente con los posteos de los clientes.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
   }

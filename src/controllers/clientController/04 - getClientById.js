@@ -1,4 +1,5 @@
 const { Client, Post } = require("../../db.js");
+const cleanArrayClientById = require("../../helpers/cleanArrayClientById.js");
 
 const getClientById = async (id) => {
     const searchClient = await Client.findByPk(id, {
@@ -7,13 +8,9 @@ const getClientById = async (id) => {
             attributes: ["title", "image", "content"]
         }
     })
-    if (searchClient) return searchClient
-    else if(error)
-    {throw error}
-        
-        //(`No existe un cliente con id ${id}`)}
-  //  else {}
-
+    if(!searchClient) throw Error(`No existe un cliente de id: ${id}`);
+  const cleanedInfo = cleanArrayClientById(searchClient);
+  return cleanedInfo
     
 };
 

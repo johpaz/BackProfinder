@@ -18,9 +18,9 @@ const getAllProfesionalApi = async () => {
     const normalizedProfessionals = apiData.profesionales.map(apiProfessional => {
       const nameParts = apiProfessional.name ? apiProfessional.name.trim().split('.') : [];
       const name = nameParts.length > 1 ? nameParts.slice(1).join('.').trim() : apiProfessional.name.trim();
-    
+
       const normalizedProfessional = {
-        
+
         name: name.slice(0, 40),
         email: apiProfessional.email ? apiProfessional.email.trim() : '',
         phone: apiProfessional.phone ? apiProfessional.phone.replace(/\D/g, "").slice(0, 10) : '',
@@ -44,16 +44,16 @@ const getAllProfesionalApi = async () => {
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
       const { categorias, profesiones } = normalizedProfessional;
-    
+
       const newProfesional = await Profesional.create(normalizedProfessional);
-    
+
       const categoriesBDD = await Category.findAll({ where: { name: categorias } });
       await newProfesional.addCategories(categoriesBDD);
-    
+
       const ocupationsBDD = await Ocupation.findAll({ where: { name: profesiones } });
       await newProfesional.addOcupations(ocupationsBDD);
     }
-  // { id: 1, name: 'Programador', CategoryId: 1 }
+    // { id: 1, name: 'Programador', CategoryId: 1 }
     console.log('Base de datos llenada exitosamente con los profesionales.');
   } catch (error) {
     console.error('Error al llenar la base de datos con los profesionales:', error.message);
@@ -76,7 +76,7 @@ const getAllProfesionals = async () => {
         },
         {
           model: PostProfesional,
-          attributes: ["title", "image", "content"],
+          attributes: ["id", "title", "category", "ocupation", "image", "content"]
         }
       ]
     });

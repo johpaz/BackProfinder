@@ -18,6 +18,7 @@ const getAllPostsByProfesionalsApi = () => {
       return Promise.all(promises)
       .then(()=>{
         const postProfesionals = PostProfesional.findAll();
+        console.log("Base de datos llenada exitosamente con los posts de los profesionales.")
         return postProfesionals
       });
     })

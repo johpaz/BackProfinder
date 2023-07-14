@@ -5,7 +5,7 @@ const validateName = (name) => {
   if(!name) throw Error(`La propiedad name es obligatoria`);
   if(typeof name !== "string") throw Error(`El tipo de dato de name debe ser un string`);
 
-  const namevalidated = /^[a-zA-ZñÑ\s]+$/.test(name.trim());
+  const namevalidated = /^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/.test(name.trim());
   const firstNameLastName = name.split(" ");
   
   if(name.trim() === "") throw Error(`El nombre no puede estar vacío`);
@@ -26,11 +26,11 @@ const validateEmail = (email) => {
 };
  
 const validatePassword = (password) => {
-  if (!password) throw Error(`La contraseña es obligatoria`);
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
-  if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
-  if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
-  if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, y tener una longitud entre 6 y 15 caracteres`);
+  // if (!password) throw Error(`La contraseña es obligatoria`);
+  // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
+  // if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
+  // if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
+  // if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, y tener una longitud entre 6 y 15 caracteres`);
 };
 
 const validateImage = (image) => {
@@ -92,7 +92,7 @@ module.exports = async (req,res,next) => {
 
   try {
     validateEmail(email);
-    // console.log(name)
+    console.log(image)
     const clientEmail = await Client.findOne({where:{email:email}});
     if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
     

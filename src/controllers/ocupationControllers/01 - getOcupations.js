@@ -26,7 +26,7 @@ const getAllOcupationApi = async () => {
     // Crear todas las ocupaciones de una sola vez en la base de datos
     await Ocupation.bulkCreate(normalizedOcupations);
 
-    console.log('Base de datos llenada exitosamente.');
+    console.log('Base de datos llenada exitosamente con las ocupaciones.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
   }

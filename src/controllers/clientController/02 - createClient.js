@@ -1,20 +1,17 @@
 const { Client } = require("../../db.js")
 
 
-const createClient = async (name, email, phone, image, genre, description, ubication) => {
+const createClient = async (name, email,password, phone) => {
 
-    if (!name || !email || !image || !genre || !description || !phone || !ubication) {
+    if (!name || !email || !password || !phone) {
         throw Error("Faltan datos a completar")
     }
     else {
         const newClient = await Client.create({
             name,
             email,
+            password,
             phone,
-            image,
-            genre,
-            description,
-            ubication,
             rating: 0,
             active: true,
             pro: false,

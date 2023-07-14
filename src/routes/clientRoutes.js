@@ -7,6 +7,7 @@ const { getClientsHandler, getClientByIdHandler, createUserClient, putClient, lo
 //Midlewares 
 
 const postValidate = require("../middlewares/clients/postValidate.js")
+const putValidate = require("../middlewares/clients/putValidate.js")
 
 //Router
 const clientRouter = Router();
@@ -16,9 +17,7 @@ clientRouter.get('/', getClientsHandler);
 clientRouter.get('/:id', getClientByIdHandler);
 clientRouter.post('/', postValidate, createUserClient);
 
-clientRouter.post('/', createUserClient);
-
-clientRouter.put('/:id', putClient);
+clientRouter.put('/:id', putValidate, putClient);
 clientRouter.put('/delete/:id', logicDeleteHandler)
 
 module.exports = clientRouter;

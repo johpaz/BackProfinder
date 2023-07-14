@@ -1,13 +1,16 @@
 const { Client } = require("../../db.js");
-const { Profesional } = require('../../db.js');
+
+
+
+
 
 const validateName = (name) => {
-    // console.log(name.split(" "));
+
     if (!name) {
         throw Error("La propiedad name no puede estar vacia.")
     };
     if (typeof name !== "string") {
-        throw Error("El nombre debe ser un string.")
+        throw Error("El nombre debe ser un string")
     }
     let regexSpecialCharacters = /^[a-zA-Z_ ]*$/
     if (!regexSpecialCharacters.test(name)) {
@@ -43,24 +46,20 @@ const validateEmail = (email) => {
 
 };
 
-const validateImage = (image) => {
-    // if (!image) {
-    //     throw Error("Por favor ingrese la url de una imagen.");
-    // }
-    if (typeof image !== "string") {
-        throw Error("El nombre debe ser un string.")
+const validatePassword = (password) => {
+    if (!password) {
+        throw Error("Ingrese una contraseña.")
     }
-    const regexImage = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|svg))/i
-    if (!regexImage.test(image)) {
-        throw Error("La imagen debe ser una url y debe tener formato jpg|jpeg|gif|png|svg ")
+    if (password.length < 6) {
+        throw Error("La contraseña debe contar con al menos 6 caracteres.")
+    }
+}
+
+const validatePhone = (phone) => {
+    if (!phone) {
+        throw Error("Por favor ingrese un numero de telefono.")
     }
 
-};
-// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
-const validatePhone = (phone) => {
-    // if (!phone) {
-    //     throw Error("La propiedad phone no puede estar vacia");
-    // };
     if (typeof phone !== "string") {
         throw Error("El tipo de dato de phone debe ser un string.")
     };
@@ -74,59 +73,22 @@ const validatePhone = (phone) => {
     };
 };
 
-const validateGenre = (genre) => {
-    // if (!genre) {
-    //     throw Error("La propiedad genre no puede estar vacia.")
-    // };
-    if (typeof genre !== "string") {
-        throw Error("El tipo de dato de genre debe ser un string")
-    };
-    const genres = ["Male", "Female"]
-    if (!genres.includes(genre)) {
-        throw Error("Eliga un genero correcto.")
-    };
-};
 
-const validateDescription = (description) => {
-    // if (!description) {
-    //     throw Error("La propiedad description no puede estar vacia.")
-    // };
-    if (typeof description !== "string") {
-        throw Error("El tipo de dato de description debe ser un string.")
-    }
-    if (description.length > 150) {
-        throw Error("La descripcion no puede contar con mas de 150 caracteres.")
-    };
-};
-
-const validateUbication = (ubication) => {
-    // if (!ubication) {
-    //     throw Error("La propiedad ubication no puede estar vacia.");
-    // }
-    if (typeof ubication !== "string") {
-        throw Error("El tipo de dato de ubication debe ser un string.");
-    };
-};
 
 module.exports = async (req, res, next) => {
     const { name, email, phone, image, genre, description, ubication } = req.body
     try {
 
         const matchEmail = await Client.findOne({ where: { email: email } });
-        if (matchEmail) throw Error(`Ya existe un cliente asociado con el email de ${email}`);
-
-        const profesionalEmail = await Profesional.findOne({where:{email:email}});
-        if(profesionalEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
-    
+        if (matchEmail) {
+            return res.status(400).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
+        };
         validateName(name);
         validateEmail(email);
         validatePhone(phone);
-        validateImage(image);
-        validateGenre(genre);
-        validateDescription(description);
-        validateUbication(ubication);
 
     } catch (error) {
+        console.log(error);
         return res.status(400).json(error.message)
     }
 

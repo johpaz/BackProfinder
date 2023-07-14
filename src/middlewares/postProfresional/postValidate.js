@@ -14,17 +14,21 @@ const validateTitle = (title) => {
     };
 }
 
-const validateImage = (image) => {
-    if (!image) {
-        throw Error("Por favor ingrese la url de una imagen.");
+const validateImage = (arrayImages) => {
+    if (arrayImages.length === 0) {
+        throw Error("Por favor ingrese por lo menos una imagen.");
     }
-    if (typeof image !== "string") {
-        throw Error("El tipo de dato de image debe ser un string.")
+    for (let i = 0; i < arrayImages.length; i++) {
+        const image = arrayImages[i]
+        if (typeof image !== "string") {
+            throw Error("El tipo de dato de image debe ser un string.")
+        }
+        const regexImage = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|svg))/i
+        if (!regexImage.test(image)) {
+            throw Error("La imagen debe ser una url y debe tener formato jpg|jpeg|gif|png|svg ")
+        };
     }
-    const regexImage = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|svg))/i
-    if (!regexImage.test(image)) {
-        throw Error("La imagen debe ser una url y debe tener formato jpg|jpeg|gif|png|svg ")
-    };
+
 };
 
 const validateContent = (content) => {
@@ -60,7 +64,7 @@ module.exports = async (req, res, next) => {
         validateImage(image);
         validateContent(content);
     } catch (error) {
-        return res.status(400).json({error: error.message});
+        return res.status(400).json({ error: error.message });
     };
     next()
 }
