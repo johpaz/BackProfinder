@@ -8,8 +8,8 @@ const getAllPostsByProfesionalsApi = () => {
       const promises = postProfesional.map((post)=>{
         const postFormat = {
           title: post.title,
-          image: post.image,
-          content: post.content,
+          image: [post.image],
+          content: post.content, 
           ProfesionalId: post.profesionalId,
         };
         return PostProfesional.findOrCreate({where:postFormat})

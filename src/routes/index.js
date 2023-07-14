@@ -16,8 +16,9 @@ const postProfesional = require("./postProfesionalRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
+const loginGoogleRouter=require('./googleRoutes')
 
-const passport= require ('passport')
+
 // Router: 
 
 const router = Router();
@@ -49,5 +50,7 @@ router.use('/login', loginRouter); //login
 router.use('/country',countryRouter); // Country
 
 router.use('/location',locationRouter);
+
+router.use('/auth/google', loginGoogleRouter)//google 
 
 module.exports = router;
