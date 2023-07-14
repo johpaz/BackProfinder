@@ -32,7 +32,7 @@ module.exports = (sequelize) => {
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         is: /^[0-9]{10}$/ // Expresión regular para validar un número de teléfono de 10 dígitos
       }
