@@ -1,6 +1,6 @@
 // Controllers:
 
-const {getLocations, createLocation} = require('../controllers/locationControllers/index');
+const {getLocations, createLocation,getLocation} = require('../controllers/locationControllers/index');
 
 // Handlers
 
@@ -14,6 +14,17 @@ const getAllLocations = async (req,res) => {
   };
 };
 
+const getLocationById = async (req,res) => {
+  const { id } = req.params;
+
+  try {
+    const location = await getLocation(id);
+    return res.status(200).json(location)
+  } catch (error) {
+    return res.status(404).json({error: error.message});
+  }
+};
+
 const postLocation = async (req,res) => {
   // return res.status(201).json({mjs: "Se creará una localidad"})
   const {name,countryId} = req.body
@@ -25,4 +36,4 @@ const postLocation = async (req,res) => {
   };
 };
 
-module.exports = {getAllLocations,postLocation};
+module.exports = {getAllLocations,postLocation,getLocationById};

@@ -53,10 +53,10 @@ const getProfesionals = async (req,res) => {
   };
 
   const createUserProfesional = async (req, res) => {
-    const { name, email,password, image, genre, years_exp, categories, ocupations, phone, ubication } = req.body;
+    const { name, email,password, image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
     
     try {
-      const newUser = await createProfesional(name,email,password,image,genre,years_exp, categories,ocupations, phone, ubication);
+      const newUser = await createProfesional(name,email,password,image,genre,years_exp, categories,ocupations, phone, ubication, CountryId, LocationId);
       return res.status(201).json({ profesionalCreated: newUser });
     } catch (error) {
       return res.status(400).json({ error: error.message });
@@ -66,9 +66,9 @@ const getProfesionals = async (req,res) => {
   const putProfesional = async (req,res) => {
     const { id } = req.params;
     console.log(id);
-    const { name, email,password, image, genre, years_exp, description, categories, ocupations, phone, ubication } = req.body;
+    const { name, email,password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
     try {
-      const updatedProfesional = await updateProfesional(id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication);
+      const updatedProfesional = await updateProfesional(id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId);
       return res.status(200).json(updatedProfesional);
     } catch (error) {
       return res.status(404).json({error: error.message});

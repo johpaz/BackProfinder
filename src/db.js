@@ -69,6 +69,12 @@ Ocupation.belongsTo(Category);
 Country.hasMany(Location);
 Location.belongsTo(Country);
 
+Country.hasMany(Profesional);
+Profesional.belongsTo(Country);
+
+Location.hasMany(Profesional);
+Profesional.belongsTo(Location);
+
 // Relacionar ambos modelos:
 
 Profesional.belongsToMany(Client, { through: "ProfesionalClientRelation" });

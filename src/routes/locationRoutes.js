@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers:
 
-const {getAllLocations, postLocation} = require('../handlers/locationHandlers')
+const {getAllLocations, postLocation,getLocationById} = require('../handlers/locationHandlers')
 
 // Middleware
 
@@ -15,6 +15,8 @@ const locationRouter = Router();
 // Enrutado:
 
 locationRouter.get('/',getAllLocations);
+
+locationRouter.get('/:id',getLocationById)
 
 locationRouter.post('/',postValidate,postLocation);
 

@@ -5,11 +5,12 @@ const { Category } = require('../../db');
 const cleanArray = require('../../helpers/cleanArrayProfesionals')
 
 const getOcupationsByOcupation= async (name)=>{
-    
+  const query = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase()
+    // console.log(query)
     const ocupacionsName = await Ocupation.findAll({
         where:{
           name:{
-            [Op.iLike] :`%${name}%`
+            [Op.iLike] :`%${query}%`
           },
         },
       });

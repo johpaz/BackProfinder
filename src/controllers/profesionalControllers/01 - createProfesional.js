@@ -1,8 +1,10 @@
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
+const { Country } = require('../../db');
+const { Location } = require('../../db');
 
-const createProfesional = async (name,email,password,image,genre,years_exp,categories, ocupations, phone, ubication) => {
+const createProfesional = async (name,email,password,image,genre,years_exp,categories, ocupations, phone, ubication, CountryId, LocationId) => {
 
   //! Que coicidan las ocupations con las existentes en la base de datos:
   const ocupationsFormat = ocupations.map(async(ocupationName)=>{
@@ -38,6 +40,11 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
   const resolvedCategories = await Promise.all(categoriesFormat);
   // console.log(resolvedCategories.map((category)=>category.name))
   // console.log(resolvedCategories.map((category)=> category.ocupations.map((ocupation)=>ocupation.name)));
+  //! Que coincidan los id del país y location en la base de datos
+  
+  const country = await Country.findByPk(CountryId);
+
+  const location = await Location.findByPk(LocationId);
 
   const profesionalFormat = { 
     name,
@@ -62,6 +69,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const ocupationsBDD = await Ocupation.findAll({where:{name:resolvedOcupations.map((ocupation)=>ocupation.name)}});
   await newProfesional.addOcupations(ocupationsBDD);
+  await newProfesional.setCountry(country);
+  await newProfesional.setLocation(location);
 
   if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
 
@@ -74,6 +83,7 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     years_exp: newProfesional.years_exp,
     phone:newProfesional.phone,
     ubication: newProfesional.ubication,
+    ubi:"",
     categories: resolvedCategories
   };
 };

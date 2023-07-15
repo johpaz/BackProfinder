@@ -1,6 +1,6 @@
 // Controllers:
 
-const { getCountries, createCountry} = require('../controllers/countryControllers/index');
+const { getCountries, createCountry,getCountry} = require('../controllers/countryControllers/index');
 
 // Handlers:
 
@@ -11,6 +11,16 @@ const getAllCountries = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error: error.message});
   };
+};
+
+const getCountryById = async (req,res) => {
+  const { id } = req.params;
+  try {
+    const country = await getCountry(id);
+    return res.status(200).json(country);
+  } catch (error) {
+    return res.status(404).json({error: error.message});
+  }
 };
 
 const postCountry = async (req,res) => {
@@ -24,5 +34,5 @@ const postCountry = async (req,res) => {
 };
 
 module.exports = {
-  getAllCountries, postCountry
+  getAllCountries, postCountry,getCountryById
 }

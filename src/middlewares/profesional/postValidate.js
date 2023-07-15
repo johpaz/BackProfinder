@@ -82,13 +82,13 @@ const validatePhone = (phone) => {
   if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
 };
 
-const validateUbication = (ubication) => {
-  if(!ubication) throw Error('La propiedad ubication es obligatoria');
-};
+// const validateUbication = (ubication) => {
+//   if(!ubication) throw Error('La propiedad ubication es obligatoria');
+// };
 
 module.exports = async (req,res,next) => {
 
-  const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication } = req.body;
+  const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
 
   try {
     validateEmail(email);
@@ -108,7 +108,7 @@ module.exports = async (req,res,next) => {
     validateCategories(categories);
     validateOcupations(ocupations);
     validatePhone(phone);
-    validateUbication(ubication);
+    // validateUbication(ubication);
     next();
   } catch (error) {
     return res.status(400).json({error: error.message});

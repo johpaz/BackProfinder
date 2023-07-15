@@ -9,8 +9,9 @@ const axios = require('axios');
 
 const getAllProfesionalApi = async () => {
   try {
-    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/profesionales.json');
+    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/profesionales%20copy.json');
     const apiData = response.data
+    // console.log(apiData)
     // console.log(apiData.profesionales.map((profesional)=>profesional.categorias))
     // console.log(apiData.profesionales.map((profesional)=>profesional.profesiones))
 
@@ -32,7 +33,9 @@ const getAllProfesionalApi = async () => {
         ubication: apiProfessional.ubicacion ? apiProfessional.ubicacion.trim().slice(0, 50) : '',
         years_exp: apiProfessional.years_exp ? apiProfessional.years_exp.trim() : '',
         categorias: apiProfessional.categorias.map(categoria => categoria.nombre.trim()),
-        profesiones: apiProfessional.profesiones.map(profesion => profesion.name.trim())
+        profesiones: apiProfessional.profesiones.map(profesion => profesion.name.trim()),
+        CountryId: apiProfessional.CountryId,
+        LocationId: apiProfessional.LocationId,
       };
 
       return normalizedProfessional;
