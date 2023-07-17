@@ -57,7 +57,6 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre, 
     years_exp,
     phone, 
-    // ubication,
     active: true,
     pro: true
   };
@@ -86,7 +85,6 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
     phone:newProfesional.phone,
-    // ubication: newProfesional.ubication,
     country:country.name,
     location: location.name,
     categories: resolvedCategories
