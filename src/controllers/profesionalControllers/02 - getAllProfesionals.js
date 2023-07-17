@@ -11,7 +11,7 @@ const axios = require('axios');
 
 const getAllProfesionalApi = async () => {
   try {
-    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/profesionales%20copy.json');
+    const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/profesionalescopy.json');
     const apiData = response.data
     // console.log(apiData)
     // console.log(apiData.profesionales.map((profesional)=>profesional.categorias))
