@@ -9,4 +9,4 @@ app.listen(PORT,()=>{
   sequelize.sync({force:true}) //// Luego será alter:true terminando la etapa de pruebas
 
   console.log(`Server on port ${PORT}`);
-});
+}); 
