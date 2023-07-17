@@ -1,6 +1,6 @@
 // Controllers:
 const axios = require('axios');
-const {getAllOcupations, getOcupationsByName, createOcupation, getOcupationById,updateOcupation, getProfesionalsByOcupation,getAllProfesionals} = require('../controllers/ocupationControllers/index');
+const {getAllOcupations, getOcupationsByName, createOcupation,getOcupationsBdd, getOcupationById,updateOcupation, getProfesionalsByOcupation,getAllProfesionals} = require('../controllers/ocupationControllers/index');
 
 // Handlers:
 

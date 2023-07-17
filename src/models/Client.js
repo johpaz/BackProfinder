@@ -26,9 +26,9 @@ module.exports = (sequelize) => {
     password: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        is: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ //Expresion regular que valida si el nombre tiene por lo menos 1 mayuscula/minuscula/numero/caracter 
-      }
+      // validate: {
+      //   is: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ //Expresion regular que valida si el nombre tiene por lo menos 1 mayuscula/minuscula/numero/caracter 
+      // }
     },
     phone: {
       type: DataTypes.STRING,

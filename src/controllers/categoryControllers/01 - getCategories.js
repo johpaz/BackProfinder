@@ -53,12 +53,27 @@ const getAllCategories = () => {
           attributes: ['id','name'],
         }});
         // console.log(allCategories)
+        console.log("Base de datos llenada con las Categorías - API")
         return allCategories;
       })
   })
   .catch((error)=>{
     throw Error(error.message)
   });
+};
+
+const getCategoriesBdd = async () => {
+  const categories = await Category.findAll({include:{
+    model: Ocupation,
+    attributes: ['id','name'],
+  }});
+
+  if(categories.length === 0){
+    const allCategories = await getAllCategories();
+    return allCategories;
+  };
+  console.log("Devolviendo los datos en la base de datos");
+  return categories
 };
 
 const getCategoriesByName = async (name) => {
@@ -83,5 +98,5 @@ const getCategoriesByName = async (name) => {
 };
 
 module.exports = {
-  getAllCategories, getCategoriesByName,getAllCategoriesApi
+  getAllCategories, getCategoriesByName,getAllCategoriesApi,getCategoriesBdd
 };

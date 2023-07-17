@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
        
       },
       image: {
-        type: DataTypes.STRING, //Podría ser un BLOB
+        type: DataTypes.TEXT, //Podría ser un BLOB
         allowNull: true,
         validate: {
           isUrl: {

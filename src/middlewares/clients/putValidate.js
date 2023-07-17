@@ -10,10 +10,10 @@ const validateName = (name) => {
     if (name.length > 50) {
         throw Error("El nombre contiene muchos caracteres.")
     };
-    let firstAndLastName = name.split(" ");
-    if (firstAndLastName.length !== 2) {
-        throw Error("La propiedad name debe contener nombre y apellido.")
-    }
+    // let firstAndLastName = name.split(" ");
+    // if (firstAndLastName.length !== 2) {
+    //     throw Error("La propiedad name debe contener nombre y apellido.")
+    // }
 }
 
 

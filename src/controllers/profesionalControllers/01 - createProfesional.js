@@ -3,6 +3,7 @@ const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Country } = require('../../db');
 const { Location } = require('../../db');
+const { getImageUrl } = require('../../firebase');
 
 const createProfesional = async (name,email,password,image,genre,years_exp,categories, ocupations, phone, ubication, CountryId, LocationId) => {
 
@@ -46,15 +47,17 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const location = await Location.findByPk(LocationId);
 
+  const imageUrl = await getImageUrl(image)
+
   const profesionalFormat = { 
     name,
     email,
     password: password,
-    image,
+    image: imageUrl,
     genre, 
     years_exp,
     phone, 
-    ubication,
+    // ubication,
     active: true,
     pro: true
   };
@@ -69,8 +72,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const ocupationsBDD = await Ocupation.findAll({where:{name:resolvedOcupations.map((ocupation)=>ocupation.name)}});
   await newProfesional.addOcupations(ocupationsBDD);
-  await newProfesional.setCountry(country);
-  await newProfesional.setLocation(location);
+  await newProfesional.setCountry(country.id);
+  await newProfesional.setLocation(location.id);
 
   if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
 
@@ -78,12 +81,14 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     id: newProfesional.id,
     name: newProfesional.name,
     email: newProfesional.email,
+    image: newProfesional.image.split(".com")[0] + "avatar",
     password: newProfesional.password,
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
     phone:newProfesional.phone,
-    ubication: newProfesional.ubication,
-    ubi:"",
+    // ubication: newProfesional.ubication,
+    country:country.name,
+    location: location.name,
     categories: resolvedCategories
   };
 };

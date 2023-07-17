@@ -1,6 +1,8 @@
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
+const { Country } = require('../../db'); 
+const { Location } = require('../../db'); 
 const { PostProfesional } = require("../../db")
 const cleanArray = require('../../helpers/cleanArrayProfesionals');
 
@@ -46,7 +48,7 @@ const getAllProfesionalApi = async () => {
 
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
-      const { categorias, profesiones } = normalizedProfessional;
+      const { categorias, profesiones, CountryId, LocationId  } = normalizedProfessional;
 
       const newProfesional = await Profesional.create(normalizedProfessional);
 
@@ -55,6 +57,11 @@ const getAllProfesionalApi = async () => {
 
       const ocupationsBDD = await Ocupation.findAll({ where: { name: profesiones } });
       await newProfesional.addOcupations(ocupationsBDD);
+
+      const country = await Country.findByPk(CountryId);
+      await newProfesional.setCountry(country);
+      const location = await Location.findByPk(LocationId);
+      await newProfesional.setLocation(location);
     }
     // { id: 1, name: 'Programador', CategoryId: 1 }
     console.log('Base de datos llenada exitosamente con los profesionales.');

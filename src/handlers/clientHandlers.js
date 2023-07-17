@@ -56,9 +56,9 @@ const createUserClient = async (req, res) => {
 };
 const putClient = async (req, res) => {
   const { id } = req.params;
-  const { name, image, phone, genre, description, ubication } = req.body;
+  const { name, image, phone, genre, description, ubication,password, email} = req.body;
   //Guardamos la info de req.body en un objeto, para trabajar mas organizado cuando la funcion reciba el id y el mismo objeto.
-  const clientInfo = { name, image, phone, genre, description, ubication }
+  const clientInfo = { name, image, phone, genre, description, ubication, password, email }
   try {
     const updatedClient = await updateClient(clientInfo, id)
 
@@ -66,7 +66,7 @@ const putClient = async (req, res) => {
     return res.status(200).json(updatedClient);
   } catch (error) {
     console.error(error);
-    return res.status(400).json({ error: 'Error al actualizar el usuario' });
+    return res.status(404).json({ error: error.message });
   }
 };
 

@@ -32,6 +32,44 @@ const getAllOcupationApi = async () => {
   }
 };
 
+const getAllOcupationsApi = () => {
+  return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/ocupation.json')
+  .then((response)=>{
+    const ocupations = response.data.profesiones
+
+    const ocupationsMap = ocupations.map((ocupation)=>({
+      name: ocupation.nombre,
+      CategoryId: ocupation.idcategoria,
+    }));
+
+    const promises = ocupationsMap.map((ocupation)=>{
+      return Ocupation.findOrCreate({where:ocupation});
+    });
+
+    return Promise.all(promises)
+    .then(()=>{
+      const ocupations = Ocupation.findAll();
+      console.log("Base de datos llenada con las ocupaciones - API")
+      return ocupations
+    });
+  })
+  .catch((error)=>{
+    throw Error(error.message)
+  })
+};
+
+const getOcupationsBdd = async () => {
+  const ocupations = await Ocupation.findAll();
+
+  if(ocupations.length === 0){
+    const ocupations = await getAllOcupationsApi();
+    return ocupations;
+  };
+  console.log("Devolviendo los datos almacenados de Ocupations");
+  return ocupations
+
+};
+
 
 const getAllOcupations = async () => {
   try {
@@ -71,5 +109,5 @@ const getOcupationsByName = async (name) => {
 };
 
 module.exports = {
-  getAllOcupations, getOcupationsByName,getAllOcupationApi,
+  getAllOcupations, getOcupationsByName,getAllOcupationApi,getAllOcupationsApi,getOcupationsBdd
 };// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

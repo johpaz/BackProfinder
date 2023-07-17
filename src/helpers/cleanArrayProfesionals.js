@@ -26,7 +26,7 @@ const cleanArray = async (profesionals) => {
         id: profesional.id,
         name: profesional.name,
         email: profesional.email,
-        password: profesional.password,
+        // password: profesional.password,
         image: profesional.image,
         rating: profesional.rating,
         genre: profesional.genre,

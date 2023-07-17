@@ -35,6 +35,7 @@ const getProfesionalById = async (id) => {
   });
   // console.log(profesional);
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
+  // const formattedProfesional = cleanArrayProfesionalId(profesional); //Para que el por id sea un objeto y no un array
   const formattedProfesional = cleanArrayProfesionalId([profesional]);
   return formattedProfesional;
 };

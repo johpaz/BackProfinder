@@ -1,6 +1,11 @@
 const { Profesional } = require('../../db');
 const { Client } = require('../../db');
 
+const validateId = (id) => {
+  if(!id || id === undefined || id === null) throw Error(`El id es obligatorio para editar un profesional`);
+  if(!Number(id)) throw Error(`El id del profesional debe solo númerico`);
+};
+
 const validateName = (name) => {
   if(!name) throw Error(`La propiedad name es obligatoria`);
   if(typeof name !== "string") throw Error(`El tipo de dato de name debe ser un string`);
@@ -26,11 +31,11 @@ const validateEmail = (email) => {
 };
  
 const validatePassword = (password) => {
-  if (!password) throw Error(`La contraseña es obligatoria`);
-  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
-  if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
-  if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
-  if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, además de tener una longitud entre 6 y 15 caracteres`);
+  // if (!password) throw Error(`La contraseña es obligatoria`);
+  // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
+  // if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
+  // if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
+  // if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, y tener una longitud entre 6 y 15 caracteres`);
 };
 
 const validateImage = (image) => {
@@ -92,38 +97,18 @@ const validateCountry = (CountryId) => {
   // if(CountryId < 1 && CountryId > 20) throw Error(`Debe proporcionar un id del país entre los existentes - 1 al 20`);
 };
 
-// const validateLocation = (CountryId,LocationId) => {
-//   if(!LocationId || LocationId === undefined || LocationId === null) throw Error(`Debe proporcionar el id de la ciudad en la que se ubica el profesional`);
-//   if(!Number(LocationId)) throw Error(`El id de la ciudad debe ser númerico`);
-//   if(CountryId === 1 && (LocationId > 0 && LocationId < 24) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 2 && (LocationId > 23 && LocationId < 33) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 3 && (LocationId > 32 && LocationId < 60) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 4 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 5 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 6 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 7 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 8 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 9 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 10 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-//   if(CountryId === 11 && (LocationId > 59 && LocationId < 76) ) throw Error(`Según el país, debe proporcionar el id de la localidad correspondiente`);
-  
-
-// };
-
 module.exports = async (req,res,next) => {
-
+  const { id } = req.params;
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
-
   try {
-    validateEmail(email);
     // console.log(image); // https://firebasestorage.googleapis.com/v0/b/react-imagenes-profinder.appspot.com/o/27e055e8-883e-4ce3-9d53-08128628fe13.jpg?alt=media&token=978040e0-44cb-44a7-ad58-dcec5a95c0cd
-    const clientEmail = await Client.findOne({where:{email:email}});
-    if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
-    
-    const profesionalEmail = await Profesional.findOne({where:{email: email}});
-    if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
-
-
+    validateId(id);
+    // validateEmail(email);
+    // console.log(image)
+    // const clientEmail = await Client.findOne({where:{email:email}});
+    // if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
+    // const profesionalEmail = await Profesional.findOne({where:{email: email}});
+    // if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
     validateName(name);
     validatePassword(password);
     validateImage(image);
@@ -138,4 +123,4 @@ module.exports = async (req,res,next) => {
   } catch (error) {
     return res.status(400).json({error: error.message});
   };
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}

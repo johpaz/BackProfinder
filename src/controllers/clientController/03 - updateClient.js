@@ -9,12 +9,14 @@ const updateClient = async (clientInfo, id) => {
     }
 
     // Actualiza los datos del usuario
-    user.name = clientInfo.name;
-    user.image = clientInfo.image;
-    user.phone = clientInfo.phone;
-    user.genre = clientInfo.genre;
-    user.description = clientInfo.description;
-    user.ubication = clientInfo.ubication;
+    user.name = clientInfo.name || user.name;
+    user.email = clientInfo.email || user.email;
+    user.password = clientInfo.password || user.password;
+    user.image = clientInfo.image || user.image;
+    user.phone = clientInfo.phone || user.phone;
+    user.genre = clientInfo.genre || user.genre
+    user.description = clientInfo.description || user.description;
+    user.ubication = clientInfo.ubication || user.ubication;
 
     //Guarda los cambios en la base de datos
     await user.save();

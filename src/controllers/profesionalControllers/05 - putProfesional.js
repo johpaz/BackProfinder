@@ -1,9 +1,12 @@
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
+const { Country } = require('../../db');
+const { Location } = require('../../db');
 const { Op } = require('sequelize');
+const { getImageUrl } = require('../../firebase');
 
-const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication) => {
+const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId) => {
 
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
@@ -52,17 +55,22 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
 
   const resolvedCategories = await Promise.all(categoriesFormat);
 
+  const imageUrl = await getImageUrl(image);
+  const domain = "https://firebasestorage.googleapis.com";
+
   // Update profesional
 
   profesionalInBDD.name = name || profesionalInBDD.name;
   profesionalInBDD.email = email || profesionalInBDD.email;
   profesionalInBDD.password = password || profesionalInBDD.password;
-  profesionalInBDD.image = image || profesionalInBDD.image;
+  profesionalInBDD.image = imageUrl || profesionalInBDD.image;
   profesionalInBDD.genre = genre || profesionalInBDD.genre;
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
   profesionalInBDD.description = description || profesionalInBDD.description;
   profesionalInBDD.phone = phone || profesionalInBDD.phone; 
-  profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
+  // profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
+  profesionalInBDD.CountryId = CountryId || profesionalInBDD.CountryId;
+  profesionalInBDD.LocationId = LocationId || profesionalInBDD.LocationId;
   await profesionalInBDD.save();
 
   // Set associations
@@ -83,8 +91,13 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     }
   });
 
+  const countryBDD = await Country.findByPk(CountryId);
+  const locationBDD = await Location.findByPk(LocationId);
+
   await profesionalInBDD.setCategories(categoriesBDD);
   await profesionalInBDD.setOcupations(ocupationsBDD);
+  await profesionalInBDD.setCountry(countryBDD.id);
+  await profesionalInBDD.setLocation(locationBDD.id);
 
   // Return updated professional
 
@@ -92,13 +105,16 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     id: profesionalInBDD.id,
     name: profesionalInBDD.name,
     email: profesionalInBDD.email,
+    image: `${domain}/newAvatar`,
     genre: profesionalInBDD.genre,
     years_exp: profesionalInBDD.years_exp,
     description: profesionalInBDD.description,
     phone:profesionalInBDD.phone,
-    ubication: profesionalInBDD.ubication,
+    // ubication: profesionalInBDD.ubication,
+    country:countryBDD.name,
+    location: locationBDD.name,
     categories: resolvedCategories
   };
 };
 
-module.exports = updateProfesional;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = updateProfesional;
