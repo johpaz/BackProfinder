@@ -69,7 +69,7 @@ module.exports = (sequelize) => {
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: true,
+        defaultValue: false,
       },
       pro: {
         type: DataTypes.BOOLEAN,

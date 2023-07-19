@@ -39,24 +39,22 @@ const getAllClientsApi = async () => {
 };
 
 const getClients = async () => {
-    const clients = await Client.findAll({
-        where: {
-            softDelete: null
-        },
-        include: {
-            model: Review,
-            attributes: ['id', "title", "image", "content"],
-        }
-    });
+  const clients = await Client.findAll({
+    where: {
+      softDelete: null
+    },
+    include: {
+      model: Review,
+      attributes: ["content"],
+    }
+  });
 
-    if (!clients) throw Error(`No hay clientes a mostrar`);
-    const cleanArray = await cleanArrayClient (clients);
-    return cleanArray
-
-    return clients;
+  if (!clients) throw Error(`No hay clientes a mostrar`);
+  const cleanArray = await cleanArrayClient(clients);
+  return cleanArray
 };
 
 module.exports = {
-    getClients,
-    getAllClientsApi,
+  getClients,
+  getAllClientsApi,
 }// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

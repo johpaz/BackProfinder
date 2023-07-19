@@ -5,7 +5,7 @@ const { Sequelize } = require('sequelize');
 const ProfesionalModel = require('./models/Profesional');
 const OcupationModel = require('./models/Ocupation');
 const ClientModel = require('./models/Client');
-const PostModel = require('./models/Review');
+const ReviewModel = require('./models/Review');
 const CategoryModel = require('./models/Category');
 const PostProfesionalModel = require('./models/PostProfesional');
 const UserModel = require('./models/User')
@@ -26,7 +26,7 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
 ProfesionalModel(sequelize);
 OcupationModel(sequelize);
 ClientModel(sequelize);
-PostModel(sequelize);
+ReviewModel(sequelize);
 CategoryModel(sequelize);
 PostProfesionalModel(sequelize);
 ProfesionalImagesPostModel(sequelize);
@@ -52,6 +52,16 @@ Client.hasMany(Review);
 
 Review.belongsTo(Client);
 
+Profesional.hasMany(Review);
+
+PostProfesional.hasMany(Category)
+Category.belongsTo(PostProfesional)
+
+PostProfesional.hasMany(Ocupation)
+Ocupation.belongsTo(PostProfesional)
+
+Review.belongsTo(Profesional);
+
 Profesional.hasMany(PostProfesional);
 
 PostProfesional.belongsTo(Profesional);
@@ -74,6 +84,12 @@ Profesional.belongsTo(Country);
 
 Location.hasMany(Profesional);
 Profesional.belongsTo(Location);
+
+Country.hasMany(Client);
+Client.belongsTo(Country);
+
+Location.hasMany(Client);
+Client.belongsTo(Location);
 
 // Relacionar ambos modelos:
 

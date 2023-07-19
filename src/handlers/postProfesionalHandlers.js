@@ -1,5 +1,5 @@
 //Controllers
-const { createPostProfesional, getAllPostsByProfesionals, getAllPostsByProfesionalsApi } = require("../controllers/postProfesionalcontrollers/index")
+const { createPostProfesional, getAllPostsByProfesionals, getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById } = require("../controllers/postProfesionalcontrollers/index")
 //Handlers
 
 const getAllPostsProfesionalHandler = async (req, res) => {
@@ -11,10 +11,22 @@ const getAllPostsProfesionalHandler = async (req, res) => {
   }
 };
 
-const createPostHandler = async (req, res) => {
-  const { title, image, category, ocupation, content, profesionalId } = req.body
+const getPostProfesionalId = async (req,res) => {
+  const { id } = req.params;
   try {
-    const post = await createPostProfesional(title, category, ocupation, image, content, profesionalId)
+    const postProfesional = await getPostProfesionalById(id);
+    return res.status(200).json(postProfesional);
+  } catch (error) {
+    return res.status(404).json({error : error.message});
+  }
+};
+
+const createPostHandler = async (req, res) => {
+  const { title, image, content, ProfesionalId, categories, ocupations } = req.body
+  console.log("Valor de ProfesionalId recibido en la solicitud:", ProfesionalId);
+
+  try {
+    const post = await createPostProfesional(title,  image, content, ProfesionalId,categories, ocupations,)
     return res.status(201).json(post)
   } catch (error) {
     console.log(error);
@@ -22,7 +34,29 @@ const createPostHandler = async (req, res) => {
   }
 }
 
+
+const putPostProfesional = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  const { title, image, content,  ProfesionalId,categories, ocupations } = req.body;
+  
+  try {
+        
+    const updatedPostProfesional = await updatePostProfesional(id, title, image, content, ProfesionalId, categories, ocupations);
+    
+    return res.status(200).json(updatedPostProfesional );
+  } catch (error) {
+    console.error(error);
+    return res.status(404).json({ error: error.message });
+  }
+};
+
+
+
+
 module.exports = {
   getAllPostsProfesionalHandler,
-  createPostHandler
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+  createPostHandler,
+  putPostProfesional,
+  getPostProfesionalId
+}

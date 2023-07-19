@@ -28,6 +28,8 @@ const loginUser=async (req,res) =>{
     const  typeUser= async()=>{ switch (usuario) {
         case 'c':
             const loginClient= await sequelize.query(`SELECT * FROM "Clients" WHERE "email"= '${email}'`);
+           
+          
 
             if (loginClient[0][0]==undefined) {
 

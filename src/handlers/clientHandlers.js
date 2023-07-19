@@ -1,13 +1,17 @@
 const sequelize = require('sequelize');
 // usersHandlers.js
 const { Profesional, Client } = require('../db');
-const { getClients, getAllClientsApi, createClient, updateClient, getClientById, logicDeleteClient } = require("../controllers/clientController/index")
+const { getClients, getAllClientsApi, createClient, updateClient, getClientById, logicDeleteClient, getClientByName } = require("../controllers/clientController/index")
 // Resto del código...
 
 
 const getClientsHandler = async (req, res) => {
+  const { name } = req.query
   try {
     let clients = await getClients();
+    if (name) {
+      clients = await getClientByName(name)
+    }
 
     if (!clients || clients.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
@@ -17,8 +21,10 @@ const getClientsHandler = async (req, res) => {
       clients = await getClients();
     }
 
+
     return res.status(200).json(clients);
   } catch (error) {
+    console.log(error);
     return res.status(404).json({ error: error.message });
   }
 };
@@ -40,10 +46,10 @@ const getClientByIdHandler = async (req, res) => {
 
 
 const createUserClient = async (req, res) => {
-  const { name, phone, } = req.body
+  const { name, email, password, image, genre, phone, CountryId, LocationId } = req.body
   try {
 
-    const clientCreated = await createClient(name, phone)
+    const clientCreated = await createClient(name, email, password, image, genre, phone, CountryId, LocationId)
 
     //constante donde guardo lo que retorna el controller createClient y envio la respuesta
 
@@ -56,17 +62,19 @@ const createUserClient = async (req, res) => {
 };
 const putClient = async (req, res) => {
   const { id } = req.params;
-  const { name, image, phone, genre, description, ubication,password, email} = req.body;
+  console.log(id)
+  const { name, email, password, image, genre, description, phone, CountryId, LocationId } = req.body;
+  console.log(name, email, password, image, genre, description, phone, CountryId, LocationId);
   //Guardamos la info de req.body en un objeto, para trabajar mas organizado cuando la funcion reciba el id y el mismo objeto.
-  const clientInfo = { name, image, phone, genre, description, ubication, password, email }
+  const clientInfo = { name, email, password, image, genre, description, phone }
   try {
-    const updatedClient = await updateClient(clientInfo, id)
+    const updatedClient = await updateClient(id, name, email, password, image, genre, description, phone, CountryId, LocationId)
 
 
     return res.status(200).json(updatedClient);
   } catch (error) {
     console.error(error);
-    return res.status(404).json({ error: error.message });
+    return res.status(400).json({ error: 'Error al actualizar el usuario' });
   }
 };
 

@@ -11,34 +11,31 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
         len: [5, 40] // Nombre entre 5 y 40 caracteres
       }
     },
+    password: {
+      type: DataTypes.STRING(25),
+      allowNull: true,
+      defaultValue: null,
+    },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
       unique: true,
+      allowNull: false, //Agregar phone
       validate: {
-        isEmail: true,
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      // validate: {
-      //   is: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/ //Expresion regular que valida si el nombre tiene por lo menos 1 mayuscula/minuscula/numero/caracter 
-      // }
+        isEmail: {
+          msg: 'El email no tiene un formato válido',
+        },
+      },
     },
     phone: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        is: /^[0-9]{10}$/ // Expresión regular para validar un número de teléfono de 10 dígitos
-      }
+
     },
     image: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT, //Podría ser un BLOB
       allowNull: true,
       validate: {
         isUrl: {
@@ -59,19 +56,19 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.TEXT,
       allowNull: true,
-      validate: {
-        is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
-        len: [5, 120]
-      }
+      // validate: {
+      //   is: /^[a-zA-Z\s]+$/, // Nombre debe ser una palabra o frase sin números ni símbolos
+      //   len: [5, 120]
+      // }
     },
-    ubication: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validate: {
-        len: [5, 50], // Ubicación entre 5 a 50 caracteres
-        is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
-      }
-    },
+    // ubication: {
+    //   type: DataTypes.STRING,
+    //   allowNull: true,
+    //   validate: {
+    //     len: [5, 50], // Ubicación entre 5 a 50 caracteres
+    //     is: /^[\w\s.-]+$/ // Expresión regular para validar el formato de la ubicación
+    //   }
+    // },
     active: {
       type: DataTypes.BOOLEAN,
       allowNull: false,

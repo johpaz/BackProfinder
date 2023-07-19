@@ -21,22 +21,36 @@ const loginGoogleRouter = require('./routes/googleRoutes.js');
 
 const server = express();
 
+//Subir imagenes 
+const path= require('path');
+const fs= require ('fs');
+const multer = require ('multer');
+const upload = multer({dest: 'public'})
+
 // recuperacion de las sesiones, para evitar vulnerabilidades
 server.use(cors());
 
 
 server.use(flash())
 
+server.set('views',path.join(__dirname,))
+server.set('view engine', 'pug')
+
+
 server.use(morgan('dev'));
 
 server.use(express.json());
+
+server.use(express.urlencoded({extended:false}));
+
+server.use(express.static(path.join(__dirname,'public')))
 
 server.use(passport.initialize());
 
 
 
 
-
+//server.get('/image', (req,res)=>{res.send('ox')})
 
 
 

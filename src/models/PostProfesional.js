@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   sequelize.define("PostProfesional", {
-    id: {
-      type: DataTypes.UUID,
+   id:{
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      autoIncrement: true,
     },
     title: {
       type: DataTypes.STRING,
@@ -14,14 +14,7 @@ module.exports = (sequelize) => {
         len: [5, 200] // El nombre del title debe tener mínimo 3 caracteres y máximo 200
       }
     },
-    category: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    ocupation: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
+   
     image: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,

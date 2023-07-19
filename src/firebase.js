@@ -27,7 +27,7 @@ const getImageUrl = async (filePath) => {
       action: 'read',
       expires: '03-01-2500',
     });
-    console.log('Yey');
+    console.log('Url de la imagen guardada con éxito');
     return url;
   } catch (error) {
     console.log(`Error al obtener la URL de la imagen ${error}`);

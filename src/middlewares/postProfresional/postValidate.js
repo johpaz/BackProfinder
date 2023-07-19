@@ -47,8 +47,8 @@ const validateContent = (content) => {
     }
 }
 // 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
-const validateIdProfesional = (profesionalId) => {
-    if (!profesionalId) throw Error("El posteo debe estar relacionado con el id de un profesional válido.")
+const validateIdProfesional = (id) => {
+    if (!id) throw Error("El posteo debe estar relacionado con el id de un profesional válido.")
     // if(/\d/.test(profesionalId)) throw Error(``)
 }
 

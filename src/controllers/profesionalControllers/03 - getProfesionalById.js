@@ -29,7 +29,7 @@ const getProfesionalById = async (id) => {
       },
       {
         model: PostProfesional,
-        attributes: ["id", "title", "category", "ocupation", "image", "content"]
+        attributes: ["id", "title",  "image", "content"]
       }
     ]
   });
@@ -40,4 +40,4 @@ const getProfesionalById = async (id) => {
   return formattedProfesional;
 };
 
-module.exports = getProfesionalById;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = getProfesionalById;
