@@ -54,6 +54,12 @@ Review.belongsTo(Client);
 
 Profesional.hasMany(Review);
 
+PostProfesional.hasMany(Category)
+Category.belongsTo(PostProfesional)
+
+PostProfesional.hasMany(Ocupation)
+Ocupation.belongsTo(PostProfesional)
+
 Review.belongsTo(Profesional);
 
 Profesional.hasMany(PostProfesional);
@@ -61,7 +67,7 @@ Profesional.hasMany(PostProfesional);
 PostProfesional.belongsTo(Profesional);
 
 //? Esto es para el detalle del profesional (Front)
-Profesional.hasMany(ProfesionalImagesPost); 
+Profesional.hasMany(ProfesionalImagesPost);
 
 ProfesionalImagesPost.belongsTo(Profesional);
 

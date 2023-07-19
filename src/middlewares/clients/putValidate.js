@@ -1,5 +1,7 @@
 const validateName = (name) => {
-
+    if (!name) {
+        throw Error("Por favor ingrese un nombre")
+    }
     if (typeof name !== "string") {
         throw Error("El nombre debe ser un string")
     }
@@ -16,10 +18,38 @@ const validateName = (name) => {
     // }
 }
 
+const validateEmail = (email) => {
+    if (!email) {
+        throw Error("Por favor ingrese un email")
+    };
+    if (typeof email !== "string") {
+        throw Error("El nombre debe ser un string.")
+    };
+    const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
+    const emailEnd = email.split(".")[1];
+    let regexEmail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
 
+    if (!regexEmail.test(email)) {
+        throw Error("Ingrese un email valido, Ej : usuario@gmail.com");
+    }
+    if (!emailRegexEnd.test(emailEnd)) {
+        throw Error("El email al final del dominio no puede contener numeros");
+    };
+
+
+};
+
+const validatePassword = (password) => {
+    if (!password) {
+        throw Error("Ingrese una contraseña.")
+    }
+}
 
 const validatePhone = (phone) => {
 
+    if (!phone) {
+        throw Error("Por favor ingrese un telefono")
+    }
     if (typeof phone !== "string") {
         throw Error("El tipo de dato de phone debe ser un string.")
     };
@@ -63,16 +93,18 @@ const validateUbication = (ubication) => {
 const validateImage = (image) => {
 
     const regexImage = /(https?:\/\/.*\.(?:jpg|jpeg|gif|png|svg))/i
-    if (!regexImage.test(image)) {
+    if (!regexImage.test(image[0])) {
         throw Error("La imagen debe ser una url y debe tener formato jpg|jpeg|gif|png|svg ")
     }
 
 };
 
 module.exports = (req, res, next) => {
-    const { name, phone, image, genre, description, ubication } = req.body;
+    const { name, email, password, phone, image, genre, description, ubication } = req.body;
     try {
         validateName(name)
+        validateEmail(email)
+        validatePassword(password)
         validatePhone(phone)
         validateImage(image)
         validateGenre(genre)

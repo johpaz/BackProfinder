@@ -10,9 +10,8 @@ const oAuth2Client = new google.auth.OAuth2({
 
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN })
 
-const sendEmail = async (email) => {
+const sendEmail = async () => {
     try {
-        const accessToken = await oAuth2Client.getAccessToken()
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: "smtp.gmail.com",
@@ -25,7 +24,6 @@ const sendEmail = async (email) => {
                 clientId: CLIENT_ID_EMAIL,
                 clientSecret: CLIENT_SECRET_EMAIL,
                 refreshToken: REFRESH_TOKEN,
-                accessToken: accessToken
             }
         });
         const mailOptions = {
@@ -35,10 +33,11 @@ const sendEmail = async (email) => {
             text: "Hello world?", // plain text body
             html: "<b>Hello world?</b>", // html body
         }
-        await transporter.sendEmail(mailOptions)
+        await transporter.sendMail(mailOptions)
     } catch (error) {
         console.log(error);
     }
 
 };
 
+module.exports = sendEmail

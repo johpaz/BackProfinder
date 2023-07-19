@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers: 
 
-const {createUserProfesional,logicDelete, getProfesionals,getProfesional,putProfesional} = require ('../handlers/profesionalHandlers')
+const {createUserProfesional,logicDelete, getProfesionals,getProfesional,putProfesional,getProfesionalsDelete,getProfesionalsNotDelete,getProfesionalsPremiun,getProfesionalsNotPremiun, bePremiun} = require ('../handlers/profesionalHandlers')
 
 // Middleware: 
 
@@ -17,11 +17,23 @@ const profesionalRouter = Router();
 
 profesionalRouter.get('/', getProfesionals);
 
+profesionalRouter.get('/delete', getProfesionalsDelete);
+
+profesionalRouter.get('/noDelete', getProfesionalsNotDelete);
+
+profesionalRouter.get('/premiun', getProfesionalsPremiun);
+
+profesionalRouter.get('/nopremiun', getProfesionalsNotPremiun);
+
+
+
 profesionalRouter.get('/:id', getProfesional);
 
 profesionalRouter.post('/', postValidate,createUserProfesional);
 
 profesionalRouter.put('/delete/:id', logicDelete);
+
+profesionalRouter.put('/premiun/:id', bePremiun);
 
 profesionalRouter.put('/:id',putValidate,putProfesional);
 

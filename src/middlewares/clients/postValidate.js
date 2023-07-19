@@ -50,9 +50,6 @@ const validatePassword = (password) => {
     if (!password) {
         throw Error("Ingrese una contraseña.")
     }
-    if (password.length < 6) {
-        throw Error("La contraseña debe contar con al menos 6 caracteres.")
-    }
 }
 
 const validatePhone = (phone) => {

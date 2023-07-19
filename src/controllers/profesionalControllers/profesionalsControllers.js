@@ -27,6 +27,7 @@ const cleanArray = (Array) => Array.map((elemento) => {
     return {
         id: elemento.id,
         name: elemento.name,
+        softDelete: elemento.softDelete,
         email: elemento.email,
         image: elemento.image,
         genre: elemento.genre,
@@ -105,10 +106,20 @@ const getProfById = async (id) => {
 }
 
 
+const getProfByIdActive = async (id) => {
+
+    const dbProf = await sequelize.query(
+        `UPDATE "Profesionals" set "active"=true where id=${id}`//Cuando la propiedad softDelete esta en true quiere decir que no se mostrara dentro de los Supplier, se elimina logicamente, lo cual quiere decir que no se podra ver en el Front dentro de los professionales pero seguira estando disponible en la base de datos
+    );
+
+    if (dbProf.length !== 0) { return ("El profesional ahora es premiun") }
+
+}
 
 
 module.exports = {
     searchUserProfesional,
     getAllProfesionals,
-    getProfById
+    getProfById,
+    getProfByIdActive 
 }// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

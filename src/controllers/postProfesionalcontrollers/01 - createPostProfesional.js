@@ -1,36 +1,48 @@
-const { PostProfesional } = require("../../db.js")
+const { PostProfesional, Profesional } = require("../../db.js");
 
+const createPostProfesional = async (title, image, content, ProfesionalId, category, ocupation) => {
+  console.log(title, ProfesionalId);
 
-const createPostProfesional = async (title,  image, content, ProfesionalId,category, ocupation,) => {
-  console.log(title,ProfesionalId); 
-  
-  
-  const postProfesionalFormat= {
+  const postProfesionalFormat = {
     title,
     image,
     content,
     ProfesionalId,
     category,
-    ocupation
-  }; 
+    ocupation,
+  };
 
   console.log(postProfesionalFormat);
-  
-  const newPostProfesional = await PostProfesional.create(postProfesionalFormat); //Creo el profesional
 
-  
+  // Paso 1: Obtener el profesional por su ID
+  const profesional = await Profesional.findByPk(ProfesionalId);
 
-  if(!newPostProfesional) throw EPostrror (`No se pudo crear el profesional llamado: ${title}`);
+  if (!profesional) throw new Error(`El profesional con ID ${ProfesionalId} no existe`);
+
+  // Paso 2: Verificar si el profesional está inactivo y ya tiene un post existente
+  if (!profesional.active) {
+    const existingPost = await PostProfesional.findOne({
+      where: { ProfesionalId },
+    });
+
+    if (existingPost) {
+      throw new Error("El profesional está inactivo y ya tiene un post existente");
+    }
+  }
+
+  // Paso 3: Crear el nuevo post si todo está bien
+  const newPostProfesional = await PostProfesional.create(postProfesionalFormat);
+
+  if (!newPostProfesional) throw new Error(`No se pudo crear el profesional llamado: ${title}`);
 
   return {
     id: newPostProfesional.id,
     title: newPostProfesional.title,
-    content:newPostProfesional.content,
+    content: newPostProfesional.content,
     ProfesionalId: newPostProfesional.ProfesionalId,
     category: newPostProfesional.category,
-    ocupation: newPostProfesional.ocupation
+    ocupation: newPostProfesional.ocupation,
   };
-    
-}; 
+};
 
-module.exports = createPostProfesional// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = createPostProfesional;

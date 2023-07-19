@@ -24,7 +24,7 @@ const getClientsHandler = async (req, res) => {
 
     return res.status(200).json(clients);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(404).json({ error: error.message });
   }
 };
@@ -74,7 +74,7 @@ const putClient = async (req, res) => {
     return res.status(200).json(updatedClient);
   } catch (error) {
     console.error(error);
-    return res.status(400).json({ error: 'Error al actualizar el usuario' });
+    return res.status(400).json({ error: error.message});
   }
 };
 
@@ -88,7 +88,6 @@ const logicDeleteHandler = async (req, res) => {
 
   } catch (error) {
     res.status(400).json({ error: error.message })
-
   }
 }
 

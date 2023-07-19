@@ -1,7 +1,16 @@
 // Controllers:
 
-const { searchUserProfesional, getProfById } = require("../controllers/profesionalControllers/profesionalsControllers")
-const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional } = require('../controllers/profesionalControllers/index');
+const { Profesional } = require('../db');
+const { Category } = require('../db');
+const { Ocupation } = require('../db');
+const { Country } = require('../db');
+const { Location } = require('../db');
+const { PostProfesional } = require("../db")
+const cleanArray = require('../helpers/cleanArrayProfesionals')
+
+
+const { searchUserProfesional, getProfById, getProfByIdActive } = require("../controllers/profesionalControllers/profesionalsControllers")
+const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional,getAllProfesionalsDelete} = require('../controllers/profesionalControllers/index');
 // const getProfesionals = async (req, res) => {
 //   const {name}= req.query
 
@@ -19,6 +28,219 @@ const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesio
 
 // Handlers: 
 
+
+
+
+const getProfesionalsPremiun = async (req, res) => {
+
+  try {
+    //console.log('hola1')
+    const profesionals = await Profesional.findAll( {
+              where: {
+                  active: true},
+  
+        include: [
+          {
+            model: Category,
+            attributes: ["id", "name"],
+            through: { attributes: [] }
+          },
+          {
+            model: Ocupation,
+            attributes: ["id", "name", "CategoryId"],
+            through: { attributes: [] }
+          },
+          {
+            model: PostProfesional,
+            attributes: ["id", "title",  "image", "content"]
+          },
+        ]
+      });
+   
+
+      //const cleanedArray = cleanArray(profesionals)
+
+//console.log (cleanedArray)
+
+
+    if (!profesionals || profesionals.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      return res.status(200).json({message: 'Actualmente no hay profesionales premiun'});
+    
+    }
+
+    else
+    {return res.status(200).json(profesionals)};
+  } catch (error) {
+    
+    return res.status(404).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
+
+
+const getProfesionalsNotPremiun = async (req, res) => {
+  try {
+    //console.log('hola1')
+    const profesionals = await Profesional.findAll( {
+              where: {
+                  active: false},
+  
+        include: [
+          {
+            model: Category,
+            attributes: ["id", "name"],
+            through: { attributes: [] }
+          },
+          {
+            model: Ocupation,
+            attributes: ["id", "name", "CategoryId"],
+            through: { attributes: [] }
+          },
+          {
+            model: PostProfesional,
+            attributes: ["id", "title",  "image", "content"]
+          },
+        ]
+      });
+   
+
+      //const cleanedArray = cleanArray(profesionals)
+
+//console.log (cleanedArray)
+
+
+    if (!profesionals || profesionals.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      return res.status(200).json({message: 'Actualmente todos los profesionales son premiun'});
+    
+    }
+
+    else
+    {return res.status(200).json(profesionals)};
+  } catch (error) {
+    
+    return res.status(404).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
+
+const getProfesionalsDelete = async (req, res) => {
+
+  try {
+    //console.log('hola1')
+    const profesionals = await Profesional.findAll( {
+              where: {
+                  softDelete: true},
+  
+        include: [
+          {
+            model: Category,
+            attributes: ["id", "name"],
+            through: { attributes: [] }
+          },
+          {
+            model: Ocupation,
+            attributes: ["id", "name", "CategoryId"],
+            through: { attributes: [] }
+          },
+          {
+            model: PostProfesional,
+            attributes: ["id", "title",  "image", "content"]
+          },
+        ]
+      });
+   
+
+      //const cleanedArray = cleanArray(profesionals)
+
+//console.log (cleanedArray)
+
+
+    if (!profesionals || profesionals.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      return res.status(200).json({message: 'Actualmente no hay profesionales baneados'});
+    
+    }
+
+    else
+    {return res.status(200).json(profesionals)};
+  } catch (error) {
+    
+    return res.status(404).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
+
+
+const getProfesionalsNotDelete = async (req, res) => {
+  try {
+    //console.log('hola1')
+    const profesionals = await Profesional.findAll( {
+              where: {
+                  softDelete: null},
+  
+        include: [
+          {
+            model: Category,
+            attributes: ["id", "name"],
+            through: { attributes: [] }
+          },
+          {
+            model: Ocupation,
+            attributes: ["id", "name", "CategoryId"],
+            through: { attributes: [] }
+          },
+          {
+            model: PostProfesional,
+            attributes: ["id", "title",  "image", "content"]
+          },
+        ]
+      });
+   
+
+      //const cleanedArray = cleanArray(profesionals)
+
+//console.log (cleanedArray)
+
+
+    if (!profesionals || profesionals.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      return res.status(200).json({message: 'Actualmente todos los profesionales estan baneados'});
+    
+    }
+
+    else
+    {return res.status(200).json(profesionals)};
+  } catch (error) {
+    
+    return res.status(404).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
+
+
+
 const getProfesionals = async (req, res) => {
   const { name } = req.query
   try {
@@ -35,7 +257,7 @@ const getProfesionals = async (req, res) => {
       profesionals = await getAllProfesionals();
     }
 
-    console.log(profesionals);
+    // console.log(profesionals);
     return res.status(200).json(profesionals);
   } catch (error) {
     console.log(error);
@@ -53,6 +275,31 @@ const getProfesional = async (req, res) => {
   };
 };
 
+
+
+const bePremiun = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbProf = await getProfByIdActive(id);
+
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    else res.status(200).json(dbProf)
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  };
+};
+
+
+
+
+
+
+
+
+
+
+
 const logicDelete = async (req, res) => {
   const { id } = req.params;
   try {
@@ -65,6 +312,13 @@ const logicDelete = async (req, res) => {
     res.status(400).json({ error: error.message })
   };
 };
+
+
+
+
+
+
+
 
 const createUserProfesional = async (req, res) => {
   const { name, email, password, image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
@@ -92,5 +346,5 @@ const putProfesional = async (req, res) => {
 module.exports = {
   createUserProfesional,
   getProfesionals, getProfesional,
-  logicDelete, putProfesional
+  logicDelete, putProfesional,getProfesionalsDelete,getProfesionalsNotDelete, getProfesionalsPremiun,getProfesionalsNotPremiun, bePremiun
 };// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
