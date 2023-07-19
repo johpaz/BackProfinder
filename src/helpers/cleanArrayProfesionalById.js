@@ -13,7 +13,7 @@ const cleanArrayProfesionalId = async (profesionalId) => {
           id: category.id,
           category: category.name,
           ocupations: ocupations.map((ocupation) => ({
-            id: ocupation.id,
+            id: ocupation.id, 
             name: ocupation.name
           }))
         };
@@ -79,7 +79,10 @@ const cleanArrayProfesionalId = async (profesional) => {
     },
     professions: professions,
     jobimages: profesional.ProfesionalImagesPosts,
-    posts: profesional.PostProfesionals
+    posts: profesional.PostProfesionals{
+      category: categories ? categories.name: null,
+      ocupation: ocupations ? ocupations.name: null
+    }
   };
 };
 

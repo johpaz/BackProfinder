@@ -7,21 +7,18 @@ const { PostProfesional } = require("../../db");
 const cleanArrayProfesionalId = require('../../helpers/cleanArrayProfesionalById');
 
 const getProfesionalById = async (id) => {
-
-  const parseNumber = Number(id)
-  if (!Number(id)) throw Error(`El id debe ser númerico!`);
+  const parseNumber = Number(id);
+  if (!Number(id)) throw Error(`El id debe ser numérico!`);
 
   const profesional = await Profesional.findByPk(parseNumber, {
     include: [
       {
         model: Category,
         attributes: ["id", "name"],
-        through: { attributes: [] }
       },
       {
         model: Ocupation,
-        attributes: ["id", "name", "CategoryId"],
-        through: { attributes: [] }
+        attributes: ["id", "name"],
       },
       {
         model: ProfesionalImagesPost,
@@ -29,13 +26,13 @@ const getProfesionalById = async (id) => {
       },
       {
         model: PostProfesional,
-        attributes: ["id", "title",  "image", "content"]
+        attributes: ["id", "title", "image", "content"]
       }
     ]
   });
-  // console.log(profesional);
+
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
-  // const formattedProfesional = cleanArrayProfesionalId(profesional); //Para que el por id sea un objeto y no un array
+
   const formattedProfesional = cleanArrayProfesionalId([profesional]);
   return formattedProfesional;
 };

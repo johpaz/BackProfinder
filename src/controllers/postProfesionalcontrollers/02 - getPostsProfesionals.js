@@ -28,15 +28,31 @@ const getAllPostsByProfesionalsApi = () => {
   };
   
 
-const getAllPostsByProfesionals = async () => {
-    const posts = await PostProfesional.findAll()
+  const getAllPostsByProfesionals = async () => {
+    const posts = await PostProfesional.findAll({
+        include: [
+            {
+                model: Category,
+                as: 'categories', // Así se debe llamar el alias de la relación en el modelo PostProfesional
+                through: { attributes: ["name"] }, // Si solo quieres los campos de la tabla intermedia, deja esto así
+            },
+            {
+                model: Occupation,
+                as: 'occupations', // Así se debe llamar el alias de la relación en el modelo PostProfesional
+                through: { attributes: ["name"] }, // Si solo quieres los campos de la tabla intermedia, deja esto así
+            },
+        ],
+    });
+
     if (!posts) {
-        throw Error("Hubo un error a la hora de mostrar los posteos")
+        throw new Error("Hubo un error a la hora de mostrar los posteos");
     }
-    return posts
-}
+
+    return posts;
+};
+
 
 module.exports = {
     getAllPostsByProfesionals,
     getAllPostsByProfesionalsApi
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}
