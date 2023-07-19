@@ -48,6 +48,14 @@ module.exports = (sequelize) => {
         },
       },
     },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    ocupation: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   }, {
     timestamps: false,
   })

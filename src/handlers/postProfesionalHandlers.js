@@ -22,11 +22,11 @@ const getPostProfesionalId = async (req,res) => {
 };
 
 const createPostHandler = async (req, res) => {
-  const { title, image, content, ProfesionalId, categories, ocupations } = req.body
+  const { title, image, content, ProfesionalId, category, ocupation } = req.body
   console.log("Valor de ProfesionalId recibido en la solicitud:", ProfesionalId);
 
   try {
-    const post = await createPostProfesional(title,  image, content, ProfesionalId,categories, ocupations,)
+    const post = await createPostProfesional(title,  image, content, ProfesionalId,category, ocupation,)
     return res.status(201).json(post)
   } catch (error) {
     console.log(error);
@@ -38,11 +38,11 @@ const createPostHandler = async (req, res) => {
 const putPostProfesional = async (req, res) => {
   const { id } = req.params;
   console.log(id);
-  const { title, image, content,  ProfesionalId,categories, ocupations } = req.body;
+  const { title, image, content,  ProfesionalId, category, ocupation } = req.body;
   
   try {
         
-    const updatedPostProfesional = await updatePostProfesional(id, title, image, content, ProfesionalId, categories, ocupations);
+    const updatedPostProfesional = await updatePostProfesional(id, title, image, content, ProfesionalId, category, ocupation);
     
     return res.status(200).json(updatedPostProfesional );
   } catch (error) {

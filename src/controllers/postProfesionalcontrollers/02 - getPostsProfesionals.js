@@ -11,6 +11,7 @@ const getAllPostsByProfesionalsApi = () => {
           image: [post.image],
           content: post.content, 
           ProfesionalId: post.profesionalId,
+          
         };
         return PostProfesional.findOrCreate({where:postFormat})
       });
@@ -29,20 +30,7 @@ const getAllPostsByProfesionalsApi = () => {
   
 
   const getAllPostsByProfesionals = async () => {
-    const posts = await PostProfesional.findAll({
-        include: [
-            {
-                model: Category,
-                as: 'categories', // Así se debe llamar el alias de la relación en el modelo PostProfesional
-                through: { attributes: ["name"] }, // Si solo quieres los campos de la tabla intermedia, deja esto así
-            },
-            {
-                model: Occupation,
-                as: 'occupations', // Así se debe llamar el alias de la relación en el modelo PostProfesional
-                through: { attributes: ["name"] }, // Si solo quieres los campos de la tabla intermedia, deja esto así
-            },
-        ],
-    });
+    const posts = await PostProfesional.findAll()
 
     if (!posts) {
         throw new Error("Hubo un error a la hora de mostrar los posteos");
