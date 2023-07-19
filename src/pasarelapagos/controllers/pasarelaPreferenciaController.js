@@ -37,7 +37,7 @@ async function crearPreferencia(req, res, next) {
     };
 
     const response = await mercadopago.preferences.create(preference);
-    res.json({ response });
+    res.json({ id });
   } catch (error) {
     next(error);
   }
