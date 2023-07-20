@@ -22,7 +22,7 @@ const cleanArrayProfesionalId = async (profesionalId) => {
       return {
         id: profesional.id,
         name: profesional.name,
-        email: profesional.email,
+        email: profesional.email.toLowerCase(),
         image: profesional.image,
         genre: profesional.genre,
         rating: profesional.rating,

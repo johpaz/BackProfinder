@@ -3,7 +3,7 @@ const cleanArrayClient = (clients)=>{
     return {
       id: client.id,
       name: client.name,
-      email: client.email,
+      email: client.email.toLowerCase(),
       image: client.image,
       genre: client.genre,
       ubication: client.ubication,

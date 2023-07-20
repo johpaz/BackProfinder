@@ -6,7 +6,7 @@ const { Location } = require('../../db');
 const { Op } = require('sequelize');
 const { getImageUrl } = require('../../firebase');
 
-const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId, LocationId) => {
+const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId= null, LocationId = null) => {
   console.log("--image en el controller--");
   console.log(image)
   console.log("-- image sin arreglo --")

@@ -13,7 +13,7 @@ const getAllClientsApi = async () => {
     const normalizedClients = apiData.clients.map(apiClient => {
       const normalizedClient = {
         name: apiClient.name ? apiClient.name.trim().slice(0, 40) : '',
-        email: apiClient.email ? apiClient.email.trim() : '',
+        email: apiClient.email ? apiClient.email.trim().toLowerCase() : '',
         password: apiClient.password,
         phone: apiClient.phone ? apiClient.phone.replace(/\D/g, "").slice(0, 10) : '',
         image: apiClient.image ? apiClient.image.trim() : '',

@@ -101,6 +101,11 @@ module.exports = async (req,res,next) => {
   const { id } = req.params;
   const { name, email, password,image, genre, years_exp, categories, ocupations, phone, ubication, CountryId, LocationId } = req.body;
   try {
+    // const clientEmail = await Client.findOne({where:{email:email}});
+    // if(clientEmail) throw Error(`El correo: ${email} está asociado a un cliente`);
+    
+    // const profesionalEmail = await Profesional.findOne({where:{email: email}});
+    // if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
     // console.log(image); // https://firebasestorage.googleapis.com/v0/b/react-imagenes-profinder.appspot.com/o/27e055e8-883e-4ce3-9d53-08128628fe13.jpg?alt=media&token=978040e0-44cb-44a7-ad58-dcec5a95c0cd
     validateId(id);
     // validateEmail(email);

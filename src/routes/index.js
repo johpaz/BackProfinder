@@ -18,6 +18,7 @@ const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
 const loginGoogleRouter=require('./googleRoutes');
 const insertImage=require('./insertImage');
+const contactRouter = require('./contactRoutes');
 
 // Router: 
 
@@ -54,6 +55,8 @@ router.use('/location',locationRouter);
 router.use('/auth/google', loginGoogleRouter) //google
 
 router.use('/image', insertImage)
+
+router.use('/relation',contactRouter); // ClientProfesionalRelation
 
 // Esto es para mande un error en caso de que le peguen a una ruta que no hemos desarrollado -> http://localhost:3001/profesional-categories
 // router.use((req, res, next) => {

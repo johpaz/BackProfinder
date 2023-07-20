@@ -14,7 +14,7 @@ const getClientsByName = async (name) => {
             }
         },
     });
-    if (clientByName.length === 0) throw Error(`No hay profesionales llamados ${query}`);
+    if (clientByName.length === 0) throw Error(`No hay clientes llamados ${query}`);
 
     const formattedClients = cleanArrayClient(clientByName);
 

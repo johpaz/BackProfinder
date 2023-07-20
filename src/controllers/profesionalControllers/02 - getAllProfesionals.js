@@ -26,7 +26,7 @@ const getAllProfesionalApi = async () => {
       const normalizedProfessional = {
 
         name: name.slice(0, 40),
-        email: apiProfessional.email ? apiProfessional.email.trim() : '',
+        email: apiProfessional.email ? apiProfessional.email.trim().toLowerCase() : '',
         phone: apiProfessional.phone ? apiProfessional.phone.replace(/\D/g, "").slice(0, 10) : '',
         password: apiProfessional.password,
         image: apiProfessional.image ? apiProfessional.image.trim() : '',

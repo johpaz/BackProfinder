@@ -9,7 +9,7 @@ const { PostProfesional } = require("../db")
 const cleanArray = require('../helpers/cleanArrayProfesionals')
 
 
-const { searchUserProfesional, getProfById, getProfByIdActive } = require("../controllers/profesionalControllers/profesionalsControllers")
+const { searchUserProfesional, getProfById, getProfByIdActive,getProfByIdReverse,getProfByIdNotActive } = require("../controllers/profesionalControllers/profesionalsControllers")
 const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional,getAllProfesionalsDelete} = require('../controllers/profesionalControllers/index');
 // const getProfesionals = async (req, res) => {
 //   const {name}= req.query
@@ -290,7 +290,18 @@ const bePremiun = async (req, res) => {
   };
 };
 
+const notBePremiun = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbProf = await getProfByIdNotActive(id);
 
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    else res.status(200).json(dbProf)
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  };
+};
 
 
 
@@ -313,7 +324,18 @@ const logicDelete = async (req, res) => {
   };
 };
 
+const reverseDelete = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbProf = await getProfByIdReverse(id);
 
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    else res.status(200).json(dbProf)
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  };
+};
 
 
 
@@ -346,5 +368,5 @@ const putProfesional = async (req, res) => {
 module.exports = {
   createUserProfesional,
   getProfesionals, getProfesional,
-  logicDelete, putProfesional,getProfesionalsDelete,getProfesionalsNotDelete, getProfesionalsPremiun,getProfesionalsNotPremiun, bePremiun
+  logicDelete, putProfesional,getProfesionalsDelete,getProfesionalsNotDelete, getProfesionalsPremiun,getProfesionalsNotPremiun, bePremiun,reverseDelete, notBePremiun
 };// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

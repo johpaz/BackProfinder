@@ -1,8 +1,35 @@
 const sequelize = require('sequelize');
 // usersHandlers.js
 const { Profesional, Client } = require('../db');
-const { getClients, getAllClientsApi, createClient, updateClient, getClientById, logicDeleteClient, getClientByName } = require("../controllers/clientController/index")
+const { getClients, getAllClientsApi, createClient, updateClient, getClientById, logicDeleteClient,reverseDeleteClient, getClientByName, getAllClients,getClientsBaneados} = require("../controllers/clientController/index")
 // Resto del código...
+
+
+
+
+const getAllClientsHandler = async (req, res) => {
+  const { name } = req.query
+  try {
+    let clients = name? await getClientByName(name) :await Client.findAll();
+    // if (name) {
+    //   clients = 
+    // }
+
+    if (!clients || clients.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      await getAllClientsApi();
+
+      // Obtener los clientes actualizados
+      //clients = await getAllClients();
+    }
+
+
+    return res.status(200).json(clients);
+  } catch (error) {
+    // console.log(error);
+    return res.status(404).json({ error: error.message });
+  }
+};
 
 
 const getClientsHandler = async (req, res) => {
@@ -28,6 +55,32 @@ const getClientsHandler = async (req, res) => {
     return res.status(404).json({ error: error.message });
   }
 };
+
+const getClientsBaneadosHandler= async (req, res) => {
+  //const { name } = req.query
+  try {
+    let clients = await getClientsBaneados();
+    // if (name) {
+    //   clients = await getClientByName(name)
+    // }
+
+    if (!clients || clients.length === 0) {
+      // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
+      //await getAllClientsApi();
+      return res.status(200).json({message: "Actualmente no hay clientes baneados"});
+      // Obtener los clientes actualizados
+     // clients = await getClients();
+    }
+
+
+    else {return res.status(200).json(clients)};
+  } catch (error) {
+    // console.log(error);
+    return res.status(404).json({ error: error.message });
+  }
+};
+
+
 
 
 const getClientByIdHandler = async (req, res) => {
@@ -83,8 +136,23 @@ const logicDeleteHandler = async (req, res) => {
   try {
     const dbProf = await logicDeleteClient(id);
 
-    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    if (dbProf.length === 0) { res.send("El cliente no ha sido encontrado") }
     else res.status(200).json(dbProf)
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
+
+
+const  reverseDeleteHandler= async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbClient = await reverseDeleteClient(id);
+
+    if (dbClient .length === 0) { res.send("El cliente no ha sido encontrado") }
+    else res.status(200).json(dbClient)
 
   } catch (error) {
     res.status(400).json({ error: error.message })
@@ -96,6 +164,9 @@ module.exports = {
   getClientByIdHandler,
   putClient,
   createUserClient,
-  logicDeleteHandler
+  logicDeleteHandler,
+  getAllClientsHandler,
+  reverseDeleteHandler,
+  getClientsBaneadosHandler
 };
 // 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
