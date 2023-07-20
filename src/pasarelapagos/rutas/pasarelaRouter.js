@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers:
 
-const pasarelaHandler = require('../handler/pasrelaHandler');
+const pasarelaHandler = require('../handler/pasarelaHandler');
 
 // Middlewares en caso de usar:
 

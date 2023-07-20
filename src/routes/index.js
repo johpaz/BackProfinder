@@ -18,6 +18,7 @@ const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
 const loginGoogleRouter=require('./googleRoutes');
 const insertImage=require('./insertImage');
+const premiumRouter = require('../pasarelapagos/rutas/premiumRouter');
 const contactRouter = require('./contactRoutes');
 
 // Router: 
@@ -25,6 +26,7 @@ const contactRouter = require('./contactRoutes');
 const router = Router();
 
 // Enrutado:
+router.use('/premium', premiumRouter); // Clientes 
 
 router.use('/cash', pasarelaRouter); // Clientes 
 
