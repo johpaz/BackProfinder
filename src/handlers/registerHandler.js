@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const { sequelize } = require("../db");
-const sendEmail = require("../configs/nodemailer/sendEmailConfirmation");
+//const sendEmail = require("../configs/nodemailer/sendEmailConfirmation");
 const { admin } = require("googleapis/build/src/apis/admin");
 
 

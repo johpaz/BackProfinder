@@ -98,7 +98,7 @@ const execute= async (accessToken, refreshToken, profile, done) =>{
 const authgoogle =new GoogleStrategy ({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "https://backprofinder-production.up.railway.app/auth/google"//primera autentica y por ahora lleva a home
+    callbackURL: "http://localhost:3001/auth/google"//primera autentica y por ahora lleva a home
   }, execute)
 
 
