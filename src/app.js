@@ -5,8 +5,8 @@ const { PORT} = process.env;
 const { sequelize } = require('./db');
 
 app.listen(PORT,()=>{
-    
-  sequelize.sync({alter:true}) //// Luego será alter:true terminando la etapa de pruebas
+     
+  sequelize.sync({force:true}) //// Luego será alter:true terminando la etapa de pruebas
 
   console.log(`Server on port ${PORT}`);
 });
