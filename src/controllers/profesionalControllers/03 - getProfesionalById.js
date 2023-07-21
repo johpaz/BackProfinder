@@ -47,7 +47,7 @@ const getProfesionalById = async (id) => {
 
   const formattedProfesional = cleanArrayProfesionalId(profesional);
   // return profesional;
-  return formattedProfesional;
+  return [formattedProfesional];
 };
 
 module.exports = getProfesionalById;

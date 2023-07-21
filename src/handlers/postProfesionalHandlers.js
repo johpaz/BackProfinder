@@ -1,5 +1,5 @@
 //Controllers
-const { createPostProfesional, getAllPostsByProfesionals, getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById } = require("../controllers/postProfesionalcontrollers/index")
+const { createPostProfesional, logicDeletePostProfesional, getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById, } = require("../controllers/postProfesionalcontrollers/index")
 //Handlers
 
 const getAllPostsProfesionalHandler = async (req, res) => {
@@ -49,7 +49,20 @@ const putPostProfesional = async (req, res) => {
     console.error(error);
     return res.status(404).json({ error: error.message });
   }
+  
 };
+const logicPostProfesionalHandler = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dbPost = await logicDeletePostProfesional(id);
+
+    if (dbPost.length === 0) { res.send("El Post no ha sido encontrado") }
+    else res.status(200).json(dbPost)
+
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
 
 
 
@@ -58,5 +71,6 @@ module.exports = {
   getAllPostsProfesionalHandler,
   createPostHandler,
   putPostProfesional,
-  getPostProfesionalId
+  getPostProfesionalId,
+  logicPostProfesionalHandler
 }
