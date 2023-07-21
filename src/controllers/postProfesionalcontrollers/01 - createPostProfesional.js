@@ -26,7 +26,7 @@ const createPostProfesional = async (title, image, content, ProfesionalId, categ
     });
 
     if (existingPost) {
-      throw new Error("El profesional está inactivo y ya tiene un post existente");
+      throw new Error("El profesional no esta activo en el Plan Premium y ya tiene un post existente");
     }
   }
 

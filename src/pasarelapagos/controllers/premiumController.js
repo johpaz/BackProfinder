@@ -17,7 +17,7 @@ async function updatePremiumStatus(req, res, next) {
     });
 
     if (!premium) {
-      throw new Error('El modelo Premium no fue encontrado.');
+      throw new Error('El preferenciaId no fue encontrada.');
     }
 
     // Actualiza el estado active a true en el modelo Premium
@@ -36,7 +36,7 @@ async function updatePremiumStatus(req, res, next) {
     }
 
     // Responde con una respuesta de éxito
-    res.json({ message: 'Estados actualizados con éxito.' });
+    res.json({ message: 'Estados actualizados con éxito en la BD.' });
   } catch (error) {
     next(error);
   }

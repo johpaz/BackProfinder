@@ -12,7 +12,7 @@ const createContact = async  (id,profesionalId) => {
   const clientWithProfesionals = await Client.findByPk(id,{
     include:{
       model:Profesional,
-      attributes: ["id","name","email","image"],
+      attributes: ["id","name","email","image","rating"],
       through: { attributes: []} 
     }
   });

@@ -1,6 +1,7 @@
 const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
+const { Country,Location } = require('../../db');
 const { ProfesionalImagesPost } = require('../../db');
 const { PostProfesional } = require("../../db");
 
@@ -15,10 +16,21 @@ const getProfesionalById = async (id) => {
       {
         model: Category,
         attributes: ["id", "name"],
+        through: { attributes: [] } 
+
       },
       {
         model: Ocupation,
+        attributes: ["id", "name","CategoryId"],
+        through: { attributes: [] } 
+      },
+      {
+        model: Country,
         attributes: ["id", "name"],
+      },
+      {
+        model: Location,
+        attributes: ["id", "name","CountryId"],
       },
       {
         model: ProfesionalImagesPost,
@@ -33,7 +45,8 @@ const getProfesionalById = async (id) => {
 
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
 
-  const formattedProfesional = cleanArrayProfesionalId([profesional]);
+  const formattedProfesional = cleanArrayProfesionalId(profesional);
+  // return profesional;
   return formattedProfesional;
 };
 

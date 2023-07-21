@@ -1,16 +1,19 @@
-const { Router } = require('express');
+const { Router } = require("express");
 
 const { sequelize } = require("../db");
 
-const { loginUser, passportHandler }=require('../handlers/loginHandler');
+const {
+  loginUser,
+  passportHandler,
+  putPasswordForgot,
+} = require("../handlers/loginHandler");
 
-const passport= require ('passport')
-
+const passport = require("passport");
 
 const loginRouter = Router();
 
-loginRouter.post('/', loginUser)
-
+loginRouter.post("/", loginUser);
+loginRouter.put("/", putPasswordForgot);
 
 /* loginRouter.post('/', passport.authenticate('local',{
     successRedirect : '/', //En caso de que la autenticacion es satifactoria dirigide al dashboard, por ahora va a home
@@ -18,6 +21,4 @@ loginRouter.post('/', loginUser)
     failureFlash: true //mensaje flash de error activado
 })); */
 
-
-
-module.exports= loginRouter;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = loginRouter; // 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

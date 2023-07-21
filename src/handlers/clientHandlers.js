@@ -109,7 +109,7 @@ const createUserClient = async (req, res) => {
     return res.status(201).json(clientCreated);
   } catch (error) {
     //En caso de que falten datos, se envia la respuesta con un mensaje de error
-    console.log(error);
+    // console.log(error);
     return res.status(400).json({ error: error.message });
   }
 };
@@ -126,7 +126,7 @@ const putClient = async (req, res) => {
 
     return res.status(200).json(updatedClient);
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return res.status(400).json({ error: error.message});
   }
 };
