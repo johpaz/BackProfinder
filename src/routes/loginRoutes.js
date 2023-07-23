@@ -5,15 +5,17 @@ const { sequelize } = require("../db");
 const {
   loginUser,
   passportHandler,
-  putPasswordForgot,
+  changePasswordLogin,
 } = require("../handlers/loginHandler");
+
+const putValidate = require("../middlewares/users/putValidate")
 
 const passport = require("passport");
 
 const loginRouter = Router();
 
 loginRouter.post("/", loginUser);
-loginRouter.put("/", putPasswordForgot);
+loginRouter.put("/", putValidate, changePasswordLogin);
 
 /* loginRouter.post('/', passport.authenticate('local',{
     successRedirect : '/', //En caso de que la autenticacion es satifactoria dirigide al dashboard, por ahora va a home
