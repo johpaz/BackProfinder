@@ -55,6 +55,10 @@ const loginUser = async (req, res) => {
           `SELECT * FROM "Clients" WHERE "email"= '${email}'`
         );
 
+        if (loginClient[0][0].softDelete === true) {
+          res.status(400).json({ message: "Lo sentimos, pero estas baneado en la app." })
+          break;
+        }
         if (loginClient[0][0] == undefined) {
           res.status(400).json({
             usuario: usuario,
@@ -79,7 +83,10 @@ const loginUser = async (req, res) => {
         const loginProf = await sequelize.query(
           `SELECT * FROM "Profesionals" WHERE "email"= '${email}'`
         );
-
+        if (loginProf[0][0].softDelete === true) {
+          res.status(400).json({ message: "Lo sentimos, pero estas baneado en la app." })
+          break;
+        }
         if (loginProf[0][0] == undefined) {
           res.status(200).json({
             usuario: usuario,
