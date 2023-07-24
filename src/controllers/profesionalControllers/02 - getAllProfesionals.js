@@ -88,7 +88,7 @@ const getAllProfesionals = async () => {
         },
         {
           model: PostProfesional,
-          attributes: ["id", "title",  "image", "content"]
+          attributes: ["id", "title", "image", "content", "softDelete"],
         },
       ]
     });
@@ -109,7 +109,7 @@ const getAllProfesionals = async () => {
           },
           {
             model: PostProfesional,
-            attributes: ["title", "image", "content"],
+            attributes: ["title", "image", "content", "softDelete"],
           }
         ]
       });
@@ -117,6 +117,12 @@ const getAllProfesionals = async () => {
 
     if (profesionals.length === 0 || !profesionals) throw Error(`No hay profesionales a buscar`);
 
+    // Filtrar los posts con softDelete en false
+    profesionals = profesionals.map(profesional => {
+      const filteredPosts = profesional.PostProfesionals.filter(post => !post.softDelete || post.softDelete === false);
+      profesional.PostProfesionals = filteredPosts;
+      return profesional;
+    });
 
     const cleanedArray = cleanArray(profesionals);
 
@@ -126,7 +132,6 @@ const getAllProfesionals = async () => {
     throw Error(error.message);
   }
 };
-
 
 //console.log (getAllProfesionals())
 module.exports = { getAllProfesionals, getAllProfesionalApi };
