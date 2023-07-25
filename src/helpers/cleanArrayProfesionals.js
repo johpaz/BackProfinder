@@ -1,6 +1,7 @@
 const {Country,Location} = require('../db');
 
 const cleanArray = async (profesionals) => {
+  console.log(profesionals);
   const professionsWithLocation = await Promise.all(
     profesionals.map(async (profesional) => {
       const country = await Country.findByPk(profesional.CountryId);

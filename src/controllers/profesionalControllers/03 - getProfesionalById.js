@@ -1,8 +1,10 @@
-const { Profesional, PostProfesional } = require('../../db');
+const { Profesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
-const { Country, Location } = require('../../db');
+const { Country,Location } = require('../../db');
 const { ProfesionalImagesPost } = require('../../db');
+const { PostProfesional } = require("../../db");
+const { Review } = require("../../db");
 
 const cleanArrayProfesionalId = require('../../helpers/cleanArrayProfesionalById');
 
@@ -16,10 +18,11 @@ const getProfesionalById = async (id) => {
         model: Category,
         attributes: ["id", "name"],
         through: { attributes: [] } 
+
       },
       {
         model: Ocupation,
-        attributes: ["id", "name", "CategoryId"],
+        attributes: ["id", "name","CategoryId"],
         through: { attributes: [] } 
       },
       {
@@ -28,7 +31,7 @@ const getProfesionalById = async (id) => {
       },
       {
         model: Location,
-        attributes: ["id", "name", "CountryId"],
+        attributes: ["id", "name","CountryId"],
       },
       {
         model: ProfesionalImagesPost,
@@ -36,20 +39,18 @@ const getProfesionalById = async (id) => {
       },
       {
         model: PostProfesional,
-        attributes: ["id", "title", "image", "content", "softDelete"], // Incluir también la propiedad softDelete
+        attributes: ["id", "title", "image", "content"]
+      },{
+        model: Review,
+        attributes: ["content", "rating"]
       }
     ]
   });
 
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
 
-  // Filtrar los posts con softDelete en false
-  const filteredPosts = profesional.PostProfesionals.filter((post) => !post.softDelete || post.softDelete === false);
-
-  // Reemplazar el array original de posts con el array filtrado
-  profesional.PostProfesionals = filteredPosts;
-
   const formattedProfesional = cleanArrayProfesionalId(profesional);
+  // return profesional;
   return [formattedProfesional];
 };
 

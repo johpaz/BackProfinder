@@ -1,13 +1,15 @@
 //Controllers
-const { getAllPostsByClients, getAllPostsByClientsApi, createPost, getPostsClient, createReview } = require("../controllers/reviewsControllers/index")
+const { getAllReviews, createReview, updateRatingProfesional } = require("../controllers/reviewsControllers/index")
 
 //Handlers
 
 const getAllReviewsHandler = async (req, res) => {
     try {
-        const reviews = await getReviews();
-        return res.status(200).json(posts)
+        
+        const reviews = await getAllReviews();
+        return res.status(200).json(reviews)
     } catch (error) {
+        
         return res.status(204).json({ error: error.message });
     };
 };

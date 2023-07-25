@@ -14,9 +14,6 @@ const getAllProfesionalApi = async () => {
   try {
     const response = await axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/profesionales.json');
     const apiData = response.data
-    // console.log(apiData)
-    // console.log(apiData.profesionales.map((profesional)=>profesional.categorias))
-    // console.log(apiData.profesionales.map((profesional)=>profesional.profesiones))
 
     // Mapear los datos de la API en el formato esperado por el modelo de Sequelize
     const normalizedProfessionals = apiData.profesionales.map(apiProfessional => {
@@ -88,8 +85,12 @@ const getAllProfesionals = async () => {
         },
         {
           model: PostProfesional,
-          attributes: ["id", "title", "image", "content", "softDelete"],
+          attributes: ["id", "title", "image", "content"]
         },
+        {
+          model: Review,
+          attributes: ["content", "rating"]
+        }
       ]
     });
 
@@ -109,7 +110,11 @@ const getAllProfesionals = async () => {
           },
           {
             model: PostProfesional,
-            attributes: ["title", "image", "content", "softDelete"],
+            attributes: ["title", "image", "content"],
+          },
+          {
+            model: Review,
+            attributes: ["content", "rating"]
           }
         ]
       });
@@ -117,12 +122,6 @@ const getAllProfesionals = async () => {
 
     if (profesionals.length === 0 || !profesionals) throw Error(`No hay profesionales a buscar`);
 
-    // Filtrar los posts con softDelete en false
-    profesionals = profesionals.map(profesional => {
-      const filteredPosts = profesional.PostProfesionals.filter(post => !post.softDelete || post.softDelete === false);
-      profesional.PostProfesionals = filteredPosts;
-      return profesional;
-    });
 
     const cleanedArray = cleanArray(profesionals);
 
@@ -133,6 +132,6 @@ const getAllProfesionals = async () => {
   }
 };
 
-//console.log (getAllProfesionals())
+
 module.exports = { getAllProfesionals, getAllProfesionalApi };
 // 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
