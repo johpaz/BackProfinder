@@ -32,7 +32,7 @@ const getContactById = async (id) => {
 
   // if(client.Profesionals.length === 0) throw Error(`No se encontró relación entre el cliente de id ${id} con profesionales`);
   const cleanInfo = cleanArrayProfesionalFavorites(client.Profesionals);
-  // return cleanInfo
+  return cleanInfo
   return {
     id: client.id,
     name: client.name,

@@ -35,6 +35,7 @@ const cleanArray = async (profesionals) => {
         genre: profesional.genre,
         years_exp: profesional.years_exp,
         phone: profesional.phone,
+        geolocation:profesional.geolocation,  
         ubication: {
           country: country ? country.name : null,
           location: location ? location.name : null,

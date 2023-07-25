@@ -30,12 +30,12 @@ const getAllProfesionalApi = async () => {
         genre: apiProfessional.genre ? apiProfessional.genre.trim() : '',
         rating: apiProfessional.rating && !isNaN(apiProfessional.rating) ? Math.min(parseFloat(apiProfessional.rating), 5) : null,
         description: apiProfessional.description ? apiProfessional.description.trim() : '',
-        ubication: apiProfessional.ubicacion ? apiProfessional.ubicacion.trim().slice(0, 50) : '',
         years_exp: apiProfessional.years_exp ? apiProfessional.years_exp.trim() : '',
         categorias: apiProfessional.categorias.map(categoria => categoria.nombre.trim()),
         profesiones: apiProfessional.profesiones.map(profesion => profesion.name.trim()),
         CountryId: apiProfessional.CountryId,
         LocationId: apiProfessional.LocationId,
+        geolocation: []
       };
 
       return normalizedProfessional;
@@ -46,10 +46,21 @@ const getAllProfesionalApi = async () => {
 
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
-      const { categorias, profesiones, CountryId, LocationId } = normalizedProfessional;
+      const { categorias, profesiones, CountryId, LocationId, geolocation } = normalizedProfessional;
 
+      // Buscar la ubicación en la base de datos por el LocationId
+      const location = await Location.findByPk(LocationId);
+
+      if (location) {
+        // Asignar la latitud y longitud desde el objeto location a la ubicación del profesional
+        geolocation.push(location.latitude);
+        geolocation.push(location.longitude);
+      }
+
+      // Crear el nuevo profesional en la base de datos
       const newProfesional = await Profesional.create(normalizedProfessional);
 
+      // Asignar categorías, ocupaciones, país y ubicación al nuevo profesional
       const categoriesBDD = await Category.findAll({ where: { name: categorias } });
       await newProfesional.addCategories(categoriesBDD);
 
@@ -58,8 +69,17 @@ const getAllProfesionalApi = async () => {
 
       const country = await Country.findByPk(CountryId);
       await newProfesional.setCountry(country);
-      const location = await Location.findByPk(LocationId);
-      await newProfesional.setLocation(location);
+
+      
+            if (location) {
+        await newProfesional.setLocation(location);
+      }
+    }
+    if (apiProfessional.latitude && apiProfessional.longitude) {
+      normalizedProfessional.ubication.georeferenciacion.push(
+        parseFloat(apiProfessional.latitude), // Aseguramos que la latitud sea un número (float)
+        parseFloat(apiProfessional.longitude) // Aseguramos que la longitud sea un número (float)
+      );
     }
     // { id: 1, name: 'Programador', CategoryId: 1 }
     console.log('Base de datos llenada exitosamente con los profesionales.');
@@ -85,8 +105,13 @@ const getAllProfesionals = async () => {
         },
         {
           model: PostProfesional,
-          attributes: ["id", "title", "image", "content"]
+          attributes: ["id", "title", "image", "content", "softDelete"],
         },
+        {
+          model: Location,
+          attributes: ["id", "latitude", "longitude"],
+        },
+        
         {
           model: Review,
           attributes: ["content", "rating"]
@@ -110,18 +135,26 @@ const getAllProfesionals = async () => {
           },
           {
             model: PostProfesional,
-            attributes: ["title", "image", "content"],
+            attributes: ["title", "image", "content", "softDelete"],
           },
           {
             model: Review,
             attributes: ["content", "rating"]
-          }
+          },
+          {model: Location,
+          attributes:["id","latitude","longitude"]}
         ]
       });
     }
 
     if (profesionals.length === 0 || !profesionals) throw Error(`No hay profesionales a buscar`);
 
+    // Filtrar los posts con softDelete en false
+    profesionals = profesionals.map(profesional => {
+      const filteredPosts = profesional.PostProfesionals.filter(post => !post.softDelete || post.softDelete === false);
+      profesional.PostProfesionals = filteredPosts;
+      return profesional;
+    });
 
     const cleanedArray = cleanArray(profesionals);
 
@@ -133,5 +166,5 @@ const getAllProfesionals = async () => {
 };
 
 
+//console.log (getAllProfesionals())
 module.exports = { getAllProfesionals, getAllProfesionalApi };
-// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

@@ -62,10 +62,12 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      ubication: {
-        type: DataTypes.STRING,
+      geolocation: {
+        type: DataTypes.JSON, // Cambiamos el tipo a JSON
         allowNull: true,
       },
+
+      
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
