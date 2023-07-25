@@ -47,10 +47,10 @@ const getAllProfesionalApi = async () => {
 
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
-      const { categorias, profesiones, CountryId, LocationId } = normalizedProfessional;
+      const { categorias, profesiones, CountryId, id} = normalizedProfessional;
 
       // Buscar la ubicación en la base de datos por el LocationId
-      const location = await Location.findByPk(LocationId);
+      const location = await Location.findByPk(id);
 
       if (location) {
         // Asignar la latitud y longitud desde el objeto location al profesional

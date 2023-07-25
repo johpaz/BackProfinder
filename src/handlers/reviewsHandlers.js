@@ -9,7 +9,7 @@ const getAllReviewsHandler = async (req, res) => {
         const reviews = await getAllReviews();
         return res.status(200).json(reviews)
     } catch (error) {
-        
+
         return res.status(204).json({ error: error.message });
     };
 };

@@ -16,12 +16,12 @@ const getProfesionalById = async (id) => {
       {
         model: Category,
         attributes: ["id", "name"],
-        through: { attributes: [] } 
+        through: { attributes: [] }
       },
       {
         model: Ocupation,
         attributes: ["id", "name", "CategoryId"],
-        through: { attributes: [] } 
+        through: { attributes: [] }
       },
       {
         model: Country,
@@ -38,6 +38,10 @@ const getProfesionalById = async (id) => {
       {
         model: PostProfesional,
         attributes: ["id", "title", "image", "content"]
+      },
+      {
+        model: Review,
+        attributes: ["content", "rating"]
       }
     ]
   });
