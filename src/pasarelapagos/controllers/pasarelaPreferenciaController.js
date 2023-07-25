@@ -42,7 +42,7 @@ async function crearPreferencia(req, res, next) {
         },
        ], back_urls : {
         success: `https://profinder-client.vercel.app/dashboardSuppliers`,
-        failure: 'https://profinder-client.vercel.app/pasarela',,
+        failure: 'https://profinder-client.vercel.app/pasarela',
           pending: '',
         }, 
         auto_return: 'approved',
