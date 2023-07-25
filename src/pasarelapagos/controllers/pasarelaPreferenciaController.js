@@ -49,7 +49,7 @@ async function crearPreferencia(req, res, next) {
         
       
     };
-      console.log(preferenceId);
+
     // Crea la preferencia de pago en Mercado Pago
     const response = await mercadopago.preferences.create(preference);
     console.log(response);
