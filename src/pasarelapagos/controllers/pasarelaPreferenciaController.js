@@ -32,7 +32,7 @@ async function crearPreferencia(req, res, next) {
     // Crea la preferencia de pago
     let preference = {
      metadata: { id_shop: idCompra },
-      notification_url: 'https://apipokemon-ashen.vercel.app/',
+      notification_url: 'https://profinder-client.vercel.app/',
       items: [
         {
           description: description,
@@ -41,8 +41,8 @@ async function crearPreferencia(req, res, next) {
           ProfesionalId: Number(ProfesionalId),
         },
        ], back_urls : {
-          success: `http://localhost:5173/dashboardSuppliers/createPost`,
-          failure: 'http://localhost:5173/pasarela',
+        success: `https://profinder-client.vercel.app/dashboardSuppliers`,
+        failure: 'https://profinder-client.vercel.app/pasarela',,
           pending: '',
         }, 
         auto_return: 'approved',
