@@ -44,7 +44,7 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
   //! Que coincidan los id del país y location en la base de datos
 
   const country = await Country.findByPk(CountryId);
-  const CountryId = country.id;
+
   const location = await Location.findByPk(LocationId);
   if (!location) {
     throw new Error(`La ubicación con el ID ${LocationId} no existe en la base de datos`);
