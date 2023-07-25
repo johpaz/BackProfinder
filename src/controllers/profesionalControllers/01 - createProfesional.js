@@ -49,7 +49,6 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
   if (!location) {
     throw new Error(`La ubicación con el ID ${LocationId} no existe en la base de datos`);
   }
-  const LocationId = Location.id;
   const latitude = location.latitude;
   const longitude = location.longitude;
 
