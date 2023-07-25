@@ -62,8 +62,12 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      geolocation: {
-        type: DataTypes.JSON, // Cambiamos el tipo a JSON
+      lat: {
+        type: DataTypes.FLOAT, 
+        allowNull: true,
+      },
+      lon: {
+        type: DataTypes.FLOAT, 
         allowNull: true,
       },
 

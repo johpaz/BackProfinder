@@ -50,7 +50,9 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     throw new Error(`La ubicación con el ID ${LocationId} no existe en la base de datos`);
   }
 
-  const { latitude, longitude } = location;
+  const latitude = location.latitude;
+  const longitude = location.longitude;
+
   const profesionalFormat = { 
     name,
     email,
@@ -60,7 +62,8 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre, 
     years_exp,
     phone, 
-    geolocation: [parseFloat(latitude), parseFloat(longitude)], 
+    lat: latitude,
+    lon: longitude,
     // ubication,
     active: true,
     pro: true
@@ -79,10 +82,11 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
   await newProfesional.setCountry(country.id);
   await newProfesional.setLocation(location.id);
 
-  if(!newProfesional) throw Error (`No se pudo crear el profesional llamado: ${name}`);
-  await Profesional.update({ geolocation: [parseFloat(latitude), parseFloat(longitude)] }, {
-    where: { id: newProfesional.id }
-  });
+  await Profesional.update(
+    { lat: latitude, lon: longitude },
+    { where: { id: newProfesional.id } }
+  );
+
 console.log(newProfesional);
   return {
     id: newProfesional.id,
@@ -96,7 +100,8 @@ console.log(newProfesional);
     // ubication: newProfesional.ubication,
     country:country.name,
     location: location.name,
-    geolocation: newProfesional.geolocation, 
+    latitude: newProfesional.lat, 
+    longitude: newProfesional.lon, 
     categories: resolvedCategories
   };
 };

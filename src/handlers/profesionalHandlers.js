@@ -395,4 +395,4 @@ module.exports = {
   createUserProfesional,
   getProfesionals, getProfesional,
   logicDelete, putProfesional, getProfesionalsDelete, getProfesionalsNotDelete, getProfesionalsPremiun, getProfesionalsNotPremiun, bePremiun, reverseDelete, notBePremiun
-}
+};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

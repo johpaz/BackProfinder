@@ -57,8 +57,14 @@ Review.belongsTo(Client);
 
 Profesional.hasMany(Review);
 
-//
 Profesional.hasMany(DocumentsProfesional);
+
+
+// PostProfesional.hasMany(Category)
+// Category.belongsTo(PostProfesional)
+
+// PostProfesional.hasMany(Ocupation)
+// Ocupation.belongsTo(PostProfesional)
 
 Review.belongsTo(Profesional);
 
