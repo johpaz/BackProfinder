@@ -13,6 +13,7 @@ const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 const CountryModel = require('./models/Country');
 const LocationModel = require('./models/Location');
 const PremiumModel = require('./models/Premium');
+//const documentsProfesionalModel=require('./models/documentsProfesional');
 // Credenciales
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
@@ -34,10 +35,11 @@ UserModel(sequelize);
 CountryModel(sequelize);
 LocationModel(sequelize);
 PremiumModel(sequelize);
+//documentsProfesionalModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-const { Profesional, Category, Ocupation, Client, Review, PostProfesional, User, ProfesionalImagesPost, Country, Location, Premium } = sequelize.models;
+const { Profesional, Category, Ocupation, Client, Review, PostProfesional, User, ProfesionalImagesPost, Country, Location, Premium, DocumentsProfesional} = sequelize.models;
 
 // Relacionar los modelos n:n
 
@@ -54,6 +56,9 @@ Client.hasMany(Review);
 Review.belongsTo(Client);
 
 Profesional.hasMany(Review);
+
+//Profesional.hasMany(DocumentsProfesional);
+
 
 // PostProfesional.hasMany(Category)
 // Category.belongsTo(PostProfesional)

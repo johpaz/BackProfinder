@@ -13,6 +13,7 @@ const reviewRouter = require("./reviewRoutes");
 const registerRouter = require('./registerRoutes');
 const loginRouter = require('./loginRoutes');
 const postProfesional = require("./postProfesionalRoutes");
+const postProfesionalb = require("./postProfesionalbRoutes");
 const profesionalImagesRouter = require('./profesionalImagesRouter');
 const countryRouter = require('./countryRoutes');
 const locationRouter = require('./locationRoutes');
@@ -20,7 +21,8 @@ const loginGoogleRouter=require('./googleRoutes');
 const insertImage=require('./insertImage');
 const premiumRouter = require('../pasarelapagos/rutas/premiumRouter');
 const contactRouter = require('./contactRoutes');
-
+const insertFile=require('./insertFile');
+const getFile= require('./getFile');
 // Router: 
 
 const router = Router();
@@ -44,6 +46,8 @@ router.use("/review", reviewRouter); // Posts del cliente
 
 router.use("/postProfesional", postProfesional) // Post del profesional
 
+router.use("/postProfesionalb", postProfesionalb) // Post del profesional
+
 router.use('/profesional-images', profesionalImagesRouter); // Posts de las imagenes de los profesionales (detail)
 
 router.use('/register', registerRouter); // register
@@ -56,9 +60,21 @@ router.use('/location',locationRouter);
 
 router.use('/auth/google', loginGoogleRouter) //google
 
-router.use('/image', insertImage)
+router.use('/image', insertFile)//insertar documentos a un profesional
+
+router.use('/file', getFile)//obtener los documentos de un profesional
+
 
 router.use('/relation',contactRouter); // ClientProfesionalRelation
+
+
+
+
+
+
+
+
+
 
 // Esto es para mande un error en caso de que le peguen a una ruta que no hemos desarrollado -> http://localhost:3001/profesional-categories
 router.use((req, res, next) => {

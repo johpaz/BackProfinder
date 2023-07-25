@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllPostsProfesionalHandler, createPostHandler,putPostProfesional,getPostProfesionalId,logicPostProfesionalHandler } = require('../handlers/postProfesionalHandlers');
+const { getAllPostsProfesionalHandler, createPostHandler,putPostProfesional,getPostProfesionalId,logicPostProfesionalHandler,getAllPostsHandler } = require('../handlers/postProfesionalHandlers');
 
 // Middleware
 
@@ -13,7 +13,7 @@ postProfesionalRouter.get("/:id", getPostProfesionalId  );
 postProfesionalRouter.get("/", getAllPostsProfesionalHandler);
 postProfesionalRouter.post("/",createPostHandler)
 postProfesionalRouter.put("/:id", putPostProfesional)
-postProfesionalRouter.put("/delete/:id", logicPostProfesionalHandler  )
-
+postProfesionalRouter.put("/delete/:id", logicPostProfesionalHandler)
+postProfesionalRouter.get("/allpost", getAllPostsHandler)
 
 module.exports = postProfesionalRouter

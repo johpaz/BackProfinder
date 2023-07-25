@@ -3,5 +3,15 @@ const {getAllPostsByProfesionals,getAllPostsByProfesionalsApi, } = require("./02
 const updatePostProfesional = require('./03 - putPostsProfesionals')
 const getPostProfesionalById = require('./04- getPostsProfesionalsById')
 const {logicDeletePostProfesional }= require('./05 - logicDeletePostProfesional')
+const { getActivePosts,getDeletedPosts,getAllPostsBySoftDelete } = require('./06 - postBaneados');
 
-module.exports = { logicDeletePostProfesional,createPostProfesional, getAllPostsByProfesionals,getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById }
+module.exports = {
+     logicDeletePostProfesional,
+     createPostProfesional, 
+     getAllPostsByProfesionals,
+     getAllPostsByProfesionalsApi,
+     updatePostProfesional,
+     getPostProfesionalById,
+     getActivePosts,
+     getDeletedPosts,
+     getAllPostsBySoftDelete }

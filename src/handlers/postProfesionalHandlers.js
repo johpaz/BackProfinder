@@ -1,5 +1,5 @@
 //Controllers
-const { createPostProfesional, logicDeletePostProfesional, getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById, } = require("../controllers/postProfesionalcontrollers/index")
+const { getAllPostsBySoftDelete,getDeletedPosts,getActivePosts, createPostProfesional, logicDeletePostProfesional, getAllPostsByProfesionalsApi,updatePostProfesional,getPostProfesionalById,getAllPosts } = require("../controllers/postProfesionalcontrollers/index")
 //Handlers
 
 const getAllPostsProfesionalHandler = async (req, res) => {
@@ -65,6 +65,51 @@ const logicPostProfesionalHandler = async (req, res) => {
 }
 
 
+// Handler para obtener todos los posts, filtrados o sin filtrar según el valor de "softDelete"
+async function getAllPostsHandler(req, res) {
+  try {
+    // Obtener el valor de "softDelete" de los parámetros de la URL (req.query)
+    const softDelete = req.query.softDelete;
+
+    // Verificar si el valor de "softDelete" está definido en la solicitud
+    if (typeof softDelete === 'undefined') {
+      // Llamar al controlador para obtener todos los posts sin filtrar
+      const allPosts = await getAllPostsBySoftDelete(null);
+      // Responder con los posts obtenidos
+      return res.json(allPosts);
+    }
+
+    // Convertir el valor de "softDelete" a un booleano
+    const isSoftDelete = softDelete === 'true'; // Convierte el string en un booleano
+
+    // Validar que el valor de "softDelete" sea un booleano
+    if (typeof isSoftDelete !== 'boolean') {
+      return res.status(400).json({ error: 'El valor de "softDelete" debe ser true o false' });
+    }
+
+    let posts;
+
+    // Llamar al controlador correspondiente según el valor de "softDelete"
+    if (isSoftDelete) {
+      posts = await getAllPostsBySoftDelete(true);
+    } else {
+      posts = await getAllPostsBySoftDelete(false);
+    }
+
+    // Responder con los posts obtenidos
+    res.json(posts);
+  } catch (error) {
+    // Manejo de errores
+    console.error('Error en el handler de obtener posts:', error);
+    res.status(500).json({ error: 'Ocurrió un error al obtener los posts' });
+  }
+}
+
+module.exports = {
+  getAllPostsHandler,
+};
+
+
 
 
 module.exports = {
@@ -72,5 +117,6 @@ module.exports = {
   createPostHandler,
   putPostProfesional,
   getPostProfesionalId,
-  logicPostProfesionalHandler
+  logicPostProfesionalHandler,
+  getAllPostsHandler
 }

@@ -36,7 +36,8 @@
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
     "pug": "^3.0.2",
-    "sequelize": "^6.32.0"
+    "sequelize": "^6.32.0",
+    "stream": "^0.0.2"
   },
   "devDependencies": {
     "@wdio/cli": "^8.13.5",
