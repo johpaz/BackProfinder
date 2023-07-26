@@ -36,7 +36,7 @@ async function updatePremiumStatus(req, res, next) {
     }
 
     // Responde con una respuesta de éxito
-    res.json({ message: 'Estados actualizados con éxito en la BD.' });
+    res.json({ message: 'Estas suscrito a Premium.' });
   } catch (error) {
     next(error);
   }
