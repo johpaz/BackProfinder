@@ -13,7 +13,7 @@ const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 const CountryModel = require('./models/Country');
 const LocationModel = require('./models/Location');
 const PremiumModel = require('./models/Premium');
-const documentsProfesionalModel=require('./models/documentsProfesional');
+const documentsProfesionalModel=require('./models/DocumentsProfesional');
 // Credenciales
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
