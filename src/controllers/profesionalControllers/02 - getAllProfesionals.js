@@ -96,10 +96,7 @@ const getAllProfesionals = async () => {
           model: PostProfesional,
           attributes: ["id", "title", "image", "content", "softDelete"],
         },
-        {
-          model: Location,
-          attributes: ["id", "latitude", "longitude"],
-        }, {model: Review,
+         {model: Review,
           attributes: ["id","content", "rating"]
         }
         
@@ -124,8 +121,7 @@ const getAllProfesionals = async () => {
             model: PostProfesional,
             attributes: ["title", "image", "content", "softDelete"],
           },
-          {model: Location,
-          attributes:["id","latitude","longitude"]},
+         
           {model: Review,
             attributes: ["id","content", "rating"]
           },
