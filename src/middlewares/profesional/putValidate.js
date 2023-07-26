@@ -58,7 +58,13 @@ const validatePhone = (phone) => {
    if(typeof phone !== "string") throw Error(`El tipo de dato de phone debe ser un string`);
    if(!/^\d+$/.test(phone)) throw Error(`La propiedad phone solo debe contener números`)
 };
-
+const validatePassword = (password) => {
+  if (!password) throw Error(`La contraseña es obligatoria`);
+  const passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)\S{6,15}$/;
+  if (typeof password !== "string") throw Error(`El tipo de dato de la contraseña debe ser un string`);
+  if (password.trim() === "") throw Error(`La contraseña no puede estar vacía o compuesta por espacios`);
+  if (!passwordRegex.test(password)) throw Error(`La contraseña debe contener al menos una letra y un número, además de tener una longitud entre 6 y 15 caracteres`);
+};
 
 module.exports = async (req,res,next) => {
   const { id } = req.params;
@@ -82,8 +88,6 @@ module.exports = async (req,res,next) => {
     validateCategories(categories);
     validateOcupations(ocupations);
     validatePhone(phone);
-    // validateUbication(ubication);
-    // validateCountry(CountryId);
     next();
   } catch (error) {
     return res.status(400).json({error: error.message});
