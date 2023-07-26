@@ -41,7 +41,7 @@ const getProfesionalById = async (id) => {
       },
       {
         model: Review,
-        attributes: ["content", "rating"]
+        attributes: ["id","content", "rating"]
       }
     ]
   });

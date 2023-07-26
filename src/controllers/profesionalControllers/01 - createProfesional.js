@@ -3,7 +3,7 @@ const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Country } = require('../../db');
 const { Location } = require('../../db');
-// const { getImageUrl } = require('../../firebase'); //Ya no se usa post profesional
+
 
 const createProfesional = async (name,email,password,image,genre,years_exp,categories, ocupations, phone, ubication, CountryId, LocationId) => {
 

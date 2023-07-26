@@ -35,7 +35,7 @@ const getAllProfesionalApi = async () => {
         profesiones: apiProfessional.profesiones.map(profesion => profesion.name.trim()),
         CountryId: apiProfessional.CountryId,
         LocationId: apiProfessional.LocationId,
-        geolocation: []
+      
       };
 
       return normalizedProfessional;
@@ -46,18 +46,12 @@ const getAllProfesionalApi = async () => {
 
     // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
-      const { categorias, profesiones, CountryId, LocationId, geolocation } = normalizedProfessional;
+      const { categorias, profesiones, CountryId, LocationId,  } = normalizedProfessional;
 
       // Buscar la ubicación en la base de datos por el LocationId
       const location = await Location.findByPk(LocationId);
 
-      if (location) {
-        // Asignar la latitud y longitud desde el objeto location a la ubicación del profesional
-        geolocation.push(location.latitude);
-        geolocation.push(location.longitude);
-      }
-
-      // Crear el nuevo profesional en la base de datos
+            // Crear el nuevo profesional en la base de datos
       const newProfesional = await Profesional.create(normalizedProfessional);
 
       // Asignar categorías, ocupaciones, país y ubicación al nuevo profesional
@@ -75,12 +69,7 @@ const getAllProfesionalApi = async () => {
         await newProfesional.setLocation(location);
       }
     }
-    if (apiProfessional.latitude && apiProfessional.longitude) {
-      normalizedProfessional.ubication.georeferenciacion.push(
-        parseFloat(apiProfessional.latitude), // Aseguramos que la latitud sea un número (float)
-        parseFloat(apiProfessional.longitude) // Aseguramos que la longitud sea un número (float)
-      );
-    }
+   
     // { id: 1, name: 'Programador', CategoryId: 1 }
     console.log('Base de datos llenada exitosamente con los profesionales.');
   } catch (error) {
@@ -110,7 +99,9 @@ const getAllProfesionals = async () => {
         {
           model: Location,
           attributes: ["id", "latitude", "longitude"],
-        },
+        }, {model: Review,
+          attributes: ["id","content", "rating"]
+        }
         
       ]
     });
@@ -134,7 +125,12 @@ const getAllProfesionals = async () => {
             attributes: ["title", "image", "content", "softDelete"],
           },
           {model: Location,
-          attributes:["id","latitude","longitude"]}
+          attributes:["id","latitude","longitude"]},
+          {model: Review,
+            attributes: ["id","content", "rating"]
+          },
+          
+
         ]
       });
     }

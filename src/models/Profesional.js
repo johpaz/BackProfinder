@@ -62,16 +62,7 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      lat: {
-        type: DataTypes.FLOAT, 
-        allowNull: true,
-      },
-      lon: {
-        type: DataTypes.FLOAT, 
-        allowNull: true,
-      },
-
-      
+            
       active: {
         type: DataTypes.BOOLEAN,
         allowNull: false,

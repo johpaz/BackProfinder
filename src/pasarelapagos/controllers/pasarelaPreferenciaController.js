@@ -41,7 +41,7 @@ async function crearPreferencia(req, res, next) {
           ProfesionalId: Number(ProfesionalId),
         },
        ], back_urls : {
-          success: `https://profinder-client.vercel.app/dashboardSuppliers`,
+          success: `http://localhost:5137/dashboardSuppliers`,
           failure: 'https://profinder-client.vercel.app/pasarela',
           pending: '',
         }, 

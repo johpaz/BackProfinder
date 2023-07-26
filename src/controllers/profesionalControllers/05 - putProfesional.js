@@ -4,7 +4,7 @@ const { Ocupation } = require('../../db');
 const { Country } = require('../../db');
 const { Location } = require('../../db');
 const { Op } = require('sequelize');
-const { getImageUrl } = require('../../firebase');
+
 
 const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId= null, LocationId = null) => {
   console.log("--image en el controller--");
@@ -58,13 +58,7 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
 
   const resolvedCategories = await Promise.all(categoriesFormat);
 
-  // const imageUrl = await getImageUrl(image);
-  // console.log("--URL image---")
-  // console.log(imageUrl);
-  // const domain = "https://firebasestorage.googleapis.com";
-
-  // Update profesional
-
+ 
   profesionalInBDD.name = name || profesionalInBDD.name;
   profesionalInBDD.email = email || profesionalInBDD.email;
   profesionalInBDD.password = password || profesionalInBDD.password;
@@ -115,7 +109,6 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
     years_exp: profesionalInBDD.years_exp,
     description: profesionalInBDD.description,
     phone:profesionalInBDD.phone,
-    // ubication: profesionalInBDD.ubication,
     country:countryBDD.name,
     location: locationBDD.name,
     categories: resolvedCategories
