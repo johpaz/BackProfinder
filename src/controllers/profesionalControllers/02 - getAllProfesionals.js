@@ -92,7 +92,10 @@ const getAllProfesionals = async () => {
           attributes: ["id", "name", "CategoryId"],
           through: { attributes: [] }
         },
-       
+        {
+          model: PostProfesional,
+          attributes: ["id", "title", "image", "content", "softDelete"],
+        },
          {model: Review,
           attributes: ["id","content", "rating"]
         }
