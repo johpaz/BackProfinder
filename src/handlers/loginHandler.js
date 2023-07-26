@@ -1,23 +1,34 @@
 const bcrypt = require("bcrypt");
-const { sendEmailRestartPassword } = require("../configs/nodemailer/sendEmailConfirmation")
+
+const { sendEmailRestartPassword } = require("../configs/nodemailer/sendEmailConfirmation");
+
 const { User } = require("../db");
-const typeUserPassword = require("../controllers/loginController/changePasswordByUser")
+
+const typeUserPassword = require("../controllers/loginController/changePasswordByUser");
 
 const { sequelize } = require("../db");
 
+
+
+
 const loginUser = async (req, res) => {
+
   const { usuario, email, password } = req.body;
+
   const { forgotPassword } = req.query
+
   if (forgotPassword) {
+
     const sql = await sequelize.query(
       `SELECT * FROM "Users" where email= '${forgotPassword}'`
     );
+
     if (sql[0][0]) {
       await sendEmailRestartPassword(forgotPassword, sql[0][0].name)
-      return res.status(200).json({ message: "Correo enviado con exíto" })
+      return res.status(200).json({ message: "Correo enviado con éxito" })
     }
     else {
-      return res.status(404).json({ message: "El correo solicitado, no exíste" })
+      return res.status(404).json({ message: "El correo solicitado, no existe" })
     }
 
   }
@@ -108,9 +119,7 @@ const loginUser = async (req, res) => {
         }
 
       case "a":
-
         const adminis = await sequelize.query(`SELECT * FROM "Users" WHERE "email"= '${email}'`);
-
         if (adminis[0][0] == undefined) {
           res.status(200).json({
             usuario: usuario,
@@ -120,6 +129,7 @@ const loginUser = async (req, res) => {
           });
 
           break;
+
         } else {
           res.status(200).json({
             id: adminis[0][0].id,
@@ -138,19 +148,28 @@ const loginUser = async (req, res) => {
   };
 };
 
+
+
+
+
 const updatePassword = async (email, password) => {
 
-
   bcrypt.hash(password, 8, async (error, hash) => {
+
     if (error) { throw Error(error.message) };
 
     const user = await sequelize.query(`UPDATE "Users" SET password= '${hash}'WHERE "email"= '${email}'`)
+
     return user
   })
-}
+};
+
+
 
 const changePasswordLogin = async (req, res) => {
+
   const { email, password } = req.body;
+
   const usuario = await User.findOne({
     where: {
       email: email
@@ -158,13 +177,18 @@ const changePasswordLogin = async (req, res) => {
   })
   try {
     await updatePassword(email, password);
+
     const changePasswordByUser = await typeUserPassword(email, password, usuario.usuario)
+
     return res.status(200).json(changePasswordByUser);
+
   } catch (error) {
+
     return res.status(404).json({ error: error.message });
   }
-
-
 }
+
+
+
 
 module.exports = { loginUser, changePasswordLogin };

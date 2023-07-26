@@ -10,21 +10,11 @@ const cleanArray = require('../helpers/cleanArrayProfesionals')
 
 
 const { searchUserProfesional, getProfById, getProfByIdActive, getProfByIdReverse, getProfByIdNotActive } = require("../controllers/profesionalControllers/profesionalsControllers")
+
+
 const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional, getAllProfesionalsDelete, ratingProfesional } = require('../controllers/profesionalControllers/index');
-// const getProfesionals = async (req, res) => {
-//   const {name}= req.query
 
-//   try {
 
-//     const names= name?  await searchUserProfesional(name): await getAllProfesionals();
-
-//    if(names.length===0) {res.send("The indicated Profesional's name has not been found")}
-//    else res.status(200).json(names)
-
-//   } catch (error) {
-//      res.status(400).json({ error: error.messages});
-//   }
-// };
 
 // Handlers: 
 
@@ -34,7 +24,7 @@ const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesio
 const getProfesionalsPremiun = async (req, res) => {
 
   try {
-    //console.log('hola1')
+  
     const profesionals = await Profesional.findAll({
       where: {
         active: true
@@ -62,12 +52,6 @@ const getProfesionalsPremiun = async (req, res) => {
       ]
     });
 
-
-    //const cleanedArray = cleanArray(profesionals)
-
-    //console.log (cleanedArray)
-
-
     if (!profesionals || profesionals.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
       return res.status(200).json({ message: 'Actualmente no hay profesionales premiun' });
@@ -75,22 +59,17 @@ const getProfesionalsPremiun = async (req, res) => {
     }
 
     else { return res.status(200).json(profesionals) };
+
   } catch (error) {
 
     return res.status(404).json({ error: error.message });
   }
-}
-
-
-
-
-
-
+};
 
 
 const getProfesionalsNotPremiun = async (req, res) => {
   try {
-    //console.log('hola1')
+   
     const profesionals = await Profesional.findAll({
       where: {
         active: false
@@ -119,10 +98,6 @@ const getProfesionalsNotPremiun = async (req, res) => {
     });
 
 
-    //const cleanedArray = cleanArray(profesionals)
-
-    //console.log (cleanedArray)
-
 
     if (!profesionals || profesionals.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
@@ -135,18 +110,14 @@ const getProfesionalsNotPremiun = async (req, res) => {
 
     return res.status(404).json({ error: error.message });
   }
-}
-
-
-
-
+};
 
 
 
 const getProfesionalsDelete = async (req, res) => {
 
   try {
-    //console.log('hola1')
+    
     const profesionals = await Profesional.findAll({
       where: {
         softDelete: true
@@ -177,10 +148,6 @@ const getProfesionalsDelete = async (req, res) => {
     });
 
 
-    //const cleanedArray = cleanArray(profesionals)
-
-    //console.log (cleanedArray)
-
 
     if (!profesionals || profesionals.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
@@ -193,18 +160,14 @@ const getProfesionalsDelete = async (req, res) => {
 
     return res.status(404).json({ error: error.message });
   }
-}
-
-
-
-
+};
 
 
 
 
 const getProfesionalsNotDelete = async (req, res) => {
   try {
-    //console.log('hola1')
+
     const profesionals = await Profesional.findAll({
       where: {
         softDelete: null
@@ -233,10 +196,6 @@ const getProfesionalsNotDelete = async (req, res) => {
     });
 
 
-    //const cleanedArray = cleanArray(profesionals)
-
-    //console.log (cleanedArray)
-
 
     if (!profesionals || profesionals.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
@@ -249,12 +208,7 @@ const getProfesionalsNotDelete = async (req, res) => {
 
     return res.status(404).json({ error: error.message });
   }
-}
-
-
-
-
-
+};
 
 
 
@@ -275,50 +229,80 @@ const getProfesionals = async (req, res) => {
       profesionals = await getAllProfesionals();
     }
 
-    // console.log(profesionals);
     return res.status(200).json(profesionals);
   } catch (error) {
-    console.log(error);
+ 
     return res.status(404).json({ error: error.message });
   }
 };
 
+
+
+
 const getProfesional = async (req, res) => {
+
   const { id } = req.params;
+
   try {
+
     const profesional = await getProfesionalById(id);
+
     return res.status(200).json(profesional);
+
   } catch (error) {
+
     return res.status(404).json({ error: error.message })
+
   };
+
 };
+
+
 
 
 
 const bePremiun = async (req, res) => {
+
   const { id } = req.params;
+
   try {
+
     const dbProf = await getProfByIdActive(id);
 
-    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found")}
+
     else res.status(200).json(dbProf)
 
   } catch (error) {
+
     res.status(400).json({ error: error.message })
+
   };
+
 };
 
+
+
+
+
+
 const notBePremiun = async (req, res) => {
+
   const { id } = req.params;
+
   try {
     const dbProf = await getProfByIdNotActive(id);
 
-    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found")}
+
     else res.status(200).json(dbProf)
 
   } catch (error) {
+
     res.status(400).json({ error: error.message })
+
   };
+
 };
 
 
@@ -330,29 +314,45 @@ const notBePremiun = async (req, res) => {
 
 
 const logicDelete = async (req, res) => {
+
   const { id } = req.params;
+
   try {
+
     const dbProf = await getProfById(id);
 
-    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found")
+  }
     else res.status(200).json(dbProf)
 
   } catch (error) {
+
     res.status(400).json({ error: error.message })
+
   };
+
 };
 
+
+
+
 const reverseDelete = async (req, res) => {
+
   const { id } = req.params;
+
   try {
     const dbProf = await getProfByIdReverse(id);
 
-    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found") }
+    if (dbProf.length === 0) { res.send("The indicated Profesional's id has not been found")}
+
     else res.status(200).json(dbProf)
 
   } catch (error) {
+
     res.status(400).json({ error: error.message })
+
   };
+
 };
 
 
@@ -370,6 +370,9 @@ const createUserProfesional = async (req, res) => {
     return res.status(400).json({ error: error.message });
   };
 };
+
+
+
 
 const putProfesional = async (req, res) => {
   const { id } = req.params;
@@ -391,8 +394,21 @@ const putProfesional = async (req, res) => {
   }
 };
 
+
+
+
+
 module.exports = {
   createUserProfesional,
-  getProfesionals, getProfesional,
-  logicDelete, putProfesional, getProfesionalsDelete, getProfesionalsNotDelete, getProfesionalsPremiun, getProfesionalsNotPremiun, bePremiun, reverseDelete, notBePremiun
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+  getProfesionals,
+  getProfesional,
+  logicDelete,
+  putProfesional,
+  getProfesionalsDelete,
+  getProfesionalsNotDelete,
+  getProfesionalsPremiun,
+  getProfesionalsNotPremiun,
+  bePremiun,
+  reverseDelete,
+  notBePremiun
+};

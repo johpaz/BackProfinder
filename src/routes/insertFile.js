@@ -1,8 +1,15 @@
 const { Router } = require('express');
+
 const multer= require ('multer')
+
 const { sequelize } = require("../db");
 
+
+
+
+
 const insertFile= Router();
+
 
 
 const storage = multer.diskStorage({
@@ -15,7 +22,8 @@ const storage = multer.diskStorage({
     }
   })
 
-  const upload = multer({ storage: storage })
+
+const upload = multer({ storage: storage })
 
 
 const uploadFile = async(req,res, file)=>{
@@ -25,29 +33,23 @@ const uploadFile = async(req,res, file)=>{
 
   try {
      const newDoc = await sequelize.query(`INSERT INTO "DocumentsProfesionals" (name,document) VALUES ('${name}','${document}') returning id`);
-
      
-const idDoc=newDoc[0][0].id
+     const idDoc=newDoc[0][0].id
 
      const profesional= await sequelize.query(`UPDATE "DocumentsProfesionals" set "ProfesionalId"='${id}' where id= '${idDoc}'`);console.log(file)
 
      const profesionalDoc= await sequelize.query(`UPDATE "DocumentsProfesionals" set "document"='${document}' where id= '${idDoc}'`);
+     
+     const profesionalFile= await sequelize.query(`SELECT * FROM  "DocumentsProfesionals" where id= '${idDoc}'`);
 
-  const profesionalFile= await sequelize.query(`SELECT * FROM  "DocumentsProfesionals" where id= '${idDoc}'`);
-
-     console.log (profesionalFile[0][0].document);
      res.status(200).json({message:'Su documento ha sido guardado correctamemte'})
 
+
   } catch (error) {
-    
     res.status(400).json({ error: error.message })
+
   }
- 
-
-}
-
-
-const uploads= upload.single('myFile')
+};
 
 
 

@@ -1,4 +1,3 @@
-
 const { Op } = require("sequelize");
 const { Profesional, sequelize } = require('../../db');
 const { Ocupation } = require('../../db')
@@ -9,10 +8,15 @@ const { PostProfesional } = require("../../db")
 
 
 
+
+
+
 const cleanArray = (Array) => Array.map((elemento) => {
 
     const categories = [];
+
     for (var i = 0; i < elemento.Categories.length; i++) {
+
         var objeto = {
             category: elemento.Categories[i].name,
             ocupations: []
@@ -20,10 +24,7 @@ const cleanArray = (Array) => Array.map((elemento) => {
 
         categories.push(objeto)
     }
-
-
-
-
+    
     return {
         id: elemento.id,
         name: elemento.name,
@@ -39,15 +40,8 @@ const cleanArray = (Array) => Array.map((elemento) => {
         professions: categories,
         posts: elemento.PostProfesionals
     }
-}
+  }
 );
-
-
-
-
-
-
-
 
 
 
@@ -93,27 +87,30 @@ const getAllProfesionals = async () => {
 
 
 
-
-
 const getProfById = async (id) => {
 
-    const dbProf = await sequelize.query(
-        `UPDATE "Profesionals" set "softDelete"=true where id=${id}`//Cuando la propiedad softDelete esta en true quiere decir que no se mostrara dentro de los Supplier, se elimina logicamente, lo cual quiere decir que no se podra ver en el Front dentro de los professionales pero seguira estando disponible en la base de datos
-    );
+    const dbProf = await sequelize.query(`UPDATE "Profesionals" set "softDelete"=true where id=${id}`);
 
     if (dbProf.length !== 0) { return ("The professional was deleted successfully") }
+};
 
-}
+
+
+
+
+
 
 const getProfByIdReverse= async (id) => {
 
     const dbProf = await sequelize.query(
-        `UPDATE "Profesionals" set "softDelete"=null where id=${id}`//Cuando la propiedad softDelete esta en true quiere decir que no se mostrara dentro de los Supplier, se elimina logicamente, lo cual quiere decir que no se podra ver en el Front dentro de los professionales pero seguira estando disponible en la base de datos
-    );
+        `UPDATE "Profesionals" set "softDelete"=null where id=${id}`);
 
     if (dbProf.length !== 0) { return ("El profesional ha sido restaurado satisfactoriamente") }
 
-}
+};
+
+
+
 
 
 
@@ -122,23 +119,32 @@ const getProfByIdReverse= async (id) => {
 const getProfByIdActive = async (id) => {
 
     const dbProf = await sequelize.query(
-        `UPDATE "Profesionals" set "active"=true where id=${id}`//Cuando la propiedad softDelete esta en true quiere decir que no se mostrara dentro de los Supplier, se elimina logicamente, lo cual quiere decir que no se podra ver en el Front dentro de los professionales pero seguira estando disponible en la base de datos
-    );
+        `UPDATE "Profesionals" set "active"=true where id=${id}`);
 
     if (dbProf.length !== 0) { return ("El profesional ahora es premiun") }
 
-}
+};
+
+
+
+
 
 
 const getProfByIdNotActive = async (id) => {
 
     const dbProf = await sequelize.query(
-        `UPDATE "Profesionals" set "active"=false where id=${id}`//Cuando la propiedad softDelete esta en true quiere decir que no se mostrara dentro de los Supplier, se elimina logicamente, lo cual quiere decir que no se podra ver en el Front dentro de los professionales pero seguira estando disponible en la base de datos
-    );
+        `UPDATE "Profesionals" set "active"=false where id=${id}`);
 
     if (dbProf.length !== 0) { return ("El profesional ahora no es premiun") }
 
-}
+};
+
+
+
+
+
+
+
 
 module.exports = {
     searchUserProfesional,
@@ -147,4 +153,4 @@ module.exports = {
     getProfByIdActive,
     getProfByIdReverse,
     getProfByIdNotActive
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}

@@ -21,20 +21,16 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull:false
     },
-    usuario :{//es el tipo de usuario c,p ,a 
+    usuario :{
       type: DataTypes.STRING
     },
-    
     googleId:{
       type: DataTypes.STRING
     },
-    
     secreto:{
       type: DataTypes.STRING
     },
-
-
   },{
     timestamps: false,
   })
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+};
