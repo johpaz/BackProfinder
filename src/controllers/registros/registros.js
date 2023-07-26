@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     res.json(registros);
   } catch (error) {
     // Maneja cualquier error que ocurra durante la obtención de los registros
-    console.log(error);
+    //console.log(error);
     res.status(500).json({ error: 'Error al obtener los registros' });
   }
 });

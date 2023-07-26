@@ -34,8 +34,8 @@ server.use(cors());
 server.use(flash())
 
 server.set('views',path.join(__dirname,))
-server.set('view engine', 'pug')
 
+server.set('view engine', 'pug')
 
 server.use(morgan('dev'));
 
@@ -47,16 +47,6 @@ server.use(express.static(path.join(__dirname,'public')))
 
 server.use(passport.initialize());
 
-
-
-
-//server.get('/image', (req,res)=>{res.send('ox')})
-
-
-
-
-
-
 server.use('/auth',  passport.authenticate(authgoogle,{
     scope: [
         "https://www.googleapis.com/auth/userinfo.profile",
@@ -66,13 +56,8 @@ session: false,
 }), loginGoogleRouter);
 
 
-
-
-
 // Conexión a las rutas:
 server.use('/', mainRouter)
-
-
 
 
 module.exports = server;

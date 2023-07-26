@@ -6,10 +6,7 @@ const cleanArray = async (profesionals) => {
     profesionals.map(async (profesional) => {
       const country = await Country.findByPk(profesional.CountryId);
       const location = await Location.findByPk(profesional.LocationId);
-      // console.log(country);
-      // console.log(location);
-
-      const professions = profesional.Categories.map((category) => {
+        const professions = profesional.Categories.map((category) => {
         const ocupations = profesional.Ocupations.filter(
           (ocupation) => ocupation.CategoryId === category.id
         );
@@ -27,7 +24,6 @@ const cleanArray = async (profesionals) => {
         id: profesional.id,
         name: profesional.name,
         email: profesional.email.toLowerCase(),
-        // password: profesional.password,
         softDelete: profesional.softDelete,
         active:profesional.active,
         image: profesional.image,

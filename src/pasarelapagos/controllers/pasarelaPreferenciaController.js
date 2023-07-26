@@ -52,23 +52,23 @@ async function crearPreferencia(req, res, next) {
 
     // Crea la preferencia de pago en Mercado Pago
     const response = await mercadopago.preferences.create(preference);
-    console.log(response);
     const preferenceId = response.body.id;
       
     // Actualiza el estado de la fila "Premium" con la información de la preferencia de pago
     await Premium.update(
       { preferenceId },
-      { where: { idCompra } }, // Utilizamos el campo correcto "idCompra" en lugar de "premiumId"
+      { where: { idCompra } }, // Utilizamos el campo "idCompra" 
     );
  
     // Devuelve la respuesta con o sin el preferenciaId, según corresponda
     if (preferenceId) {
-      res.json({ preferenceId, idCompra});
+      res.status(200).json({ preferenceId, idCompra});
     } else {
-      res.json({ idCompra });
+      res.status(200).json({ idCompra });
     }
-  } catch (error) {
-    next(error);
+  } catch(error) {
+    res.status(404).json(error.message)
+    next(error.message);
   }
 }
 

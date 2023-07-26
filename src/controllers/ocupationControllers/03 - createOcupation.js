@@ -1,7 +1,7 @@
 const { Ocupation } = require('../../db');
 
 const createOcupation = async (name,categoryId) => {
-  console.log(name)
+  //console.log(name)
 
   const nameOcupationFormat = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 
@@ -12,4 +12,4 @@ const createOcupation = async (name,categoryId) => {
   return newOcupation;
 };
 
-module.exports = createOcupation;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = createOcupation;

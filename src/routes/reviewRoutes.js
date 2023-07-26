@@ -12,4 +12,4 @@ const reviewRouter = Router();
 reviewRouter.get("/", getAllReviewsHandler)
 reviewRouter.post("/", postValidate, createReviewHandler)
 
-module.exports = reviewRouter// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = reviewRouter

@@ -4,10 +4,7 @@ const {getAllOcupations, getOcupationsByName, createOcupation,getOcupationsBdd, 
 
 // Handlers:
 
-
-
-
-const getOcupations = async (req,res) => {
+  const getOcupations = async (req,res) => {
   const { name } = req.query;
   try {
     const ocupations = name ? await getOcupationsByName(name) : await getAllOcupations();
@@ -35,7 +32,6 @@ const postOcupation = async (req,res) => {
   } catch (error) {
     return res.status(404).json({error: error.message});
   }
-  // return res.status(200).json({DIY: "En esta ruta se creará una ocupación"})
 };
 
 const putOcupation = async (req,res) => {
@@ -49,11 +45,6 @@ const putOcupation = async (req,res) => {
   }
 };
 
-
-
-
-
-
 module.exports = {
   getOcupations, getOcupation, postOcupation, putOcupation,
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}

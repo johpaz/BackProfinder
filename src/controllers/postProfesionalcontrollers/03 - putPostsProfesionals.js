@@ -1,5 +1,4 @@
 const { PostProfesional } = require("..//..//db")
-const { getImageUrl } = require('..//../firebase');
 const { Op } = require('sequelize');
 
 const updatePostProfesional = async (id, title, image, content, ProfesionalId,  category, ocupation) => {
@@ -7,11 +6,7 @@ const updatePostProfesional = async (id, title, image, content, ProfesionalId,  
 
    const profesionalPostInBDD = await PostProfesional.findByPk(id)
      if (!profesionalPostInBDD) throw Error(`No existe el post del profesional de id: ${id}`);
-
-  
-
-  // const imageUrl = await getImageUrl(image);
-  // const domain = "https://firebasestorage.googleapis.com";
+ 
 
   // Update postProfesional
 

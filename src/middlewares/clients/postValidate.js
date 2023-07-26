@@ -1,9 +1,5 @@
 const { Client } = require("../../db.js");
 
-
-
-
-
 const validateName = (name) => {
 
     if (!name) {
@@ -34,7 +30,7 @@ const validateEmail = (email) => {
     };
     const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
     const emailEnd = email.split(".")[1];
-    let regexEmail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;;
 
     if (!regexEmail.test(email)) {
         throw Error("Ingrese un email valido, Ej : usuario@gmail.com");
@@ -78,7 +74,7 @@ module.exports = async (req, res, next) => {
 
         const matchEmail = await Client.findOne({ where: { email: email } });
         if (matchEmail) {
-            return res.status(400).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
+            return res.status(404).json({ error: `Ya existe un cliente asociado con el email de ${email}` });
         };
         validateName(name);
         validateEmail(email);
@@ -86,13 +82,8 @@ module.exports = async (req, res, next) => {
 
     } catch (error) {
         console.log(error);
-        return res.status(400).json(error.message)
+        return res.status(404).json(error.message)
     }
-
-
-
-
-
     next()
 
 };

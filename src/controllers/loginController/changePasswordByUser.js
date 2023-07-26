@@ -3,7 +3,7 @@ const { sequelize } = require("../../db");
 
 
 const typeUserPassword = async (email, password, usuario) => {
-    console.log(password);
+    //console.log(password);
     switch (usuario) {
         case "c":
             const updatePasswordClient = await sequelize.query(

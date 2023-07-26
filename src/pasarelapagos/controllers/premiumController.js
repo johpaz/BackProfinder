@@ -4,11 +4,9 @@ async function updatePremiumStatus(req, res, next) {
   try {
     // Obtén los datos del cuerpo de la solicitud POST
     const { collectionStatus, preferenceId } = req.body;
-    console.log(collectionStatus, preferenceId);
-
-    // Verifica que collectionStatus sea "approved"
+      // Verifica que collectionStatus sea "approved"
     if (collectionStatus !== 'approved') {
-      return res.status(400).json({ error: 'El estado de colección no es aprobado.' });
+      return res.status(404).json({ error: 'El estado de colección no es aprobado.' });
     }
 
     // Busca el modelo Premium asociado al preferenceId
@@ -36,8 +34,9 @@ async function updatePremiumStatus(req, res, next) {
     }
 
     // Responde con una respuesta de éxito
-    res.json({ message: 'Estas suscrito a Premium.' });
+    res.status(200).json({ message: 'Estas suscrito a Premium.' });
   } catch (error) {
+    res.status(404).json(error.message)
     next(error);
   }
 }

@@ -15,13 +15,11 @@ const validateName = (name) => {
 
 const validateEmail = (email) => {
   if(!email) throw Error(`La propiedad email es obligatoria`);
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
-  const emailEnd = email.split(".")[1];
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
   if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
   if(email.trim() === "") throw Error(`El email no puede estar vacío`);
   if(!emailRegex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
-  if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
+  //if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
 };
 
 const validatePassword = (password) => {
@@ -35,7 +33,6 @@ const validatePassword = (password) => {
 module.exports = async (req,res,next) => {
   const { usuario, name, email, password } = req.body;
   try {
-    // console.log(email)
     validateEmail(email)
     const profesionalEmail = await Profesional.findOne({where:{email:email}});
     const clientEmail = await Client.findOne({where:{email:email}});

@@ -16,7 +16,7 @@ const validateName = (name) => {
 
 const validateEmail = (email) => {
   if(!email) throw Error(`La propiedad email es obligatoria`);
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
   const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
   const emailEnd = email.split(".")[1];
   if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);

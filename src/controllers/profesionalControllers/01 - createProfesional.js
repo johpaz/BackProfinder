@@ -47,18 +47,16 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
 
   const location = await Location.findByPk(LocationId);
 
-  // const imageUrl = await getImageUrl(image)
+ 
 
   const profesionalFormat = { 
     name,
     email,
     password: password,
-    // image: imageUrl,
     image,
     genre, 
     years_exp,
     phone, 
-    // ubication,
     active: true,
     pro: true
   };
@@ -87,11 +85,10 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre: newProfesional.genre,
     years_exp: newProfesional.years_exp,
     phone:newProfesional.phone,
-    // ubication: newProfesional.ubication,
     country:country.name,
     location: location.name,
     categories: resolvedCategories
   };
 };
 
-module.exports = createProfesional;// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+module.exports = createProfesional;

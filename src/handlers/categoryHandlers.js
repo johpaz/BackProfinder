@@ -51,4 +51,4 @@ const postCateInProfes= async (req,res)=>{
 
 module.exports = {
   getCategories, getCategory, putCategory, postCategory,postCateInProfes
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}

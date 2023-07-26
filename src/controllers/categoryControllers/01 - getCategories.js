@@ -24,13 +24,12 @@ const getAllCategoriesApi = async () => {
     // Crear todos las categorías de una sola vez en la base de datos
     await Category.bulkCreate(normalizedCategories);
 
-    console.log('Base de datos llenada exitosamente.');
+    //console.log('Base de datos llenada exitosamente.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
     return (getAllCategories())
   }
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
-
+};
 const getAllCategories = () => {
   return axios.get('https://raw.githubusercontent.com/johpaz/ApiProfinder/master/src/json/categories.json')
   .then((response)=>{
@@ -53,7 +52,7 @@ const getAllCategories = () => {
           attributes: ['id','name'],
         }});
         // console.log(allCategories)
-        console.log("Base de datos llenada con las Categorías - API")
+       // console.log("Base de datos llenada con las Categorías - API")
         return allCategories;
       })
   })
@@ -72,7 +71,7 @@ const getCategoriesBdd = async () => {
     const allCategories = await getAllCategories();
     return allCategories;
   };
-  console.log("Devolviendo los datos en la base de datos");
+  //console.log("Devolviendo los datos en la base de datos");
   return categories
 };
 

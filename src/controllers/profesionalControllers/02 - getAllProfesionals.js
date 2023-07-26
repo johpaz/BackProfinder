@@ -70,10 +70,10 @@ const getAllProfesionalApi = async () => {
       }
     }
    
-    // { id: 1, name: 'Programador', CategoryId: 1 }
-    console.log('Base de datos llenada exitosamente con los profesionales.');
+    //console.log('Base de datos llenada exitosamente con los profesionales.');
   } catch (error) {
-    console.error('Error al llenar la base de datos con los profesionales:', error.message);
+    throw Error(error.message);
+   // console.error('Error al llenar la base de datos con los profesionales:', error.message);
   }
 };
 
@@ -149,5 +149,5 @@ const getAllProfesionals = async () => {
   }
 };
 
-//console.log (getAllProfesionals())
+
 module.exports = { getAllProfesionals, getAllProfesionalApi };

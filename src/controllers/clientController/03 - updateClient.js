@@ -2,8 +2,7 @@
     const { Country } = require('../../db');
     const { Location } = require('../../db');
     const { Op } = require('sequelize');
-    const { getImageUrl } = require('../../firebase');
-
+   
     const updateClient = async (id, name, email, password, image, genre, description, phone, CountryId, LocationId) => {
         if(!Number(id)) throw Error(`Compruebe los datos para registrarse`);
     
@@ -12,8 +11,7 @@
 
         if (!clientInBDD) throw Error(`No existe el cliente de id: ${id}`);
 
-        // const imageUrl = await getImageUrl(image);
-        // const domain = "https://firebasestorage.googleapis.com";
+        
 
         // Update profesional
         if(name && email && password && password){
@@ -82,7 +80,7 @@
         await clientInBDD.setCountry(countryBDD.id);
         await clientInBDD.setLocation(locationBDD.id);
 
-        // Return updated professional
+        
 
         return {
             id: clientInBDD.id,
@@ -97,4 +95,4 @@
         };
     };
 
-    module.exports = updateClient// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+    module.exports = updateClient

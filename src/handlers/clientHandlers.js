@@ -1,11 +1,6 @@
 const sequelize = require('sequelize');
-// usersHandlers.js
 const { Profesional, Client } = require('../db');
 const { getClients, getAllClientsApi, createClient, updateClient, getClientById, logicDeleteClient,reverseDeleteClient, getClientByName, getAllClients,getClientsBaneados} = require("../controllers/clientController/index")
-// Resto del código...
-
-
-
 
 const getAllClientsHandler = async (req, res) => {
   const { name } = req.query
@@ -19,8 +14,6 @@ const getAllClientsHandler = async (req, res) => {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
       await getAllClientsApi();
 
-      // Obtener los clientes actualizados
-      //clients = await getAllClients();
     }
 
 
@@ -60,31 +53,21 @@ const getClientsHandler = async (req, res) => {
 };
 
 const getClientsBaneadosHandler= async (req, res) => {
-  //const { name } = req.query
+  
   try {
     let clients = await getClientsBaneados();
-    // if (name) {
-    //   clients = await getClientByName(name)
-    // }
-
+   
     if (!clients || clients.length === 0) {
       // No hay clientes en la base de datos, llamar a la función para obtener los clientes de la API y llenar la base de datos
-      //await getAllClientsApi();
-      return res.status(200).json({message: "Actualmente no hay clientes baneados"});
-      // Obtener los clientes actualizados
-     // clients = await getClients();
+          return res.status(200).json({message: "Actualmente no hay clientes baneados"});
+     
     }
-
-
     else {return res.status(200).json(clients)};
   } catch (error) {
     // console.log(error);
     return res.status(404).json({ error: error.message });
   }
 };
-
-
-
 
 const getClientByIdHandler = async (req, res) => {
   try {
@@ -129,7 +112,6 @@ const putClient = async (req, res) => {
 
     return res.status(200).json(updatedClient);
   } catch (error) {
-    // console.error(error);
     return res.status(400).json({ error: error.message});
   }
 };
@@ -146,8 +128,6 @@ const logicDeleteHandler = async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 }
-
-
 
 const  reverseDeleteHandler= async (req, res) => {
   const { id } = req.params;
@@ -172,4 +152,3 @@ module.exports = {
   reverseDeleteHandler,
   getClientsBaneadosHandler
 };
-// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8

@@ -1,8 +1,7 @@
 const { PostProfesional, Profesional } = require("../../db.js");
 
 const createPostProfesional = async (title, image, content, ProfesionalId, category, ocupation) => {
-  console.log(title, ProfesionalId);
-
+ 
   const postProfesionalFormat = {
     title,
     image,
@@ -12,9 +11,7 @@ const createPostProfesional = async (title, image, content, ProfesionalId, categ
     ocupation,
   };
 
-  console.log(postProfesionalFormat);
-
-  // Paso 1: Obtener el profesional por su ID
+    // Paso 1: Obtener el profesional por su ID
   const profesional = await Profesional.findByPk(ProfesionalId);
 
   if (!profesional) throw new Error(`El profesional con ID ${ProfesionalId} no existe`);
@@ -22,7 +19,11 @@ const createPostProfesional = async (title, image, content, ProfesionalId, categ
   // Paso 2: Verificar si el profesional está inactivo y ya tiene un post existente
   if (!profesional.active) {
     const existingPost = await PostProfesional.findOne({
-      where: { ProfesionalId },
+      where: { 
+        ProfesionalId,
+        softDelete: false,
+      },
+      
     });
 
     if (existingPost) {

@@ -32,7 +32,7 @@ const getAllClientsApi = async () => {
 
     // Crear todos los clientes de una sola vez en la base de datos
     await Client.bulkCreate(normalizedClients);
-    console.log('Base de datos llenada exitosamente con los clientes.');
+    //console.log('Base de datos llenada exitosamente con los clientes.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
   }
@@ -57,4 +57,4 @@ const getClientsBaneados= async () => {
 module.exports = {
     getClientsBaneados,
   getAllClientsApi,
-}// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+}

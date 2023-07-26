@@ -9,7 +9,6 @@ const ReviewModel = require('./models/Review');
 const CategoryModel = require('./models/Category');
 const PostProfesionalModel = require('./models/PostProfesional');
 const UserModel = require('./models/User')
-const ProfesionalImagesPostModel = require('./models/ProfesionalImagesPost');
 const CountryModel = require('./models/Country');
 const LocationModel = require('./models/Location');
 const PremiumModel = require('./models/Premium');
@@ -30,7 +29,6 @@ ClientModel(sequelize);
 ReviewModel(sequelize);
 CategoryModel(sequelize);
 PostProfesionalModel(sequelize);
-ProfesionalImagesPostModel(sequelize);
 UserModel(sequelize);
 CountryModel(sequelize);
 LocationModel(sequelize);
@@ -39,7 +37,7 @@ documentsProfesionalModel(sequelize);
 
 // Destructuring de los modelos para vincularlos -> sequelize.models
 
-const { Profesional, Category, Ocupation, Client, Review, PostProfesional, User, ProfesionalImagesPost, Country, Location, Premium, DocumentsProfesional} = sequelize.models;
+const { Profesional, Category, Ocupation, Client, Review, PostProfesional, User,  Country, Location, Premium, DocumentsProfesional} = sequelize.models;
 
 // Relacionar los modelos n:n
 
@@ -59,25 +57,12 @@ Profesional.hasMany(Review);
 
 Profesional.hasMany(DocumentsProfesional);
 
-
-// PostProfesional.hasMany(Category)
-// Category.belongsTo(PostProfesional)
-
-// PostProfesional.hasMany(Ocupation)
-// Ocupation.belongsTo(PostProfesional)
-
 Review.belongsTo(Profesional);
 
 Profesional.hasMany(PostProfesional);
 
 PostProfesional.belongsTo(Profesional);
 
-//? Esto es para el detalle del profesional (Front)
-Profesional.hasMany(ProfesionalImagesPost);
-
-ProfesionalImagesPost.belongsTo(Profesional);
-
-//?
 Category.hasMany(Ocupation);
 
 Ocupation.belongsTo(Category);
@@ -104,8 +89,8 @@ Client.belongsToMany(Profesional, { through: "ProfesionalClientRelation" });
 
 
   // Asociación Profesional con Premium
-  Profesional.hasOne(Premium); // Un profesional tiene una suscripción Premium
-  Premium.belongsTo(Profesional); // Una suscripción Premium pertenece a un profesional
+Profesional.hasOne(Premium); // Un profesional tiene una suscripción Premium
+Premium.belongsTo(Profesional); // Una suscripción Premium pertenece a un profesional
 
 
 // Relacionar 1:1:

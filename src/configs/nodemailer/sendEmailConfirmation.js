@@ -42,7 +42,7 @@ const sendEmailWelcome = async (email) => {
         }
         await transporter.sendMail(mailOptions)
     } catch (error) {
-        console.log(error);
+       // console.log(error);
     }
 
 };
@@ -79,7 +79,7 @@ const sendEmailPremium = async (email,name) => {
         }
         await transporter.sendMail(mailOptions)
     } catch (error) {
-        console.log(error);
+       //console.log(error);
     }
 }
 

@@ -35,7 +35,7 @@ const validateEmail = (email) => {
     };
     const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
     const emailEnd = email.split(".")[1];
-    let regexEmail = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
 
     if (!regexEmail.test(email)) {
         throw Error("Ingrese un email valido, Ej : usuario@gmail.com");

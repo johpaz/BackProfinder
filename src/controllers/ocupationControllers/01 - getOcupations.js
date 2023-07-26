@@ -26,7 +26,7 @@ const getAllOcupationApi = async () => {
     // Crear todas las ocupaciones de una sola vez en la base de datos
     await Ocupation.bulkCreate(normalizedOcupations);
 
-    console.log('Base de datos llenada exitosamente con las ocupaciones.');
+    //console.log('Base de datos llenada exitosamente con las ocupaciones.');
   } catch (error) {
     console.error('Error al llenar la base de datos:', error.message);
   }
@@ -49,7 +49,7 @@ const getAllOcupationsApi = () => {
     return Promise.all(promises)
     .then(()=>{
       const ocupations = Ocupation.findAll();
-      console.log("Base de datos llenada con las ocupaciones - API")
+      //console.log("Base de datos llenada con las ocupaciones - API")
       return ocupations
     });
   })
@@ -65,7 +65,7 @@ const getOcupationsBdd = async () => {
     const ocupations = await getAllOcupationsApi();
     return ocupations;
   };
-  console.log("Devolviendo los datos almacenados de Ocupations");
+  //console.log("Devolviendo los datos almacenados de Ocupations");
   return ocupations
 
 };
@@ -110,4 +110,4 @@ const getOcupationsByName = async (name) => {
 
 module.exports = {
   getAllOcupations, getOcupationsByName,getAllOcupationApi,getAllOcupationsApi,getOcupationsBdd
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+};

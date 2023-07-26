@@ -7,10 +7,7 @@ const { Op } = require('sequelize');
 
 
 const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId= null, LocationId = null) => {
-  console.log("--image en el controller--");
-  console.log(image)
-  console.log("-- image sin arreglo --")
-  console.log(image[0])
+  
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [
       {
@@ -67,7 +64,6 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   profesionalInBDD.years_exp = years_exp || profesionalInBDD.years_exp;
   profesionalInBDD.description = description || profesionalInBDD.description;
   profesionalInBDD.phone = phone || profesionalInBDD.phone; 
-  // profesionalInBDD.ubication = ubication || profesionalInBDD.ubication;
   profesionalInBDD.CountryId = CountryId || profesionalInBDD.CountryId;
   profesionalInBDD.LocationId = LocationId || profesionalInBDD.LocationId;
   await profesionalInBDD.save();

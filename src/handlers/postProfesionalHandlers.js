@@ -23,14 +23,13 @@ const getPostProfesionalId = async (req,res) => {
 
 const createPostHandler = async (req, res) => {
   const { title, image, content, ProfesionalId, category, ocupation } = req.body
-  console.log("Valor de ProfesionalId recibido en la solicitud:", ProfesionalId);
+  //console.log("Valor de ProfesionalId recibido en la solicitud:", ProfesionalId);
 
   try {
     const post = await createPostProfesional(title,  image, content, ProfesionalId,category, ocupation,)
     return res.status(201).json(post)
   } catch (error) {
-    console.log(error);
-    return res.status(400).json({ error: error.message })
+    return res.status(404).json({ error: error.message })
   }
 }
 
@@ -60,7 +59,7 @@ const logicPostProfesionalHandler = async (req, res) => {
     else res.status(200).json(dbPost)
 
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    res.status(404).json({ error: error.message })
   }
 }
 
@@ -76,7 +75,7 @@ async function getAllPostsHandler(req, res) {
       // Llamar al controlador para obtener todos los posts sin filtrar
       const allPosts = await getAllPostsBySoftDelete(null);
       // Responder con los posts obtenidos
-      return res.json(allPosts);
+      return res.status(200).json(allPosts);
     }
 
     // Convertir el valor de "softDelete" a un booleano
@@ -84,7 +83,7 @@ async function getAllPostsHandler(req, res) {
 
     // Validar que el valor de "softDelete" sea un booleano
     if (typeof isSoftDelete !== 'boolean') {
-      return res.status(400).json({ error: 'El valor de "softDelete" debe ser true o false' });
+      return res.status(404).json({ error: 'El valor de "softDelete" debe ser true o false' });
     }
 
     let posts;
@@ -97,20 +96,13 @@ async function getAllPostsHandler(req, res) {
     }
 
     // Responder con los posts obtenidos
-    res.json(posts);
+    res.status(200).json(posts);
   } catch (error) {
     // Manejo de errores
     console.error('Error en el handler de obtener posts:', error);
-    res.status(500).json({ error: 'Ocurrió un error al obtener los posts' });
+    res.status(404).json({ error: 'Ocurrió un error al obtener los posts' });
   }
 }
-
-module.exports = {
-  getAllPostsHandler,
-};
-
-
-
 
 module.exports = {
   getAllPostsProfesionalHandler,

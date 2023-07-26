@@ -1,5 +1,4 @@
 const sequelize = require('sequelize');
-// usersHandlers.js
 const { Profesional,Client } = require('../db');
 // Resto del código...
 
@@ -11,7 +10,7 @@ const getUsers= async(req,res)=>{
     return res.status(200).json({ dbUserClient })
 
   } catch (error) {
-    res.status(500).json({ error: 'Error al obtener el usuario' });
+    res.status(404).json({ error: 'Error al obtener el usuario' });
     
   }
 }
@@ -33,7 +32,7 @@ const getUser = async (req, res) => {
     return res.status(200).json({ user });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Error al obtener el usuario' });
+    return res.status(404).json({ error: 'Error al obtener el usuario' });
   }
 };
 
@@ -45,23 +44,23 @@ const createUserClient = async (req, res) => {
 
     // Verificación de las propiedades una por una
     if (!name) {
-      return res.status(400).json({ error: 'Falta la propiedad name' });
+      return res.status(404).json({ error: 'Falta la propiedad name' });
     }
 
     if (!email) {
-      return res.status(400).json({ error: 'Falta la propiedad email' });
+      return res.status(404).json({ error: 'Falta la propiedad email' });
     }
 
     if (!image) {
-      return res.status(400).json({ error: 'Falta la propiedad image' });
+      return res.status(404).json({ error: 'Falta la propiedad image' });
     }
 
     if (!genre) {
-      return res.status(400).json({ error: 'Falta la propiedad genre' });
+      return res.status(404).json({ error: 'Falta la propiedad genre' });
     }
 
     if (!description) {
-      return res.status(400).json({ error: 'Falta la propiedad description' });
+      return res.status(404).json({ error: 'Falta la propiedad description' });
     }
 
     // Aquí puedes agregar cualquier otra validación adicional que necesites para los datos recibidos
@@ -82,7 +81,7 @@ const createUserClient = async (req, res) => {
     return res.status(201).json({ user: newUser });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Error al crear el usuario' });
+    return res.status(404).json({ error: 'Error al crear el usuario' });
   }
 };
 const putUser = async (req, res) => {
@@ -110,7 +109,7 @@ const putUser = async (req, res) => {
     return res.status(200).json({ user });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Error al actualizar el usuario' });
+    return res.status(404).json({ error: 'Error al actualizar el usuario' });
   }
 };
 
@@ -121,4 +120,3 @@ module.exports = {
   createUserClient,
 
 };
-// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
