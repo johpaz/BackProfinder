@@ -48,6 +48,11 @@ const validateCategories = (categories) => {
   if(categories.length > 0 && categories.length > 3) throw Error(`El profesional no puede tener más de 3 categorías`);
 };
 
+const validateImage = (image) => {
+  if(!image) throw Error(`La propiedad image es obligatoria`);
+  
+  // if(!imageRegexUrl.test(image)) throw Error (`La imagen debe ser una url y tener formato de imagen: .jpg|.jeg|.png`); 
+};
 const validateOcupations = (ocupations) => {
   if(!Array.isArray(ocupations)) throw Error(`El tipo de dato de ocupations debe ser un array`);
   if(ocupations.length === 0) throw Error(`El profesional debe tener al menos una ocupación`);
