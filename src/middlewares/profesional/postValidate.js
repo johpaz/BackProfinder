@@ -17,12 +17,12 @@ const validateName = (name) => {
 const validateEmail = (email) => {
   if(!email) throw Error(`La propiedad email es obligatoria`);
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;
-  const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
-  const emailEnd = email.split(".")[1];
+  //const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
+  //const emailEnd = email.split(".")[1];
   if(typeof email !== "string") throw Error(`El tipo de dato de email debe ser un string`);
   if(email.trim() === "") throw Error(`El email no puede estar vacío`);
   if(!emailRegex.test(email)) throw Error (`El email debe tener un formato de email - ejemplo: usuario@gmail.com`);
-  if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
+  //if(!emailRegexEnd.test(emailEnd)) throw Error(`El email no puede tener números o símbolos luego del dominio`)
 };
  
 const validatePassword = (password) => {
@@ -123,7 +123,6 @@ module.exports = async (req,res,next) => {
     const profesionalEmail = await Profesional.findOne({where:{email: email}});
     if(profesionalEmail) throw Error(`El correo: ${email} ya está asociado con un profesional`);
 
-
     validateName(name);
     validatePassword(password);
     validateImage(image);
@@ -132,10 +131,8 @@ module.exports = async (req,res,next) => {
     validateCategories(categories);
     validateOcupations(ocupations);
     validatePhone(phone);
-    // validateUbication(ubication);
-    // validateCountry(CountryId);
     next();
   } catch (error) {
     return res.status(400).json({error: error.message});
   };
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+};
