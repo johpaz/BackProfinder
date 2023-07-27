@@ -93,13 +93,25 @@ const getAllProfesionals = async () => {
           through: { attributes: [] }
         },
         {
+          model: Country,
+          attributes: ["id", "name"],
+        },
+        {
+          model: Location,
+          attributes: ["id", "name", "CountryId"],
+        },
+        {
           model: PostProfesional,
           attributes: ["id", "title", "image", "content", "softDelete"],
+          where: {
+            softDelete: false
+          },
+          required: false
         },
-         {model: Review,
+        {
+          model: Review,
           attributes: ["id","content", "rating"]
         }
-        
       ]
     });
 
@@ -118,15 +130,25 @@ const getAllProfesionals = async () => {
             through: { attributes: [] }
           },
           {
+            model: Country,
+            attributes: ["id", "name"],
+          },
+          {
+            model: Location,
+            attributes: ["id", "name", "CountryId"],
+          },
+          {
             model: PostProfesional,
-            attributes: ["title", "image", "content", "softDelete"],
+            attributes: ["id", "title", "image", "content", "softDelete"],
+            where: {
+              softDelete: false
+            },
+            required: false
           },
-         
-          {model: Review,
+          {
+            model: Review,
             attributes: ["id","content", "rating"]
-          },
-          
-
+          }
         ]
       });
     }
