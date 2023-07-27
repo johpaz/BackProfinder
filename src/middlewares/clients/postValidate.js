@@ -29,15 +29,15 @@ const validateEmail = (email) => {
         throw Error("El nombre debe ser un string.")
     };
     const emailRegexEnd = /^[a-zA-ZñÑ\s]+$/;
-    const emailEnd = email.split(".")[1];
+    //const emailEnd = email.split(".")[1];
     let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/i;;
 
     if (!regexEmail.test(email)) {
         throw Error("Ingrese un email valido, Ej : usuario@gmail.com");
     }
-    if (!emailRegexEnd.test(emailEnd)) {
-        throw Error("El email al final del dominio no puede contener numeros");
-    };
+    // if (!emailRegexEnd.test(emailEnd)) {
+    //     throw Error("El email al final del dominio no puede contener numeros");
+    // };
 
 
 };
