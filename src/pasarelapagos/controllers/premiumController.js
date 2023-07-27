@@ -1,4 +1,5 @@
 const { Premium, Profesional } = require('..//..//db');
+const { sendEmailPremium } = require("../../configs/nodemailer/sendEmailConfirmation")
 
 async function updatePremiumStatus(req, res, next) {
   try {
@@ -31,6 +32,7 @@ async function updatePremiumStatus(req, res, next) {
       // Actualiza el estado active a true en el modelo Profesional
       profesional.active = true;
       await profesional.save();
+      await sendEmailPremium(profesional.email, profesional.name)
     }
 
     // Responde con una respuesta de éxito
