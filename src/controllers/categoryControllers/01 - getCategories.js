@@ -26,7 +26,7 @@ const getAllCategoriesApi = async () => {
 
     //console.log('Base de datos llenada exitosamente.');
   } catch (error) {
-    console.error('Error al llenar la base de datos:', error.message);
+    //console.error('Error al llenar la base de datos:', error.message);
     return (getAllCategories())
   }
 };

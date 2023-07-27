@@ -20,14 +20,13 @@
             clientInBDD.password = password || clientInBDD.password;
             clientInBDD.phone = phone || clientInBDD.phone;
             await clientInBDD.save();
-            return clientInBDD
-            // return {
-            //     id: clientInBDD.id,
-            //     name: clientInBDD.name,
-            //     email: clientInBDD.email,
-            //     image: clientInBDD.image,
-            //     phone: clientInBDD.phone,
-            // };
+            return {
+                id: clientInBDD.id,
+                name: clientInBDD.name,
+                email: clientInBDD.email,
+                image: clientInBDD.image,
+                phone: clientInBDD.phone,
+            };
         };
 
         let imageUrl = null
@@ -51,18 +50,17 @@
         
             await clientInBDD.setCountry(countryBDD.id);
             await clientInBDD.setLocation(locationBDD.id);
-            return clientInBDD
-            // return {
-            //     id: clientInBDD.id,
-            //     name: clientInBDD.name,
-            //     email: clientInBDD.email,
-            //     image: clientInBDD.image,
-            //     genre: clientInBDD.genre,
-            //     description: clientInBDD.description,
-            //     phone: clientInBDD.phone,
-            //     country: countryBDD.name,
-            //     location: locationBDD.name,
-            // };
+            return {
+                id: clientInBDD.id,
+                name: clientInBDD.name,
+                email: clientInBDD.email,
+                image: clientInBDD.image,
+                genre: clientInBDD.genre,
+                description: clientInBDD.description,
+                phone: clientInBDD.phone,
+                country: countryBDD.name,
+                location: locationBDD.name,
+            };
         }
 
         clientInBDD.name = name || clientInBDD.name;
@@ -82,19 +80,19 @@
         await clientInBDD.setCountry(countryBDD.id);
         await clientInBDD.setLocation(locationBDD.id);
 
-        return clientInBDD
+        
 
-        // return {
-        //     id: clientInBDD.id,
-        //     name: clientInBDD.name,
-        //     email: clientInBDD.email,
-        //     image: clientInBDD.image,
-        //     genre: clientInBDD.genre,
-        //     description: clientInBDD.description,
-        //     phone: clientInBDD.phone,
-        //     country: countryBDD.name,
-        //     location: locationBDD.name,
-        // };
+        return {
+            id: clientInBDD.id,
+            name: clientInBDD.name,
+            email: clientInBDD.email,
+            image: clientInBDD.image,
+            genre: clientInBDD.genre,
+            description: clientInBDD.description,
+            phone: clientInBDD.phone,
+            country: countryBDD.name,
+            location: locationBDD.name,
+        };
     };
 
     module.exports = updateClient
