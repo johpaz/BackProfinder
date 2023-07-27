@@ -57,7 +57,7 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre, 
     years_exp,
     phone, 
-    active: true,
+  
     pro: true
   };
 

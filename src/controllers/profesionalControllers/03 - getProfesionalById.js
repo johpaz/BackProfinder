@@ -31,9 +31,13 @@ const getProfesionalById = async (id) => {
         model: Location,
         attributes: ["id", "name", "CountryId"],
       },
-           {
+      {
         model: PostProfesional,
-        attributes: ["id", "title", "image", "content"]
+        attributes: ["id", "title", "image", "content", "softDelete"],
+        where: {
+          softDelete: false
+        },
+        required: false
       },
       {
         model: Review,
@@ -45,10 +49,6 @@ const getProfesionalById = async (id) => {
   if (!profesional) throw Error(`No existe el profesional de id: ${id}`);
 
   // Filtrar los posts con softDelete en false
-  const filteredPosts = profesional.PostProfesionals.filter((post) => !post.softDelete || post.softDelete === false);
-
-  // Reemplazar el array original de posts con el array filtrado
-  profesional.PostProfesionals = filteredPosts;
 
   const formattedProfesional = cleanArrayProfesionalId(profesional);
   return [formattedProfesional];
