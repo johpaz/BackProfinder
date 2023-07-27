@@ -36,14 +36,15 @@ const createPostProfesional = async (title, image, content, ProfesionalId, categ
 
   if (!newPostProfesional) throw new Error(`No se pudo crear el profesional llamado: ${title}`);
 
-  return {
-    id: newPostProfesional.id,
-    title: newPostProfesional.title,
-    content: newPostProfesional.content,
-    ProfesionalId: newPostProfesional.ProfesionalId,
-    category: newPostProfesional.category,
-    ocupation: newPostProfesional.ocupation,
-  };
+  return newPostProfesional
+  // return {
+  //   id: newPostProfesional.id,
+  //   title: newPostProfesional.title,
+  //   content: newPostProfesional.content,
+  //   ProfesionalId: newPostProfesional.ProfesionalId,
+  //   category: newPostProfesional.category,
+  //   ocupation: newPostProfesional.ocupation,
+  // };
 };
 
 module.exports = createPostProfesional;
