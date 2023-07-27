@@ -94,21 +94,21 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   await profesionalInBDD.setCountry(countryBDD.id);
   await profesionalInBDD.setLocation(locationBDD.id);
 
-  // Return updated professional
+  return  profesionalInBDD
 
-  return {
-    id: profesionalInBDD.id,
-    name: profesionalInBDD.name,
-    email: profesionalInBDD.email,
-    image: profesionalInBDD.image,
-    genre: profesionalInBDD.genre,
-    years_exp: profesionalInBDD.years_exp,
-    description: profesionalInBDD.description,
-    phone:profesionalInBDD.phone,
-    country:countryBDD.name,
-    location: locationBDD.name,
-    categories: resolvedCategories
-  };
+  // return {
+  //   id: profesionalInBDD.id,
+  //   name: profesionalInBDD.name,
+  //   email: profesionalInBDD.email,
+  //   image: profesionalInBDD.image,
+  //   genre: profesionalInBDD.genre,
+  //   years_exp: profesionalInBDD.years_exp,
+  //   description: profesionalInBDD.description,
+  //   phone:profesionalInBDD.phone,
+  //   country:countryBDD.name,
+  //   location: locationBDD.name,
+  //   categories: resolvedCategories
+  // };
 };
 
 module.exports = updateProfesional;

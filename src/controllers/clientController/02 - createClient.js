@@ -30,17 +30,20 @@ const createClient = async (name, email, password, image, genre, phone, CountryI
     await newClient.setCountry(country.id)
     await newClient.setLocation(location.id)
     if (!newClient) throw Error(`No se pudo crear el profesional llamado: ${name}`);
-    return {
-        id: newClient.id,
-        name: newClient.name,
-        email: newClient.email,
-        image: newClient.image.split(".com")[0] + "avatar",
-        password: newClient.password,
-        genre: newClient.genre,
-        phone: newClient.phone,
-        country: country.name,
-        location: location.name,
-    };
+
+    return newClient;
+    
+    // return {
+    //     id: newClient.id,
+    //     name: newClient.name,
+    //     email: newClient.email,
+    //     image: newClient.image.split(".com")[0] + "avatar",
+    //     password: newClient.password,
+    //     genre: newClient.genre,
+    //     phone: newClient.phone,
+    //     country: country.name,
+    //     location: location.name,
+    // };
 
 };
 

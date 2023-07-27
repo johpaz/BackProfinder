@@ -101,9 +101,9 @@ const createUserClient = async (req, res) => {
 };
 const putClient = async (req, res) => {
   const { id } = req.params;
-  console.log(id)
+  //console.log(id)
   const { name, email, password, image, genre, description, phone, CountryId, LocationId } = req.body;
-  console.log(name, email, password, image, genre, description, phone, CountryId, LocationId);
+  //console.log(name, email, password, image, genre, description, phone, CountryId, LocationId);
   //Guardamos la info de req.body en un objeto, para trabajar mas organizado cuando la funcion reciba el id y el mismo objeto.
   const clientInfo = { name, email, password, image, genre, description, phone }
   try {
