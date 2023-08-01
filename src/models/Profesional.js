@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false, //Agregar phone
+        allowNull: false, 
         validate: {
           isEmail: {
             msg: 'El email no tiene un formato válido',
@@ -58,6 +58,10 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING, // Podría ser INTEGER pero string en caso que no tenga experiencia?
         allowNull: true,
       },
+      geolocation:{
+        type: DataTypes.JSON,
+        allowNull: true,
+      },
       description: {
         type: DataTypes.TEXT,
         allowNull: true,
@@ -81,4 +85,4 @@ module.exports = (sequelize) => {
     }, {
     timestamps: false,
   });
-};// 4ef29225941cb9bb0ea93f9cae9b3bcb614f46f8
+};

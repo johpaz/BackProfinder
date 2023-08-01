@@ -30,28 +30,24 @@ const getAllProfesionalApi = async () => {
         genre: apiProfessional.genre ? apiProfessional.genre.trim() : '',
         rating: apiProfessional.rating && !isNaN(apiProfessional.rating) ? Math.min(parseFloat(apiProfessional.rating), 5) : null,
         description: apiProfessional.description ? apiProfessional.description.trim() : '',
+        geolocation:[],
         years_exp: apiProfessional.years_exp ? apiProfessional.years_exp.trim() : '',
         categorias: apiProfessional.categorias.map(categoria => categoria.nombre.trim()),
         profesiones: apiProfessional.profesiones.map(profesion => profesion.name.trim()),
         CountryId: apiProfessional.CountryId,
         LocationId: apiProfessional.LocationId,
+        geolocation:[],
       
       };
 
       return normalizedProfessional;
     });
 
-    // console.log(normalizedProfessionals);
-    // console.log(normalizedProfessionals.map((profesional)=>profesional))
-
-    // Crear todos los profesionales de una sola vez en la base de datos
+       // Crear todos los profesionales de una sola vez en la base de datos
     for (const normalizedProfessional of normalizedProfessionals) {
       const { categorias, profesiones, CountryId, LocationId,  } = normalizedProfessional;
 
-      // Buscar la ubicación en la base de datos por el LocationId
-      const location = await Location.findByPk(LocationId);
-
-            // Crear el nuevo profesional en la base de datos
+      // Crear el nuevo profesional en la base de datos
       const newProfesional = await Profesional.create(normalizedProfessional);
 
       // Asignar categorías, ocupaciones, país y ubicación al nuevo profesional
@@ -65,9 +61,16 @@ const getAllProfesionalApi = async () => {
       await newProfesional.setCountry(country);
 
       
-            if (location) {
-        await newProfesional.setLocation(location);
-      }
+       // Aquí obtenemos la ubicación de la base de datos y asignamos la longitud y latitud al profesional
+       const location = await Location.findByPk(LocationId);
+          if (location) {
+            // Asignamos la latitud y longitud desde el objeto location a la ubicación del profesional
+            newProfesional.geolocation = [location.latitude, location.longitude];
+
+            // Guardamos los cambios en el profesional utilizando newProfesional
+            await newProfesional.save();
+          }
+       
     }
    
     //console.log('Base de datos llenada exitosamente con los profesionales.');
@@ -98,7 +101,7 @@ const getAllProfesionals = async () => {
         },
         {
           model: Location,
-          attributes: ["id", "name", "CountryId"],
+          attributes: ["id", "name", "CountryId","longitude","latitude"],
         },
         {
           model: PostProfesional,
@@ -135,7 +138,7 @@ const getAllProfesionals = async () => {
           },
           {
             model: Location,
-            attributes: ["id", "name", "CountryId"],
+            attributes: ["id", "name", "CountryId","latitude","longitude"],
           },
           {
             model: PostProfesional,
@@ -161,7 +164,7 @@ const getAllProfesionals = async () => {
       profesional.PostProfesionals = filteredPosts;
       return profesional;
     });
-
+  
     const cleanedArray = cleanArray(profesionals);
 
     // return profesionals

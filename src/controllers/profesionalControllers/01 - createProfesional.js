@@ -36,18 +36,16 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
       name: categoriesInBDD.name,
       ocupations: categoryOcupations.map((ocupation)=>({name: ocupation.name}))
     };
-  });
+  }); 
 
   const resolvedCategories = await Promise.all(categoriesFormat);
-  // console.log(resolvedCategories.map((category)=>category.name))
-  // console.log(resolvedCategories.map((category)=> category.ocupations.map((ocupation)=>ocupation.name)));
+  
   //! Que coincidan los id del país y location en la base de datos
   
   const country = await Country.findByPk(CountryId);
 
   const location = await Location.findByPk(LocationId);
 
- 
 
   const profesionalFormat = { 
     name,
@@ -57,7 +55,6 @@ const createProfesional = async (name,email,password,image,genre,years_exp,categ
     genre, 
     years_exp,
     phone, 
-  
     pro: true
   };
 

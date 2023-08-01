@@ -2,7 +2,6 @@ const { Profesional, PostProfesional } = require('../../db');
 const { Category } = require('../../db');
 const { Ocupation } = require('../../db');
 const { Country, Location } = require('../../db');
-const { ProfesionalImagesPost } = require('../../db');
 const { Review } = require("../../db");
 
 const cleanArrayProfesionalId = require('../../helpers/cleanArrayProfesionalById');

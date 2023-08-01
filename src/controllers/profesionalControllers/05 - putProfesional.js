@@ -66,6 +66,15 @@ const updateProfesional = async (id, name, email, password, image, genre, years_
   profesionalInBDD.phone = phone || profesionalInBDD.phone; 
   profesionalInBDD.CountryId = CountryId || profesionalInBDD.CountryId;
   profesionalInBDD.LocationId = LocationId || profesionalInBDD.LocationId;
+  if (LocationId) {
+    const locationInBDD = await Location.findByPk(LocationId);
+    if (!locationInBDD) throw Error(`No existe la ubicación con ID: ${LocationId} en la base de datos`);
+    profesionalInBDD.geolocation = [
+      locationInBDD.latitude,
+      locationInBDD.longitude
+    ];
+  }
+
   await profesionalInBDD.save();
 
   // Set associations

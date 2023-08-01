@@ -30,6 +30,7 @@ const cleanProfesional = (profesional) => {
       country: profesional.Country ? profesional.Country.dataValues.name : null,
       location: profesional.Location ? profesional.Location.dataValues.name : null,
     },
+    geolocation:profesional.geolocation,
     professions: professions,
     jobimages: profesional.ProfesionalImagesPosts,
     posts: profesional.PostProfesionals,
