@@ -7,6 +7,17 @@ const { Op } = require('sequelize');
 
 
 const updateProfesional = async (id, name, email, password, image, genre, years_exp, description, categories, ocupations, phone, ubication, CountryId= null, LocationId = null) => {
+  // console.log(id) // bien
+  // console.log(name) // bien
+  // console.log(email) // 
+  // console.log(image)
+  // console.log(genre)
+  // console.log(years_exp)
+  // console.log(categories)
+  // console.log(ocupations)
+  // console.log(phone)
+  // console.log("pais",CountryId)
+  // console.log("ciudad",LocationId)
   
   const profesionalInBDD = await Profesional.findByPk(id, {
     include: [

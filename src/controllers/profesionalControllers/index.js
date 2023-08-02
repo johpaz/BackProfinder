@@ -4,6 +4,7 @@ const getProfesionalById = require('./03 - getProfesionalById');
 const getPresionalsByName = require('./04 - getProfesionalsByName');
 const updateProfesional = require('./05 - putProfesional')
 const ratingProfesional = require("./07 - ratingProfesional")
+const putProfileProfesional = require('./08 - putProfileProfesional')
 
 module.exports = {
   createProfesional,
@@ -12,5 +13,6 @@ module.exports = {
   getProfesionalById,
   getPresionalsByName,
   updateProfesional,
-  ratingProfesional
+  ratingProfesional,
+  putProfileProfesional
 };

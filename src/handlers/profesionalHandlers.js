@@ -12,7 +12,7 @@ const cleanArray = require('../helpers/cleanArrayProfesionals')
 const { searchUserProfesional, getProfById, getProfByIdActive, getProfByIdReverse, getProfByIdNotActive } = require("../controllers/profesionalControllers/profesionalsControllers")
 
 
-const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional, getAllProfesionalsDelete, ratingProfesional } = require('../controllers/profesionalControllers/index');
+const { createProfesional, getAllProfesionals, getAllProfesionalApi, getProfesionalById, getPresionalsByName, updateProfesional, getAllProfesionalsDelete, ratingProfesional,putProfileProfesional } = require('../controllers/profesionalControllers/index');
 
 
 
@@ -391,8 +391,16 @@ const putProfesional = async (req, res) => {
 };
 
 
-
-
+const editProfesional = async (req,res) => {
+  const { id } = req.params;
+  const { name, email,image, genre, years_exp, phone, CountryId, LocationId} = req.body;
+  try {
+    const profesional = await putProfileProfesional(id,name, email,image, genre, years_exp, phone, CountryId, LocationId)
+    return res.status(200).json(profesional)
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
+  }
+};
 
 module.exports = {
   createUserProfesional,
@@ -406,5 +414,6 @@ module.exports = {
   getProfesionalsNotPremiun,
   bePremiun,
   reverseDelete,
-  notBePremiun
+  notBePremiun,
+  editProfesional
 };

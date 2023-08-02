@@ -2,7 +2,7 @@ const { Router } = require('express');
 
 // Handlers: 
 
-const {createUserProfesional,logicDelete, getProfesionals,getProfesional,putProfesional,getProfesionalsDelete,getProfesionalsNotDelete,getProfesionalsPremiun,getProfesionalsNotPremiun, bePremiun,reverseDelete, notBePremiun} = require ('../handlers/profesionalHandlers')
+const {createUserProfesional,editProfesional,logicDelete, getProfesionals,getProfesional,putProfesional,getProfesionalsDelete,getProfesionalsNotDelete,getProfesionalsPremiun,getProfesionalsNotPremiun, bePremiun,reverseDelete, notBePremiun} = require ('../handlers/profesionalHandlers')
 
 // Middleware: 
 
@@ -38,5 +38,6 @@ profesionalRouter.put('/premiun/:id', bePremiun);
 profesionalRouter.put('/reversePremiun/:id', notBePremiun);
 
 profesionalRouter.put('/:id',putValidate,putProfesional);
+profesionalRouter.put('/profile/:id',editProfesional);
 
 module.exports = profesionalRouter;
